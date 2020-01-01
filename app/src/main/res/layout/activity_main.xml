@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MainActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/routine_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorRoutine"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="30"
+        tools:listitem="@layout/recycler_view_item_1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/report_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorReport"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/routine_list_view">
+
+        <TextView
+            android:id="@+id/report_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview"
+            app:layout_constraintStart_toStartOf="@+id/experience_text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/experience_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Experience"
+            app:layout_constraintEnd_toStartOf="@+id/days_text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/report_text" />
+
+        <TextView
+            android:id="@+id/experience_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="2180"
+            android:textColor="@color/colorReportNumbers"
+            app:layout_constraintEnd_toEndOf="@id/experience_text"
+            app:layout_constraintStart_toStartOf="@id/experience_text"
+            app:layout_constraintTop_toBottomOf="@id/experience_text" />
+
+        <TextView
+            android:id="@+id/days_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Days"
+            app:layout_constraintEnd_toStartOf="@+id/exercises_text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/experience_text"
+            app:layout_constraintTop_toTopOf="@id/experience_text" />
+
+        <TextView
+            android:id="@+id/days_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="211"
+            android:textColor="@color/colorReportNumbers"
+            app:layout_constraintEnd_toEndOf="@id/days_text"
+            app:layout_constraintStart_toStartOf="@+id/days_text"
+            app:layout_constraintTop_toBottomOf="@id/days_text" />
+
+        <TextView
+            android:id="@+id/exercises_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Exercises"
+            app:layout_constraintEnd_toStartOf="@+id/medals_text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/days_text"
+            app:layout_constraintTop_toTopOf="@id/days_text" />
+
+        <TextView
+            android:id="@+id/exercises_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="78"
+            android:textColor="@color/colorReportNumbers"
+            app:layout_constraintEnd_toEndOf="@id/exercises_text"
+            app:layout_constraintStart_toStartOf="@+id/exercises_text"
+            app:layout_constraintTop_toBottomOf="@id/exercises_text" />
+
+        <TextView
+            android:id="@+id/medals_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Medals"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/exercises_text"
+            app:layout_constraintTop_toTopOf="@id/exercises_text" />
+
+        <TextView
+            android:id="@+id/medals_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="8"
+            android:textColor="@color/colorReportNumbers"
+            app:layout_constraintEnd_toEndOf="@id/medals_text"
+            app:layout_constraintStart_toStartOf="@+id/medals_text"
+            app:layout_constraintTop_toBottomOf="@id/medals_text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPlan"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/report_layout"
+        app:layout_constraintVertical_weight="3"
+        tools:itemCount="5"
+        tools:listitem="@layout/recycler_view_plan" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintBottom_toTopOf="@id/navigationView" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
