@@ -1,6 +1,7 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
@@ -8,7 +9,6 @@ import android.util.Log
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pomoranca.myapplication.R
@@ -16,7 +16,10 @@ import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.data.Workout
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_workout.*
+import kotlinx.android.synthetic.main.dialog_workout_finished.*
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 class WorkoutActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
@@ -27,6 +30,10 @@ class WorkoutActivity : AppCompatActivity() {
     var planTitle: String = ""
     private lateinit var mTextToSpeech: TextToSpeech
 
+    //SHARED PREFERENCES
+    var currentDate = 0
+
+
     //USER PREFERENCES
     private var userID: Int = 0
     private var userName: String = ""
@@ -36,8 +43,6 @@ class WorkoutActivity : AppCompatActivity() {
 
     //updated values
     private var gainedExperience = 0
-    private var gainedDays = 0
-    private var gainedMedals = 0
 
     //total values
     private var totalExperience = 0
@@ -45,7 +50,6 @@ class WorkoutActivity : AppCompatActivity() {
     private var totalMedals = 0
 
     //medals
-    private var hasMedal : Boolean = false
     private var starterMedal : Boolean = false
     private var achieverMedal: Boolean = false
     private var beastMedal : Boolean = false
@@ -66,6 +70,9 @@ class WorkoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout)
+        val sharedPreferences = getSharedPreferences("USER_DATA", Context.MODE_PRIVATE)
+
+
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         loseWeightViewModel.getAllUsers().observe(this, Observer<List<User>> {
@@ -74,7 +81,7 @@ class WorkoutActivity : AppCompatActivity() {
             userMedals = it[0].medals
             userDays = it[0].days
             userExperience = it[0].experience
-            hasMedal = it[0].hasMedal
+            totalDays = userDays
             Log.i("USERNAME------", userName)
             Log.i("EXPERIENCE----", "$userExperience")
         })
@@ -104,11 +111,6 @@ class WorkoutActivity : AppCompatActivity() {
                     updateCountDownText()
                     mTimerRunning = true
                     this.start()
-                    Toast.makeText(
-                        this@WorkoutActivity,
-                        "Finished workout $currentSet of $numberOfSets",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     currentSet++
                     changeAnimation()
                 } else if (currentSet == numberOfSets) {
@@ -122,8 +124,6 @@ class WorkoutActivity : AppCompatActivity() {
                     )
                     gainedExperience = currentSet * multiplyFactor
                     totalExperience =  userExperience + gainedExperience
-                    Log.i("GAINED EXPERIENCE!!!", "$gainedExperience")
-                    Log.i("GTOTAL EXPERIENCE!!!", "$totalExperience")
                     updateUser()
                     showDialog()
 
@@ -239,28 +239,41 @@ class WorkoutActivity : AppCompatActivity() {
         loseWeightViewModel.getAllUsers().observe(this, Observer<List<User>> {
             
         })
+        val sharedPreferences = getSharedPreferences("USER_DATA", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val lastWorkoutDate = sharedPreferences.getInt("LAST_WORKOUT_DATE", 0)
+
+        //INCREMENT DAY IF CURRENT_DATE != LAST_WORKOUT_DATE
+        if(totalDays == 0) {
+            editor.putInt("LAST_WORKOUT_DATE", currentDate)
+            totalDays++
+        }else if(lastWorkoutDate != currentDate) {
+            totalDays++
+            editor.putInt("LAST_WORKOUT_DATE", currentDate)
+        }
+        editor.apply()
         val id = userID
-        val updateUser = User(userName,totalDays,totalMedals,totalExperience,hasMedal)
+        val updateUser = User(userName,totalDays,totalMedals,totalExperience)
         updateUser.id = id
         loseWeightViewModel.update(updateUser)
     }
 
-    fun getDaysAgo(daysAgo: Int): Date {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
-
-        return calendar.time
-    }
 
     fun getMedals(){
-        when(totalExperience > 1 && !hasMedal) {
-        }
+
     }
+
     private fun showDialog() {
         val dialog = Dialog(this)
         dialog .requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog .setCancelable(false)
         dialog .setContentView(R.layout.dialog_workout_finished)
+        if (gainedExperience > 0) {
+        dialog.text_report.text =
+            "Experience gained: $gainedExperience"}
+        dialog.dialog_button_end_workout.setOnClickListener{
+            this@WorkoutActivity.finish()
+        }
         dialog .show()
     }
 }

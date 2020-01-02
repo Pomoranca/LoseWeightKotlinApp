@@ -1,0 +1,65 @@
+package com.pomoranca.myapplication.activities.fragments
+
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+
+import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.activities.MainActivity
+import com.pomoranca.myapplication.activities.WorkoutPlanActivity
+import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
+import com.pomoranca.myapplication.data.WorkoutPlan
+import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
+import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
+
+/**
+ * A simple [Fragment] subclass.
+ */
+class MainFragment : Fragment() {
+    private lateinit var loseWeightViewModel: LoseWeightViewModel
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        val rootView = inflater.inflate(R.layout.fragment_main, container, false)
+        // Inflate the layout for this fragment
+        loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
+        //Populate USER OVERVIEW from DATABASE DATA
+        loseWeightViewModel.getAllUsers().observe(this, Observer {
+            experience_number.text = it[0].experience.toString()
+            days_number.text = it[0].days.toString()
+        })
+
+        val recyclerView = rootView.recyclerViewPlan
+
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.setHasFixedSize(true)
+        val planRecyclerViewAdapter = PlanRecyclerViewAdapter()
+        planRecyclerViewAdapter.populatePlanList()
+        recyclerView.adapter = planRecyclerViewAdapter
+
+        planRecyclerViewAdapter.setOnItemClickListener(object :
+            PlanRecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(workoutPlan: WorkoutPlan) {
+                val intent = Intent(activity, WorkoutPlanActivity::class.java)
+                intent.putExtra("NAME", workoutPlan.name)
+                intent.putExtra("BACKGROUND", workoutPlan.backgroundPath)
+                startActivityForResult(intent, MainActivity.WORKOUT_PLAN)
+            }
+        })
+        return rootView
+    }
+
+
+}

@@ -8,8 +8,7 @@ class User(
     var name: String,
     var days: Int,
     var medals: Int,
-    var experience: Int,
-    var hasMedal: Boolean
+    var experience: Int
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
