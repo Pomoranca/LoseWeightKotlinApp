@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
                 in 801..1000 -> medalsWon = 5
             }
             experience_number.text = userExperience.toString()
+            text_hi.text = "Hi ${it[0].name}"
             days_number.text = it[0].days.toString()
             medals_number.text = medalsWon.toString()
 

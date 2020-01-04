@@ -64,7 +64,6 @@ class WorkoutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout)
         setSupportActionBar(toolbar_workout)
-        toolbar_workout.background = resources.getDrawable(R.color.colorRoutine)
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
 
 

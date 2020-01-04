@@ -6,8 +6,45 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="backgroundColor">#fcfcfc</item>
+        <item name="colorRoutine">#5785F3</item>
+        <item name="colorReport">#5785F3</item>
+        <item name="colorReportNumbers">#EEB22E</item>
+        <item name="colorWhite">#FFFFFF</item>
+        <item name="startblue">#09c6df</item>
+        <item name="endblue">#0bcce6</item>
+        <item name="profileBackground">#fafafa</item>
+        <item name="darkDrawer">#31353A</item>
+        <item name="textColor">#808080</item>
+        <item name="tintColor">#000000</item>
+        <item name="buttonColor">#2192f3</item>
+        <item name="toolbarColor">#2192f3</item>
+        <item name="drawerColor">#2192f3</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
 
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundColor">#303030</item>
+        <item name="colorRoutine">#5785F3</item>
+        <item name="colorReport">#5E5858</item>
+        <item name="colorReportNumbers">#EEB22E</item>
+        <item name="colorWhite">#FFFFFF</item>
+        <item name="startblue">#09c6df</item>
+        <item name="endblue">#0bcce6</item>
+        <item name="profileBackground">#fafafa</item>
+        <item name="darkDrawer">#31353A</item>
+        <item name="textColor">#ffffff</item>
+        <item name="tintColor">#ffffff</item>
+        <item name="buttonColor">#2192f3</item>
+        <item name="toolbarColor">#212121</item>
+        <item name="drawerColor">#2192f3</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>

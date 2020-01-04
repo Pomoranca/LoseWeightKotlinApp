@@ -3,8 +3,11 @@ package com.pomoranca.myapplication.activities
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.multidex.MultiDex
@@ -23,6 +26,7 @@ import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.fragments.MainFragment
 import com.pomoranca.myapplication.activities.fragments.ProfileFragment
 import com.pomoranca.myapplication.activities.fragments.SettingsFragment
+import kotlinx.android.synthetic.main.activity_calendar.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -35,12 +39,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        toolbar.background = resources.getDrawable(R.color.colorRoutine)
+//        toolbar.setBackgroundColor(resources.getColor(R.color.md_white_1000))
+
+        toolbar.setOnMenuItemClickListener {
+            startActivity(Intent(this, CalendarActivity::class.java))
+            return@setOnMenuItemClickListener false
+        }
 
         // Create the AccountHeader
         val headerResult = AccountHeaderBuilder()
             .withHeaderBackground(R.drawable.drawer_header_background)
-            .withTranslucentStatusBar(true)
+//            .withTranslucentStatusBar(true)
             .withActivity(this)
             .build()
 
@@ -143,4 +152,8 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar_menu, menu)
+        return true
+    }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.fragments.SettingsFragment">
+    tools:context=".activities.fragments.SettingsFragment"
+    android:background="?attr/backgroundColor">
 
     <ImageView
         android:id="@+id/settings_header_image"
@@ -19,7 +20,7 @@
         app:srcCompat="@drawable/settings_ico" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -27,13 +28,13 @@
         android:fontFamily="@font/roboto_black"
         android:switchPadding="30dp"
         android:text="Dark theme"
-        android:textColor="@color/colorReport"
+        android:textColor="?attr/colorReport"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settings_header_image" />
 
     <Switch
-        android:id="@+id/switch4"
+        android:id="@+id/switch_narration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -41,13 +42,13 @@
         android:fontFamily="@font/roboto_black"
         android:switchPadding="30dp"
         android:text="Narration"
-        android:textColor="@color/colorReport"
+        android:textColor="?attr/colorReport"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_theme" />
 
     <Switch
-        android:id="@+id/switch5"
+        android:id="@+id/switch_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -55,22 +56,22 @@
         android:fontFamily="@font/roboto_black"
         android:switchPadding="30dp"
         android:text="Tips"
-        android:textColor="@color/colorReport"
+        android:textColor="?attr/colorReport"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch4" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_narration" />
 
     <TextView
-        android:id="@+id/text_view_about"
+        android:id="@+id/text_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_black"
         android:text="About"
-        android:textColor="@color/colorReport"
+        android:textColor="?attr/colorReport"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch5" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_tips" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

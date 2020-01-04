@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<declare-styleable name="nightmode">
+    <attr name="backroundColor" format="color"/>
+    <attr name="textColor" format="color"/>
+    <attr name="tintColor" format="color"/>
+    <attr name="buttonColor" format="color"/>
+    <attr name="toolbarColor" format="color"/>
+    <attr name="colorReport" format="color"/>
+    <attr name="colorRoutine" format="color"/>
+    <attr name="colorReportNumbers" format="color"/>
+    <attr name="colorWhite" format="color"/>
+    <attr name="startblue" format="color"/>
+    <attr name="endblue" format="color"/>
+    <attr name="profileBackground" format="color"/>
+    <attr name="darkDrawer" format="color"/>
+    <attr name="drawerColor" format="color"/>
+
+</declare-styleable>
+
+    
+</resources>

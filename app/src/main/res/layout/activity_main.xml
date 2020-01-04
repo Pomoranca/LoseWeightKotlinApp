@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:background="?attr/backgroundColor">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -19,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
+        android:background="?attr/colorWhite"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar"/>
 
@@ -37,7 +39,7 @@
             android:id="@+id/navigationView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorWhite"
+            android:background="?attr/backgroundColor"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_menu" />
     </LinearLayout>
