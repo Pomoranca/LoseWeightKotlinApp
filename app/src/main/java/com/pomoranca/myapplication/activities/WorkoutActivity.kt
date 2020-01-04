@@ -1,7 +1,6 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
@@ -12,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.data.MyCalendarDate
 import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.data.Workout
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
@@ -25,36 +25,29 @@ class WorkoutActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
 
 
-    private var START_TIME_IN_MILLIS = 3000L
+    private var START_TIME_IN_MILLIS = 500L
     private var workoutList: List<Workout> = listOf()
     var planTitle: String = ""
     private lateinit var mTextToSpeech: TextToSpeech
 
     //SHARED PREFERENCES
-    var currentDate = 0
+    var LAST_DATE = 0L
+    var LAST_DATE_CONVERTED = ""
+    var CURRENT_DATE = 0L
+    var CURRENT_DATE_CONVERTED = ""
 
 
     //USER PREFERENCES
     private var userID: Int = 0
     private var userName: String = ""
-    private var userMedals = 0
-    private var userExperience = 0
-    private var userDays = 0
 
+    private var userExperience = 0
     //updated values
     private var gainedExperience = 0
 
     //total values
     private var totalExperience = 0
     private var totalDays = 0
-    private var totalMedals = 0
-
-    //medals
-    private var starterMedal : Boolean = false
-    private var achieverMedal: Boolean = false
-    private var beastMedal : Boolean = false
-    private var finisherMedal : Boolean = false
-    private var bestOfAllMedal: Boolean = false
 
 
     private lateinit var mCountDownTimer: CountDownTimer
@@ -64,30 +57,42 @@ class WorkoutActivity : AppCompatActivity() {
     private var multiplyFactor = 1
     private var numberOfSets = 0
     var currentSet = 1
-
+    var firstDayDone: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout)
-        val sharedPreferences = getSharedPreferences("USER_DATA", Context.MODE_PRIVATE)
-
-
+        setSupportActionBar(toolbar_workout)
+        toolbar_workout.background = resources.getDrawable(R.color.colorRoutine)
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
+
+
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
+
+        val calendar = Calendar.getInstance()
+        CURRENT_DATE = calendar.timeInMillis
+        CURRENT_DATE_CONVERTED = getDate(CURRENT_DATE)
+
+        loseWeightViewModel.getAllCalendarDates().observe(this, Observer<List<MyCalendarDate>> {
+            if (it.isNotEmpty()) {
+                LAST_DATE = it.last().calendarDate
+                LAST_DATE_CONVERTED = getDate(LAST_DATE)
+                totalDays = it.size
+                Toast.makeText(this, "array not empty $LAST_DATE, $totalDays", Toast.LENGTH_LONG).show()
+                Log.i("LAST DATE CUR DATE", "$LAST_DATE_CONVERTED - $CURRENT_DATE_CONVERTED")
+
+            }
+        })
+
         loseWeightViewModel.getAllUsers().observe(this, Observer<List<User>> {
             userID = it[0].id
             userName = it[0].name
-            userMedals = it[0].medals
-            userDays = it[0].days
             userExperience = it[0].experience
-            totalDays = userDays
-            Log.i("USERNAME------", userName)
-            Log.i("EXPERIENCE----", "$userExperience")
         })
 
-        mTextToSpeech = TextToSpeech(this,
-            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH })
+//        mTextToSpeech = TextToSpeech(this,
+//            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH })
 
         button_start_pause.setOnClickListener {
             if (mTimerRunning) {
@@ -96,10 +101,29 @@ class WorkoutActivity : AppCompatActivity() {
                 startTimer()
             }
         }
-//        updateCountDownText()
-
         populateList()
+    }
 
+    private fun updateUser() {
+
+        val calendar = Calendar.getInstance()
+//        val myCalendarDate = MyCalendarDate(calendar.timeInMillis)
+
+        if (totalDays == 0) {
+            loseWeightViewModel.insert(MyCalendarDate(CURRENT_DATE))
+            totalDays++
+            firstDayDone = true
+
+        } else if (!firstDayDone && totalDays != 0 && LAST_DATE_CONVERTED != CURRENT_DATE_CONVERTED) {
+            loseWeightViewModel.insert(MyCalendarDate((CURRENT_DATE)))
+            totalDays++
+
+        }
+
+        val id = userID
+        val updateUser = User(userName, totalDays, totalExperience)
+        updateUser.id = id
+        loseWeightViewModel.update(updateUser)
     }
 
     private fun startTimer() {
@@ -117,13 +141,13 @@ class WorkoutActivity : AppCompatActivity() {
                     mTimerRunning = false
                     button_start_pause.text = "Start"
                     resetTimer()
-                    mTextToSpeech.speak(
-                        "Great job",
-                        TextToSpeech.QUEUE_FLUSH,
-                        null
-                    )
+//                    mTextToSpeech.speak(
+//                        "Great job",
+//                        TextToSpeech.QUEUE_FLUSH,
+//                        null
+//                    )
                     gainedExperience = currentSet * multiplyFactor
-                    totalExperience =  userExperience + gainedExperience
+                    totalExperience = userExperience + gainedExperience
                     updateUser()
                     showDialog()
 
@@ -231,49 +255,34 @@ class WorkoutActivity : AppCompatActivity() {
         image_current_workout.setImageResource(workoutList[currentSet - 1].imagePath)
         val currentWorkoutText = workoutList[currentSet - 1].name
         text_current_workout.text = "Current workout: ${workoutList[currentSet - 1].name}"
-        mTextToSpeech.setSpeechRate(0.9f)
-        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
+//        mTextToSpeech.setSpeechRate(0.9f)
+//        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
     }
 
-    private fun updateUser() {
-        loseWeightViewModel.getAllUsers().observe(this, Observer<List<User>> {
-            
-        })
-        val sharedPreferences = getSharedPreferences("USER_DATA", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val lastWorkoutDate = sharedPreferences.getInt("LAST_WORKOUT_DATE", 0)
-
-        //INCREMENT DAY IF CURRENT_DATE != LAST_WORKOUT_DATE
-        if(totalDays == 0) {
-            editor.putInt("LAST_WORKOUT_DATE", currentDate)
-            totalDays++
-        }else if(lastWorkoutDate != currentDate) {
-            totalDays++
-            editor.putInt("LAST_WORKOUT_DATE", currentDate)
-        }
-        editor.apply()
-        val id = userID
-        val updateUser = User(userName,totalDays,totalMedals,totalExperience)
-        updateUser.id = id
-        loseWeightViewModel.update(updateUser)
-    }
-
-
-    fun getMedals(){
-
-    }
 
     private fun showDialog() {
         val dialog = Dialog(this)
-        dialog .requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog .setCancelable(false)
-        dialog .setContentView(R.layout.dialog_workout_finished)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_workout_finished)
         if (gainedExperience > 0) {
-        dialog.text_report.text =
-            "Experience gained: $gainedExperience"}
-        dialog.dialog_button_end_workout.setOnClickListener{
+            dialog.text_report.text =
+                "Experience gained: $gainedExperience"
+        }
+        dialog.dialog_button_end_workout.setOnClickListener {
             this@WorkoutActivity.finish()
         }
-        dialog .show()
+        dialog.show()
     }
+
+    private fun getDate(
+        milliSeconds: Long
+    ): String { // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
 }

@@ -25,6 +25,8 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
  */
 class MainFragment : Fragment() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
+    private var userExperience = 0
+    private var medalsWon = 0
 
 
     override fun onCreateView(
@@ -37,8 +39,18 @@ class MainFragment : Fragment() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
-            experience_number.text = it[0].experience.toString()
+            userExperience = it[0].experience
+            when (userExperience) {
+                in 1..99 -> medalsWon = 1
+                in 100..200 -> medalsWon = 2
+                in 201..500 -> medalsWon = 3
+                in 501..800 -> medalsWon = 4
+                in 801..1000 -> medalsWon = 5
+            }
+            experience_number.text = userExperience.toString()
             days_number.text = it[0].days.toString()
+            medals_number.text = medalsWon.toString()
+
         })
 
         val recyclerView = rootView.recyclerViewPlan
@@ -61,5 +73,5 @@ class MainFragment : Fragment() {
         return rootView
     }
 
-
 }
+

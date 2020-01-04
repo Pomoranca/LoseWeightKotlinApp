@@ -4,21 +4,31 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.pomoranca.myapplication.data.DatabaseRepository
+import com.pomoranca.myapplication.data.MyCalendarDate
 import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.data.Workout
+import ru.cleverpumpkin.calendar.CalendarDate
 
 class LoseWeightViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository: DatabaseRepository = DatabaseRepository(application)
     private var allWorkouts = repository.getAllWorkouts()
+    private var allUsers = repository.getAllUsers()
+    private var allCalendarDates = repository.getAllCalendarDates()
     private var beginnerWorkouts = repository.getBeginnerWorkouts()
     private var intermediateWorkouts = repository.getIntermediateWorkouts()
     private var advancedWorkouts = repository.getAdvancedWorkouts()
-    private var allUsers = repository.getAllUsers()
+
 
 
     fun getAllWorkouts(): LiveData<List<Workout>> {
         return allWorkouts
+    }
+    fun getAllUsers(): LiveData<List<User>> {
+        return allUsers
+    }
+    fun getAllCalendarDates(): LiveData<List<MyCalendarDate>> {
+        return allCalendarDates
     }
 
     fun getIntermediateWorkouts(): LiveData<List<Workout>> {
@@ -33,16 +43,16 @@ class LoseWeightViewModel(application: Application) : AndroidViewModel(applicati
         return beginnerWorkouts
     }
 
-    fun getAllUsers(): LiveData<List<User>> {
-        return allUsers
-    }
-
     fun update(user: User) {
         repository.update(user)
     }
 
     fun insert(user: User) {
         repository.insert(user)
+    }
+
+    fun insert(myCalendarDate: MyCalendarDate) {
+        repository.insert(myCalendarDate)
     }
 
 }

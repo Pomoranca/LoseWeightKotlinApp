@@ -57,60 +57,60 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/image_starter"
                     tools:srcCompat="@tools:sample/avatars"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                    app:layout_constraintEnd_toStartOf="@+id/image_achiever"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/image_achiever"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_starter"
+                    app:layout_constraintEnd_toStartOf="@+id/image_beast"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/image_starter"
+                    app:layout_constraintTop_toTopOf="@+id/image_starter"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/image_beast"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_achiever"
+                    app:layout_constraintEnd_toStartOf="@+id/image_finisher"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toTopOf="@+id/imageView3"
+                    app:layout_constraintStart_toEndOf="@+id/image_achiever"
+                    app:layout_constraintTop_toTopOf="@+id/image_achiever"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/image_finisher"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_beast"
+                    app:layout_constraintEnd_toStartOf="@+id/image_best"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="@+id/imageView4"
+                    app:layout_constraintStart_toEndOf="@+id/image_beast"
+                    app:layout_constraintTop_toTopOf="@+id/image_beast"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/image_best"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_finisher"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="@+id/imageView5"
+                    app:layout_constraintStart_toEndOf="@+id/image_finisher"
+                    app:layout_constraintTop_toTopOf="@+id/image_finisher"
                     tools:srcCompat="@tools:sample/avatars" />
 
 

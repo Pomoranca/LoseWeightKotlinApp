@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 class User(
     var name: String,
     var days: Int,
-    var medals: Int,
     var experience: Int
 ) {
     @PrimaryKey(autoGenerate = true)

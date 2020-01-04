@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 val intent = Intent(this, MainActivity::class.java)
                 val name = welcomeCardInput.text.toString()
-                val user = User(name, 0, 0, 0)
+                val user = User(name, 0, 0)
                 loseWeightViewModel.insert(user)
                 val editor = settings.edit()
                 editor.putBoolean("hasLoggedIn", true)

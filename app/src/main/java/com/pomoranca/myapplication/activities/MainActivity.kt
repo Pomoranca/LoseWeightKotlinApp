@@ -1,11 +1,13 @@
 package com.pomoranca.myapplication.activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.multidex.MultiDex
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -99,12 +101,8 @@ class MainActivity : AppCompatActivity() {
                             return false
                         }
                         4 -> {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Clicked  $position",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            return true
+                            startActivity(Intent(this@MainActivity, CalendarActivity::class.java))
+                            return false
                         }
                     }
                     return false

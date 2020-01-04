@@ -5,13 +5,16 @@ import android.os.AsyncTask
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.pomoranca.myapplication.R
+import ru.cleverpumpkin.calendar.CalendarDate
 
-@Database(entities = [User::class, Workout::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Workout::class, MyCalendarDate::class], version = 1, exportSchema = false)
 abstract class LoseWeightDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun workoutDao(): WorkoutDao
+    abstract fun calendarDateDao(): CalendarDateDao
 
     companion object {
         private var instance: LoseWeightDatabase? = null
@@ -40,7 +43,6 @@ abstract class LoseWeightDatabase : RoomDatabase() {
     }
 
     class PopulateDbAsyncTask(db: LoseWeightDatabase) : AsyncTask<Unit, Unit, Unit>() {
-        private val userDao = db.userDao()
         private val workoutDao = db.workoutDao()
         override fun doInBackground(vararg params: Unit?) {
             workoutDao.insert(Workout("Back abs", R.drawable.abs_back, 1))
@@ -67,7 +69,6 @@ abstract class LoseWeightDatabase : RoomDatabase() {
             workoutDao.insert(Workout("Chair steps", R.drawable.step_on_chair, 3))
             workoutDao.insert(Workout("Front superman", R.drawable.superman_front_bend, 1))
             workoutDao.insert(Workout("Alternating touches", R.drawable.toe_touch_alternating, 2))
-
         }
     }
 }

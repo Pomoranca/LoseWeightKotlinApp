@@ -58,12 +58,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/image_starter"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="16dp"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                        app:layout_constraintEnd_toStartOf="@+id/image_achiever"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintStart_toStartOf="parent"
@@ -71,47 +72,51 @@
                         app:srcCompat="@drawable/ico_medal_start" />
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/image_achiever"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_starter"
+                        app:layout_constraintEnd_toStartOf="@+id/image_beast"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView"
-                        app:layout_constraintTop_toTopOf="@+id/imageView"
+                        app:layout_constraintStart_toEndOf="@+id/image_starter"
+                        app:layout_constraintTop_toTopOf="@+id/image_starter"
                         app:srcCompat="@drawable/ico_medal_finisher" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/image_beast"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_achiever"
+                        app:layout_constraintEnd_toStartOf="@+id/image_finisher"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintTop_toTopOf="@+id/imageView3"
+                        app:layout_constraintStart_toEndOf="@+id/image_achiever"
+                        app:layout_constraintTop_toTopOf="@+id/image_achiever"
                         app:srcCompat="@drawable/ico_medal_achiever" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/image_finisher"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_beast"
+                        app:layout_constraintEnd_toStartOf="@+id/image_best"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView4"
-                        app:layout_constraintTop_toTopOf="@+id/imageView4"
+                        app:layout_constraintStart_toEndOf="@+id/image_beast"
+                        app:layout_constraintTop_toTopOf="@+id/image_beast"
                         app:srcCompat="@drawable/ico_medal_basic" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/image_best"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_finisher"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView5"
-                        app:layout_constraintTop_toTopOf="@+id/imageView5"
+                        app:layout_constraintStart_toEndOf="@+id/image_finisher"
+                        app:layout_constraintTop_toTopOf="@+id/image_finisher"
                         app:srcCompat="@drawable/ico_medal_winner" />
 
 
@@ -135,13 +140,15 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     app:srcCompat="@drawable/ic_experience"/>
+
                 <TextView
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
+                    android:id="@+id/profile_experience_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Experience gained: 132"/>
+                    android:text="Experience gained: 132"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="25dp"
@@ -153,14 +160,16 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     app:srcCompat="@drawable/ic_day_workout"/>
-                <TextView
-                    android:textStyle="bold"
 
-                    android:layout_gravity="center_vertical"
+                <TextView
+                    android:id="@+id/profile_days_text"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Days spent working out: 123"/>
+                    android:text="Days spent working out: 123"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="25dp"
@@ -172,14 +181,16 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/ic_medal"/>
-                <TextView
-                    android:textStyle="bold"
 
-                    android:layout_gravity="center_vertical"
+                <TextView
+                    android:id="@+id/profile_medals_text"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Medals won: 12"/>
+                    android:text="Medals won: 12"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
