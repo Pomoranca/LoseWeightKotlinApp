@@ -55,8 +55,9 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+//        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
         toolbar.setTitleTextColor(resources.getColor(R.color.toolbarTextColor))
+        toolbar.setTitleTextAppearance(this, R.font.roboto_black)
 
         toolbar.setOnMenuItemClickListener {
             startActivity(Intent(this, CalendarActivity::class.java))

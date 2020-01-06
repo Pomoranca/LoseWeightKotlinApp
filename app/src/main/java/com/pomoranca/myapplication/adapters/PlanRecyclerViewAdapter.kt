@@ -61,7 +61,6 @@ class PlanRecyclerViewAdapter :
         planList.add(WorkoutPlan("Intermediate plan", 30, R.drawable.plan_intermediate))
         planList.add(WorkoutPlan("Advanced plan", 40, R.drawable.plan_advanced))
         planList.add(WorkoutPlan("Premium plan", 60, R.drawable.plan_premium))
-        planList.add(WorkoutPlan("Premium plan", 60, R.drawable.plan_premium))
 
     }
 

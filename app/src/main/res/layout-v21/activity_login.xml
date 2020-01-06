@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.LoginActivity"
+    android:background="@color/md_white_1000"
     android:padding="20dp"
-    android:background="@color/md_white_1000">
+    tools:context=".activities.LoginActivity">
 
 
     <ImageView
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_black"
-        android:text="Welcome to Smizmars, how can I call you?"
-        android:textAlignment="viewStart"
+        android:text="Welcome to IntenseFit.\nPlease tell me your name?"
+        android:textAlignment="center"
         android:textColor="#242323"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +67,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="Pick avatar"
+        android:textColor="#242323"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+
+    <ImageView
+        android:id="@+id/pick_male"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        android:onClick="malePickClicked"
+        app:layout_constraintEnd_toStartOf="@+id/pick_female"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:srcCompat="@drawable/male_pick_ful_size" />
+
+    <ImageView
+        android:id="@+id/pick_female"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="femalePickClicked"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pick_male"
+        app:layout_constraintTop_toTopOf="@+id/pick_male"
+        app:srcCompat="@drawable/female_pick_full_size" />
+
 
 
 

@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
                 welcomeCardInput.error = "You don't have a name ? Come on"
             } else {
                 val intent = Intent(this, MainActivity::class.java)
-                val name = welcomeCardInput.text.toString()
+                val name = welcomeCardInput.text.toString().capitalize()
                 val user = User(name, 0, 0)
                 loseWeightViewModel.insert(user)
                 val editor = settings.edit()
@@ -52,6 +52,22 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    fun malePickClicked(view: View) {
+        view.scaleX = 1.2f
+        view.scaleY = 1.2f
+
+        pick_female.scaleX = 0.9f
+        pick_female.scaleY = 0.9f
+
+    }
+    fun femalePickClicked(view: View) {
+        view.scaleX = 1.2f
+        view.scaleY = 1.2f
+
+        pick_male.scaleX = 0.9f
+        pick_male.scaleY = 0.9f
     }
 
 }

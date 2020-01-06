@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
+import kotlinx.android.synthetic.main.dialog_workout_finished.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 /**
@@ -31,7 +32,7 @@ class ProfileFragment : Fragment() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
-            profile_text_user_name.title = it[0].name
+            profile_text_user_name.text = it[0].name
             profile_days_text.text = "Days spent working out: ${it[0].days}"
             profile_experience_text.text = "Experience gained: ${it[0].experience}"
             userExperience = it[0].experience

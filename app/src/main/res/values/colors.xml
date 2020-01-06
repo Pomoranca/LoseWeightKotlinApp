@@ -4,6 +4,21 @@
     <color name="colorPrimaryDark">#6DA2E8</color>
     <color name="colorAccent">#D81B60</color>
     <color name="toolbarTextColor">#3D3D3D</color>
+    <color name="cardViewColor">#FFFFFF</color>
+    <color name="colorRoutine">#5785F3</color>
+    <color name="colorReport">#5785F3</color>
+    <color name="colorReportNumbers">#EEB22E</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bcce6</color>
+    <color name="profileBackground">#fafafa</color>
+    <color name="darkDrawer">#31353A</color>
+    <color name="tintColor">#000000</color>
+    <color name="buttonColor">#2192f3</color>
+    <color name="toolbarColor">#2192f3</color>
+    <color name="drawerColor">#2192f3</color>
+    <color name="cardview_dark_background">#535353</color>
+
 
 
 
