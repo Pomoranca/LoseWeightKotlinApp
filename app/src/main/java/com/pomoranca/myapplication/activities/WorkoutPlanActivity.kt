@@ -29,13 +29,12 @@ class WorkoutPlanActivity : AppCompatActivity() {
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
         val backgroundPath = intent.getIntExtra("BACKGROUND", 0)
+        setSupportActionBar(toolbar_workout_plan)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = "Workout plan"
 
-        title = planTitle
-        Glide
-            .with(this)
-            .load(backgroundPath)
-            .centerCrop()
-            .into(startWorkoutBackground)
+
+//        title = planTitle
 
         workoutRecyclerView.layoutManager = LinearLayoutManager(this)
         workoutRecyclerView.setHasFixedSize(true)
@@ -62,7 +61,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                     adapter.submitList(it)
                 })
         }
-        textViewStartWorkout.setOnClickListener {
+        button_begin_workout.setOnClickListener {
             val intent: Intent = Intent(this, WorkoutActivity::class.java)
             intent.putExtra("PLAN_TITLE", planTitle)
             startActivity(intent)

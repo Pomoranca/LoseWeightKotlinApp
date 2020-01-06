@@ -1,72 +1,72 @@
 package com.pomoranca.myapplication.activities.fragments
 
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.CompoundButton
 import android.widget.Switch
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
+import com.mikepenz.iconics.Iconics.applicationContext
 
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.dialog_about.*
+import kotlinx.android.synthetic.main.dialog_about.view.*
+import kotlinx.android.synthetic.main.dialog_workout_finished.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), View.OnClickListener, OnAboutClickedListener{
 
     lateinit var sharedPref: SharedPref
+    lateinit var rootView: View
+    var listener : OnAboutClickedListener? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
-        // Inflate the layout for this fragment
+        rootView = inflater.inflate(R.layout.fragment_settings, container, false)
+
         sharedPref = SharedPref(rootView.context)
 
-
-
-        if(sharedPref.loadNightTheme() == true) {
-            context?.setTheme(R.style.DarkTheme)
-        } else {
-            context?.setTheme(R.style.AppTheme)
-        }
-
-
-        if(sharedPref.loadNightTheme() == true) {
-            rootView.switch_theme.isChecked = true
-        }
-
-        rootView.switch_theme.setOnCheckedChangeListener { buttonView, isChecked ->
-        if(isChecked) {
-            sharedPref.setNightTheme(true)
-            restartApp()
-        } else {
-            sharedPref.setNightTheme(false)
-            restartApp()
-        }
-
-        }
-
+        rootView.text_about.setOnClickListener(this)
 
 
         return rootView
     }
 
-    fun restartApp() {
-        val tr = getFragmentManager()?.beginTransaction()?.detach(SettingsFragment())
-        tr?.replace(R.id.fragment_container, SettingsFragment())
-        tr?.commit()
+    override fun onClick(v: View?) {
+        listener?.onAboutClicked()
     }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.listener = context as OnAboutClickedListener
+    }
+
+    override fun onAboutClicked() {
+    }
+
 
 
 

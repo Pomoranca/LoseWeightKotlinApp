@@ -5,11 +5,8 @@ import android.content.SharedPreferences
 
 class SharedPref(context: Context) {
 
-    internal var mySharedPref: SharedPreferences
-
-    init {
-        mySharedPref = context.getSharedPreferences("preferences_theme", Context.MODE_PRIVATE)
-    }
+    private var mySharedPref: SharedPreferences =
+        context.getSharedPreferences("preferences_theme", Context.MODE_PRIVATE)
 
     fun setNightTheme(state: Boolean?) {
         val editor = mySharedPref.edit()

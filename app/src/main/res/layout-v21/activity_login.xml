@@ -42,6 +42,7 @@
         android:fontFamily="@font/roboto_black"
         android:hint="e.g. John"
         android:maxLines="2"
+        android:textAlignment="center"
         android:textColor="@color/material_drawer_dark_background"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +64,6 @@
         android:textAllCaps="false"
         android:textColor="#FFF"
         android:textSize="18sp"
-        android:translationZ="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

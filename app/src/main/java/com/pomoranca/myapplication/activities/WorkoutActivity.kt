@@ -1,10 +1,12 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.MenuItem
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,7 @@ import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.data.Workout
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_workout.*
+import kotlinx.android.synthetic.main.dialog_stop_workout.*
 import kotlinx.android.synthetic.main.dialog_workout_finished.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,10 +28,11 @@ class WorkoutActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
 
 
-    private var START_TIME_IN_MILLIS = 500L
+    private var START_TIME_IN_MILLIS = 60000L
     private var workoutList: List<Workout> = listOf()
     var planTitle: String = ""
     private lateinit var mTextToSpeech: TextToSpeech
+
 
     //SHARED PREFERENCES
     var LAST_DATE = 0L
@@ -64,7 +68,12 @@ class WorkoutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout)
         setSupportActionBar(toolbar_workout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        title = "Workout"
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
+
 
 
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
@@ -78,7 +87,8 @@ class WorkoutActivity : AppCompatActivity() {
                 LAST_DATE = it.last().calendarDate
                 LAST_DATE_CONVERTED = getDate(LAST_DATE)
                 totalDays = it.size
-                Toast.makeText(this, "array not empty $LAST_DATE, $totalDays", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "array not empty $LAST_DATE, $totalDays", Toast.LENGTH_LONG)
+                    .show()
                 Log.i("LAST DATE CUR DATE", "$LAST_DATE_CONVERTED - $CURRENT_DATE_CONVERTED")
 
             }
@@ -90,8 +100,8 @@ class WorkoutActivity : AppCompatActivity() {
             userExperience = it[0].experience
         })
 
-//        mTextToSpeech = TextToSpeech(this,
-//            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH })
+        mTextToSpeech = TextToSpeech(this,
+            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH }, "com.google.android.tts")
 
         button_start_pause.setOnClickListener {
             if (mTimerRunning) {
@@ -100,14 +110,23 @@ class WorkoutActivity : AppCompatActivity() {
                 startTimer()
             }
         }
+        progress_bar.progress = 60
         populateList()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
     private fun updateUser() {
-
-        val calendar = Calendar.getInstance()
-//        val myCalendarDate = MyCalendarDate(calendar.timeInMillis)
-
         if (totalDays == 0) {
             loseWeightViewModel.insert(MyCalendarDate(CURRENT_DATE))
             totalDays++
@@ -127,7 +146,11 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun startTimer() {
         mEndTime = System.currentTimeMillis() + mTimeLeftMillis
-        mCountDownTimer = object : CountDownTimer(mTimeLeftMillis, 100) {
+        val currentWorkoutText = workoutList[currentSet - 1].name
+        mTextToSpeech.setSpeechRate(0.9f)
+        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
+        mCountDownTimer = object : CountDownTimer(mTimeLeftMillis, 1000) {
+
             override fun onFinish() {
                 if (currentSet < numberOfSets) {
                     resetTimer()
@@ -140,15 +163,15 @@ class WorkoutActivity : AppCompatActivity() {
                     mTimerRunning = false
                     button_start_pause.text = "Start"
                     resetTimer()
-//                    mTextToSpeech.speak(
-//                        "Great job",
-//                        TextToSpeech.QUEUE_FLUSH,
-//                        null
-//                    )
+                    mTextToSpeech.speak(
+                        "Great job",
+                        TextToSpeech.QUEUE_FLUSH,
+                        null
+                    )
                     gainedExperience = currentSet * multiplyFactor
                     totalExperience = userExperience + gainedExperience
                     updateUser()
-                    showDialog()
+                    showDialogFinish()
 
                     currentSet = 1
                 }
@@ -168,12 +191,43 @@ class WorkoutActivity : AppCompatActivity() {
     private fun pauseTimer() {
         mCountDownTimer.cancel()
         mTimerRunning = false
-        button_start_pause.text = "Start"
+        button_start_pause.text = "Resume"
+        mTextToSpeech.setSpeechRate(1f)
+        mTextToSpeech.speak("Workout paused", TextToSpeech.QUEUE_FLUSH, null)
     }
 
     fun updateCountDownText() {
         val seconds = (mTimeLeftMillis / 1000 % 60).toInt()
         text_view_countdown.text = "$seconds"
+        progress_bar.progress = seconds
+
+
+when(progress_bar.progress) {
+    15 -> {
+        playsound()
+        mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
+    }
+
+}
+//        when (progress_bar.progress) {
+//            15 -> mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
+//            in 0..15 -> {
+//                progress_bar.progressDrawable.setColorFilter(
+//                    Color.RED, android.graphics.PorterDuff.Mode.SRC_IN
+//                )
+//                text_current_workout.text = "Take a rest"
+//                image_current_workout.visibility = View.INVISIBLE
+//            }
+//            in 16..60 -> {
+//                progress_bar.progressDrawable.setColorFilter(
+//                    Color.rgb(109, 162, 232), android.graphics.PorterDuff.Mode.SRC_IN
+//                )
+//
+//                image_current_workout.visibility = View.VISIBLE
+//            }
+//        }
+
+
     }
 
     //WHEN TIMER REACHES 0
@@ -186,7 +240,7 @@ class WorkoutActivity : AppCompatActivity() {
         if (mTimerRunning) {
             button_start_pause.text = "Pause"
         } else {
-            button_start_pause.text = "Start"
+            button_start_pause.text = "Resume"
         }
     }
 
@@ -214,6 +268,8 @@ class WorkoutActivity : AppCompatActivity() {
 
     //PLAY SOUND ON LAST 3 SECONDS of PLAY and REST
     fun playsound() {
+        val mp : MediaPlayer = MediaPlayer.create(this, R.raw.sound_finished)
+        mp.start()
     }
 
     private fun populateList() {
@@ -253,14 +309,15 @@ class WorkoutActivity : AppCompatActivity() {
     fun changeAnimation() {
         image_current_workout.setImageResource(workoutList[currentSet - 1].imagePath)
         val currentWorkoutText = workoutList[currentSet - 1].name
-        text_current_workout.text = "Current workout: ${workoutList[currentSet - 1].name}"
-//        mTextToSpeech.setSpeechRate(0.9f)
-//        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
+        text_current_workout.text = "Current workout: $currentWorkoutText"
+        mTextToSpeech.setSpeechRate(0.9f)
+        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
     }
 
 
-    private fun showDialog() {
+    private fun showDialogFinish() {
         val dialog = Dialog(this)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_workout_finished)
@@ -283,5 +340,34 @@ class WorkoutActivity : AppCompatActivity() {
         calendar.timeInMillis = milliSeconds
         return formatter.format(calendar.time)
     }
+
+    override fun onPause() {
+        super.onPause()
+        if (mTimerRunning) {
+            pauseTimer()
+
+        }
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        showDialogBack()
+    }
+
+    private fun showDialogBack() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_stop_workout)
+
+        dialog.dialog_button_continue.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.dialog_button_leave.setOnClickListener {
+            this@WorkoutActivity.finish()
+        }
+        dialog.show()
+    }
+
 
 }

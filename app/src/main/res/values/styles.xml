@@ -15,7 +15,6 @@
         <item name="endblue">#0bcce6</item>
         <item name="profileBackground">#fafafa</item>
         <item name="darkDrawer">#31353A</item>
-        <item name="textColor">#808080</item>
         <item name="tintColor">#000000</item>
         <item name="buttonColor">#2192f3</item>
         <item name="toolbarColor">#2192f3</item>
@@ -23,6 +22,11 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:textColor">#043A53</item>
+        <item name="android:textColorPrimary">#043A53</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="cardViewColor">#FFFFFF</item>
+
 
     </style>
 
@@ -31,7 +35,7 @@
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundColor">#303030</item>
+        <item name="backgroundColor">#30383D</item>
         <item name="colorRoutine">#5785F3</item>
         <item name="colorReport">#5E5858</item>
         <item name="colorReportNumbers">#EEB22E</item>
@@ -40,18 +44,22 @@
         <item name="endblue">#0bcce6</item>
         <item name="profileBackground">#fafafa</item>
         <item name="darkDrawer">#31353A</item>
-        <item name="textColor">#ffffff</item>
         <item name="tintColor">#ffffff</item>
         <item name="buttonColor">#2192f3</item>
         <item name="toolbarColor">#212121</item>
         <item name="drawerColor">#2192f3</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/roboto</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="cardViewColor">#424242</item>
+
+
     </style>
 
     <style name="MyActionBar" parent="Theme.AppCompat.NoActionBar">
-
 
     </style>
 

@@ -1,24 +1,33 @@
 package com.pomoranca.myapplication.activities.fragments
 
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.activities.WorkoutPlanActivity
 import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
 import com.pomoranca.myapplication.data.WorkoutPlan
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_welcome.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+
+
+var behavior: CoordinatorLayout.Behavior<*>? = null
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +45,7 @@ class MainFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)
         // Inflate the layout for this fragment
+
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
@@ -73,6 +83,8 @@ class MainFragment : Fragment() {
         })
         return rootView
     }
+
+
 
 }
 

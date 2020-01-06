@@ -15,6 +15,7 @@
     <attr name="profileBackground" format="color"/>
     <attr name="darkDrawer" format="color"/>
     <attr name="drawerColor" format="color"/>
+    <attr name="cardViewColor" format="color"/>
 
 </declare-styleable>
 

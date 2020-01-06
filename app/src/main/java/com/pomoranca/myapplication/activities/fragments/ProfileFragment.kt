@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
-            profile_text_user_name.text = it[0].name
+            profile_text_user_name.title = it[0].name
             profile_days_text.text = "Days spent working out: ${it[0].days}"
             profile_experience_text.text = "Experience gained: ${it[0].experience}"
             userExperience = it[0].experience
