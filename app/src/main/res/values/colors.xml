@@ -15,9 +15,9 @@
     <color name="darkDrawer">#31353A</color>
     <color name="tintColor">#000000</color>
     <color name="buttonColor">#2192f3</color>
-    <color name="toolbarColor">#2192f3</color>
     <color name="drawerColor">#2192f3</color>
     <color name="cardview_dark_background">#535353</color>
+    <color name="colorTransparent">#00FFFFFF</color>
 
 
 

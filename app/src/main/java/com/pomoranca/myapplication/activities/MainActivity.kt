@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
@@ -55,9 +56,6 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-//        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-        toolbar.setTitleTextColor(resources.getColor(R.color.toolbarTextColor))
-        toolbar.setTitleTextAppearance(this, R.font.roboto_black)
 
         toolbar.setOnMenuItemClickListener {
             startActivity(Intent(this, CalendarActivity::class.java))
@@ -68,15 +66,23 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
 
         // Create the AccountHeader
         val headerResult = AccountHeaderBuilder()
-            .withHeaderBackground(R.drawable.drawer_header_background)
+            .withPaddingBelowHeader(false)
+            .withOnAccountHeaderListener(object : AccountHeader.OnAccountHeaderListener {
+                override fun onProfileChanged(view: View?, profile: IProfile<*>, current: Boolean): Boolean {
+                    return false
+                }
+            })
+            .withHeaderBackground(R.drawable.drawer_header_logo)
+            .withHeaderBackgroundScaleType(ImageView.ScaleType.FIT_CENTER)
 //            .withTranslucentStatusBar(true)
             .withActivity(this)
+            .withDividerBelowHeader(false)
             .build()
 
-        val homeItem = PrimaryDrawerItem().withIdentifier(1).withName("Home")
-        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("My Profile")
-        val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar")
-        val settingsItem = SecondaryDrawerItem().withIdentifier(2).withName("Settings")
+        val homeItem = PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.home_ico)
+        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("My Profile").withIcon(R.drawable.profile_ico)
+        val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar").withIcon(R.drawable.ico_calendar)
+        val settingsItem = SecondaryDrawerItem().withIdentifier(2).withName("Settings").withIcon(R.drawable.settings_ico)
 
 
 //create the drawer and remember the `Drawer` result object
@@ -104,6 +110,7 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
                                     fragment,
                                     fragment.javaClass.simpleName
                                 )
+                                .addToBackStack(null)
                                 .commit()
                             return false
                         }
@@ -115,6 +122,7 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
                                     fragment,
                                     fragment.javaClass.simpleName
                                 )
+                                .addToBackStack(null)
                                 .commit()
                             return false
                         }
@@ -126,6 +134,7 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
                                     fragment,
                                     fragment.javaClass.simpleName
                                 )
+                                .addToBackStack(null)
                                 .commit()
                             return false
                         }
@@ -151,13 +160,16 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
                 val fragment = MainFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
+                    .addToBackStack(null)
                     .commit()
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.profile_nav -> {
                 val fragment = ProfileFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
+                    .addToBackStack(null)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -165,6 +177,7 @@ class MainActivity : AppCompatActivity(), OnAboutClickedListener {
                 val fragment = SettingsFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
+                    .addToBackStack(null)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }

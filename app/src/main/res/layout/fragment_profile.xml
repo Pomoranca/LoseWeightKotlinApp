@@ -15,135 +15,49 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/male_pick_ful_size"
+            android:layout_marginTop="8dp"
             app:layout_collapseMode="parallax"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/profile_text_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=""
-        android:textSize="21sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+        <TextView
+            android:id="@+id/profile_text_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_text_user_name">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_black"
-                        android:text="Awards"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/image_starter"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="16dp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/image_achiever"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView"
-                        app:srcCompat="@drawable/ico_medal_start" />
-
-                    <ImageView
-                        android:id="@+id/image_achiever"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_starter"
-                        app:layout_constraintEnd_toStartOf="@+id/image_beast"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/image_starter"
-                        app:layout_constraintTop_toTopOf="@+id/image_starter"
-                        app:srcCompat="@drawable/ico_medal_finisher" />
-
-                    <ImageView
-                        android:id="@+id/image_beast"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_achiever"
-                        app:layout_constraintEnd_toStartOf="@+id/image_finisher"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/image_achiever"
-                        app:layout_constraintTop_toTopOf="@+id/image_achiever"
-                        app:srcCompat="@drawable/ico_medal_achiever" />
-
-                    <ImageView
-                        android:id="@+id/image_finisher"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_beast"
-                        app:layout_constraintEnd_toStartOf="@+id/image_best"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/image_beast"
-                        app:layout_constraintTop_toTopOf="@+id/image_beast"
-                        app:srcCompat="@drawable/ico_medal_basic" />
-
-                    <ImageView
-                        android:id="@+id/image_best"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_finisher"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/image_finisher"
-                        app:layout_constraintTop_toTopOf="@+id/image_finisher"
-                        app:srcCompat="@drawable/ico_medal_winner" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_awards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_achievements"></androidx.recyclerview.widget.RecyclerView>
 
 
         <LinearLayout
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view_awards">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -168,7 +82,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -190,7 +104,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="25dp"
                 android:orientation="horizontal">
 
@@ -210,5 +124,16 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView_achievements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/headerFont"
+            android:text="Achievements"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_text_user_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

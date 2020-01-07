@@ -1,6 +1,7 @@
 package com.pomoranca.myapplication.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -22,10 +23,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        val settings: SharedPreferences = getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+
+        val editor = settings.edit()
 
         //User has successfully logged in, save this information
         // We need an Editor object to make preference changes.
-        val settings = getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
 
         //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
         val hasLoggedIn = settings.getBoolean("hasLoggedIn", false)
@@ -45,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 val name = welcomeCardInput.text.toString().capitalize()
                 val user = User(name, 0, 0)
                 loseWeightViewModel.insert(user)
-                val editor = settings.edit()
+
                 editor.putBoolean("hasLoggedIn", true)
                 // Commit the edits!
                 editor.apply()
@@ -55,14 +58,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun malePickClicked(view: View) {
+        val settings: SharedPreferences = getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+
+        val editor = settings.edit()
+        editor.putBoolean("pick_male", true)
+        editor.apply()
+
         view.scaleX = 1.2f
         view.scaleY = 1.2f
 
+
         pick_female.scaleX = 0.9f
         pick_female.scaleY = 0.9f
-
     }
     fun femalePickClicked(view: View) {
+        val settings: SharedPreferences = getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+
+        val editor = settings.edit()
+        editor.putBoolean("pick_male", false)
+        editor.apply()
+
         view.scaleX = 1.2f
         view.scaleY = 1.2f
 
