@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.recycler_view_plan.view.*
 
 class PlanRecyclerViewAdapter :
     RecyclerView.Adapter<PlanRecyclerViewAdapter.PlanHolder>() {
+
+
     private lateinit var listener: OnItemClickListener
 
         var planList = mutableListOf<WorkoutPlan>()

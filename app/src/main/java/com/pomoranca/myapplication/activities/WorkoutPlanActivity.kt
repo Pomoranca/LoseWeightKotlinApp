@@ -3,6 +3,7 @@ package com.pomoranca.myapplication.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,13 +23,9 @@ class WorkoutPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
-        val backgroundPath = intent.getIntExtra("BACKGROUND", 0)
         setSupportActionBar(toolbar_workout_plan)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = "Workout plan"
-
-
-//        title = planTitle
 
         workoutRecyclerView.layoutManager = LinearLayoutManager(this)
         workoutRecyclerView.setHasFixedSize(true)
@@ -40,23 +37,27 @@ class WorkoutPlanActivity : AppCompatActivity() {
         when(planTitle) {
             "Beginner plan" -> loseWeightViewModel.getBeginnerWorkouts().observe(this,
                 Observer<List<Workout>> {
-                    adapter.submitList(it)
+                    adapter.workoutList = it as MutableList<Workout>
+                    adapter.notifyDataSetChanged()
                 })
             "Intermediate plan" -> loseWeightViewModel.getIntermediateWorkouts().observe(this,
                 Observer<List<Workout>> {
-                    adapter.submitList(it)
+                    adapter.workoutList = it as MutableList<Workout>
+                    adapter.notifyDataSetChanged()
                 })
             "Advanced plan" -> loseWeightViewModel.getAdvancedWorkouts().observe(this,
                 Observer<List<Workout>> {
-                    adapter.submitList(it)
+                    adapter.workoutList = it as MutableList<Workout>
+                    adapter.notifyDataSetChanged()
                 })
             "Premium plan" -> loseWeightViewModel.getAllWorkouts().observe(this,
                 Observer<List<Workout>> {
-                    adapter.submitList(it)
+                    adapter.workoutList = it as MutableList<Workout>
+                    adapter.notifyDataSetChanged()
                 })
         }
         button_begin_workout.setOnClickListener {
-            val intent: Intent = Intent(this, WorkoutActivity::class.java)
+            val intent = Intent(this, WorkoutActivity::class.java)
             intent.putExtra("PLAN_TITLE", planTitle)
             startActivity(intent)
         }

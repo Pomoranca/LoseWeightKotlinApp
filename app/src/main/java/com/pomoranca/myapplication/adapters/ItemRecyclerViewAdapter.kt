@@ -11,24 +11,9 @@ import com.pomoranca.myapplication.data.Workout
 import kotlinx.android.synthetic.main.workout_recycler_view_item.view.*
 
 
-class ItemRecyclerViewAdapter : ListAdapter<Workout, ItemRecyclerViewAdapter.ItemHolder>(
-    DIFF_CALLBACK
-) {
+class ItemRecyclerViewAdapter : RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemHolder>() {
+    var workoutList = mutableListOf<Workout>()
 
-    companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<Workout> =
-            object : DiffUtil.ItemCallback<Workout>() {
-                override fun areItemsTheSame(oldItem: Workout, newItem: Workout): Boolean {
-                    return oldItem.id == newItem.id
-                }
-
-                override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean {
-                    return oldItem.name == newItem.name && oldItem.difficulty == newItem.difficulty
-                            && oldItem.imagePath == newItem.imagePath
-                }
-
-            }
-    }
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recyclerWorkoutImage = itemView.recycler_workout_image!!
@@ -43,9 +28,14 @@ class ItemRecyclerViewAdapter : ListAdapter<Workout, ItemRecyclerViewAdapter.Ite
 
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val currentWorkout = getItem(position)
+        val currentWorkout = workoutList[position]
         holder.recyclerWorkoutImage.setImageResource(currentWorkout.imagePath)
         holder.recyclerWorkoutName.text = currentWorkout.name
     }
+
+    override fun getItemCount(): Int {
+        return workoutList.size
+    }
+
 
 }
