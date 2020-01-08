@@ -52,7 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_anchor="@id/main_appbar"
-        app:layout_anchorGravity="bottom|center"
+        android:layout_marginEnd="16dp"
+        app:layout_anchorGravity="bottom|end"
+        style="@style/Widget.Design.FloatingActionButton"
         android:src="@drawable/ico_calendar" />
 
 
@@ -64,7 +66,7 @@
             android:layout_gravity="bottom"
             android:fitsSystemWindows="false"
             app:backgroundTint="?attr/backgroundColor"
-            app:labelVisibilityMode="labeled"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_menu"
             app:layout_scrollFlags="scroll|enterAlways"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />

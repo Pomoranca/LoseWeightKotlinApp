@@ -2,46 +2,44 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#f7f7f7"
+    android:orientation="horizontal"
     tools:context=".activities.WorkoutPlanActivity">
 
-  <pl.droidsonroids.gif.GifImageView
-      android:id="@+id/recycler_workout_image"
-      android:layout_width="80dp"
-      android:layout_height="80dp"
-      android:layout_marginStart="8dp"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/recycler_workout_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
 
-      android:src="@drawable/abs_back"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/abs_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-      android:id="@+id/recycler_workout_name"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginStart="8dp"
-      android:fontFamily="@font/roboto_black"
-      android:padding="5dp"
-      android:textSize="15sp"
-      app:layout_constraintBottom_toBottomOf="@+id/recycler_workout_image"
-      app:layout_constraintStart_toEndOf="@+id/recycler_workout_image"
-      app:layout_constraintTop_toTopOf="@+id/recycler_workout_image"
-      tools:text="@tools:sample/lorem" />
+    <TextView
+        android:id="@+id/recycler_workout_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:padding="5dp"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_workout_image"
+        app:layout_constraintStart_toEndOf="@+id/recycler_workout_image"
+        app:layout_constraintTop_toTopOf="@+id/recycler_workout_image"
+        tools:text="@tools:sample/lorem" />
 
-  <View
-      android:id="@+id/view"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginTop="8dp"
-      android:background="@drawable/shadow"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/recycler_workout_image" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_workout_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,4 +22,5 @@ interface WorkoutDao {
 
     @Query("SELECT * FROM workout_table WHERE difficulty = 3 ")
     fun getAdvancedWorkouts(): LiveData<List<Workout>>
+
 }

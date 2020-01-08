@@ -18,12 +18,6 @@ import kotlinx.android.synthetic.main.activity_workout_plan.*
 class WorkoutPlanActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
 
-    companion object {
-        const val EXTRA_TITLE = "com.pomoranca.myapplication.activities.EXTRA_TITLE"
-        const val EXTRA_MEDALS = "com.pomoranca.myapplication.activities.EXTRA_MEDALS"
-        const val EXTRA_WORKOUTS = "com.pomoranca.myapplication.activities.EXTRA_WORKOUTS"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)

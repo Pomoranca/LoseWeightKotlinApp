@@ -1,4 +1,4 @@
-package com.pomoranca.myapplication.activities.fragments
+package com.pomoranca.myapplication.activities.listeners
 
 interface OnAboutClickedListener {
     fun onAboutClicked()

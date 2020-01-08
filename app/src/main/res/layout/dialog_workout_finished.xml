@@ -37,8 +37,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="48dp"
+                    style="@style/headerFont"
                     android:text="Congratulations"
-                    android:textColor="@android:color/primary_text_light"
                     android:textSize="18sp" />
 
                 <TextView
@@ -75,7 +75,7 @@
                     android:layout_marginBottom="6dp"
                     android:background="@drawable/welcome_button_shape"
                     android:focusable="true"
-                    android:fontFamily="@font/roboto_black"
+                    android:padding="5dp"
                     android:includeFontPadding="false"
                     android:text="Finish"
                     android:textAllCaps="false"

@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.recycler_view_plan.view.*
 class PlanRecyclerViewAdapter :
     RecyclerView.Adapter<PlanRecyclerViewAdapter.PlanHolder>() {
     private lateinit var listener: OnItemClickListener
-    var planList = mutableListOf<WorkoutPlan>()
+
+        var planList = mutableListOf<WorkoutPlan>()
+
 
 
     inner class PlanHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,6 +29,7 @@ class PlanRecyclerViewAdapter :
                 }
             }
         }
+
         val courseLength: TextView = itemView.course_length_text
         val planTextView: TextView = itemView.plan_textView
         val daysTextView: TextView = itemView.course_days_text
@@ -57,11 +60,10 @@ class PlanRecyclerViewAdapter :
     }
 
     fun populatePlanList() {
-        planList.add(WorkoutPlan("Beginner plan", 20, R.drawable.plan_beginner))
-        planList.add(WorkoutPlan("Intermediate plan", 30, R.drawable.plan_intermediate))
-        planList.add(WorkoutPlan("Advanced plan", 40, R.drawable.plan_advanced))
-        planList.add(WorkoutPlan("Premium plan", 60, R.drawable.plan_premium))
-
+        planList.add(WorkoutPlan("Beginner plan", 20, R.drawable.plan_beginner, 30, 20))
+        planList.add(WorkoutPlan("Intermediate plan", 30, R.drawable.plan_intermediate, 40, 20))
+        planList.add(WorkoutPlan("Advanced plan", 40, R.drawable.plan_advanced, 45, 15))
+        planList.add(WorkoutPlan("Premium plan", 60, R.drawable.plan_premium, 45, 15))
     }
 
     interface OnItemClickListener {
