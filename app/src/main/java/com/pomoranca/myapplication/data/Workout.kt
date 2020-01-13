@@ -10,6 +10,5 @@ class Workout(
     var difficulty: Int) {
 
     @PrimaryKey(autoGenerate = true)
-        var id:Int = 0
-
+    var id:Int = 0
 }

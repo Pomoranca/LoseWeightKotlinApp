@@ -11,16 +11,16 @@ interface WorkoutDao {
     @Insert
     fun insert(workout: Workout)
 
-    @Query("SELECT * FROM workout_table")
-    fun getAllWorkouts(): LiveData<List<Workout>>
-
-    @Query("SELECT * FROM workout_table WHERE difficulty = 1")
+    @Query("SELECT * FROM workout_table WHERE difficulty = 1 ORDER BY RANDOM() LIMIT 5")
     fun getBeginnerWorkouts(): LiveData<List<Workout>>
 
-    @Query("SELECT * FROM workout_table WHERE difficulty = 2")
+    @Query("SELECT * FROM workout_table WHERE difficulty = 2 ORDER BY RANDOM() LIMIT 6")
     fun getIntermediateWorkouts(): LiveData<List<Workout>>
 
-    @Query("SELECT * FROM workout_table WHERE difficulty = 3 ")
+    @Query("SELECT * FROM workout_table WHERE difficulty = 3 ORDER BY RANDOM() LIMIT 7 ")
     fun getAdvancedWorkouts(): LiveData<List<Workout>>
+    @Query("SELECT * FROM workout_table WHERE difficulty = 3 ORDER BY RANDOM() LIMIT 7")
+    fun getInsaneWorkouts(): LiveData<List<Workout>>
+
 
 }

@@ -51,7 +51,7 @@ class PlanRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: PlanHolder, position: Int) {
         val currentPlan = planList[position]
-        holder.courseLength.text = "Course length: "
+        holder.courseLength.text = "Suggested duration  "
         holder.planTextView.text = currentPlan.name
         holder.daysTextView.text = "${currentPlan.duration} days"
         Glide
@@ -65,7 +65,7 @@ class PlanRecyclerViewAdapter :
         planList.add(WorkoutPlan("Beginner plan", 20, R.drawable.plan_beginner, 30, 20))
         planList.add(WorkoutPlan("Intermediate plan", 30, R.drawable.plan_intermediate, 40, 20))
         planList.add(WorkoutPlan("Advanced plan", 40, R.drawable.plan_advanced, 45, 15))
-        planList.add(WorkoutPlan("Premium plan", 60, R.drawable.plan_premium, 45, 15))
+        planList.add(WorkoutPlan("Insane plan", 60, R.drawable.plan_premium, 45, 15))
     }
 
     interface OnItemClickListener {

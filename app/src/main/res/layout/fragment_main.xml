@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.fragments.MainFragment">
+    tools:context=".activities.fragments.MainFragment"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:fitsSystemWindows="true"
@@ -38,6 +39,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_hi" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+<!--            <ImageView-->
+<!--                android:id="@+id/fragment_main_ico_step"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:src="@drawable/ico_step" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Steps:"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="start"/>
+
+            <TextView
+                android:id="@+id/fragment_main_text_step_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="0"
+                android:layout_marginStart="8dp" />
+
+            <ProgressBar
+                android:id="@+id/fragment_main_progress_step"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:max="3000"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPlan"
             android:layout_width="match_parent"
@@ -48,7 +90,10 @@
             app:layout_constraintTop_toBottomOf="@id/textview_tips"
             tools:itemCount="5"
             tools:listitem="@layout/recycler_view_plan" />
+
     </LinearLayout>
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

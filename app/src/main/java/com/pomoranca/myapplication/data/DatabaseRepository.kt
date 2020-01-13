@@ -3,20 +3,20 @@ package com.pomoranca.myapplication.data
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import ru.cleverpumpkin.calendar.CalendarDate
-import java.lang.Exception
 
 class DatabaseRepository(application: Application) {
     private var userDao: UserDao
     private var workoutDao: WorkoutDao
     private var calendarDateDao: CalendarDateDao
     private var allUsers: LiveData<List<User>>
-    private var allWorkouts: LiveData<List<Workout>>
     private var allCalendarDates: LiveData<List<MyCalendarDate>>
+
     //declare all workout plan lists
     private var beginnerWorkouts: LiveData<List<Workout>>
     private var intermediateWorkouts: LiveData<List<Workout>>
     private var advancedWorkouts: LiveData<List<Workout>>
+    private var insaneWorkouts: LiveData<List<Workout>>
+
 
 
     init {
@@ -27,7 +27,7 @@ class DatabaseRepository(application: Application) {
         calendarDateDao = database.calendarDateDao()
 
         allUsers = userDao.getAllUsers()
-        allWorkouts = workoutDao.getAllWorkouts()
+        insaneWorkouts = workoutDao.getInsaneWorkouts()
         allCalendarDates = calendarDateDao.getAllCalendarDates()
         beginnerWorkouts = workoutDao.getBeginnerWorkouts()
         intermediateWorkouts = workoutDao.getIntermediateWorkouts()
@@ -55,8 +55,8 @@ class DatabaseRepository(application: Application) {
         return allUsers
     }
 
-    fun getAllWorkouts(): LiveData<List<Workout>> {
-        return allWorkouts
+    fun getInsaneWorkouts(): LiveData<List<Workout>> {
+        return insaneWorkouts
     }
 
     fun getAllCalendarDates(): LiveData<List<MyCalendarDate>> {

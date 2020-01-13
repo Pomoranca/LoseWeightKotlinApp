@@ -1,14 +1,18 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pomoranca.myapplication.R
@@ -19,17 +23,23 @@ import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_workout.*
 import kotlinx.android.synthetic.main.dialog_stop_workout.*
 import kotlinx.android.synthetic.main.dialog_workout_finished.*
+import pl.droidsonroids.gif.AnimationListener
+import pl.droidsonroids.gif.GifDrawable
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class WorkoutActivity : AppCompatActivity() {
+class WorkoutActivity : AppCompatActivity(), AnimationListener {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
 
 
     private var START_TIME_IN_MILLIS = 40000L
     private var REST_TIME_IN_MILLIS = 15000L
-    private var workoutList: List<Workout> = listOf()
+
+    companion object {
+         var finalWorkoutList: List<Workout> = listOf()
+    }
+
     var planTitle: String = ""
     private lateinit var mTextToSpeech: TextToSpeech
 
@@ -39,6 +49,9 @@ class WorkoutActivity : AppCompatActivity() {
     var LAST_DATE_CONVERTED = ""
     var CURRENT_DATE = 0L
     var CURRENT_DATE_CONVERTED = ""
+    private lateinit var gifDrawable: GifDrawable
+     var initialStart : Boolean = true
+
 
 
     //USER PREFERENCES
@@ -55,6 +68,7 @@ class WorkoutActivity : AppCompatActivity() {
 
 
     private lateinit var mCountDownTimer: CountDownTimer
+    private lateinit var initialTimer: CountDownTimer
     private var mTimerRunning: Boolean = false
     private var mTimeLeftMillis = START_TIME_IN_MILLIS
     private var mEndTime: Long = 0
@@ -69,6 +83,11 @@ class WorkoutActivity : AppCompatActivity() {
         setContentView(R.layout.activity_workout)
         setSupportActionBar(toolbar_workout)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val path = finalWorkoutList[currentSet - 1].imagePath
+        gifDrawable = GifDrawable.createFromResource(resources, path) as GifDrawable
+        gifDrawable.setSpeed(1.5f)
+        gifDrawable.addAnimationListener(this)
+        resetAnimation()
 
         title = "Workout"
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
@@ -97,7 +116,7 @@ class WorkoutActivity : AppCompatActivity() {
 
         mTextToSpeech = TextToSpeech(
             this,
-            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH },
+            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH},
             "com.google.android.tts"
         )
 
@@ -110,7 +129,9 @@ class WorkoutActivity : AppCompatActivity() {
         }
         progress_bar.progress = (START_TIME_IN_MILLIS / 1000).toInt()
         text_view_countdown.text = (START_TIME_IN_MILLIS / 1000).toString()
+        text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
         populateList()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -143,10 +164,14 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
-        val currentWorkoutText = workoutList[currentSet - 1].name
+        toggleAnimation()
+        progress_bar.progressDrawable.setColorFilter(
+            Color.parseColor("#C5E1A5"), android.graphics.PorterDuff.Mode.SRC_IN
+        )
+        val currentWorkoutText = finalWorkoutList[currentSet - 1].name
         mTextToSpeech.setSpeechRate(0.9f)
         mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
-        mCountDownTimer = object : CountDownTimer(mTimeLeftMillis, 1) {
+        mCountDownTimer = object : CountDownTimer(mTimeLeftMillis, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
                 mTimeLeftMillis = millisUntilFinished
@@ -159,12 +184,14 @@ class WorkoutActivity : AppCompatActivity() {
                     mTimerRunning = true
                     currentSet++
                     changeAnimation()
+                    resetAnimation()
+//                    toggleAnimation()
                     mTimeLeftMillis = START_TIME_IN_MILLIS
 
                     startTimer()
                 } else if (currentSet == numberOfSets) {
                     mTimerRunning = false
-                    button_start_pause.text = "Start"
+                    button_start_pause.setImageResource(R.drawable.ic_play_white)
                     resetTimer()
                     mTextToSpeech.speak(
                         "Great job",
@@ -182,47 +209,53 @@ class WorkoutActivity : AppCompatActivity() {
         }.start()
 
         mTimerRunning = true
-        button_start_pause.text = "Pause"
+        button_start_pause.setImageResource(R.drawable.ic_pause_white)
     }
 
     private fun pauseTimer() {
         mCountDownTimer.cancel()
         mTimerRunning = false
+        toggleAnimation()
 
-        button_start_pause.text = "Resume"
+        button_start_pause.setImageResource(R.drawable.ic_play_white)
         mTextToSpeech.setSpeechRate(1f)
         mTextToSpeech.speak("Workout paused", TextToSpeech.QUEUE_FLUSH, null)
+        progress_bar.progressDrawable.setColorFilter(
+            Color.parseColor("#F48FB1"), android.graphics.PorterDuff.Mode.SRC_IN
+        )
+
     }
 
     fun updateCountDownText() {
-        val seconds = ((mTimeLeftMillis / 1000) % 60 + 1).toInt()
+        val seconds = ((mTimeLeftMillis / 1000) % 60).toInt()
         text_view_countdown.text = "$seconds"
         progress_bar.progress = seconds
 
-        when (progress_bar.progress) {
-            15 -> {
-                playsound()
-                mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
-            }
 
-        }
 //        when (progress_bar.progress) {
-//            15 -> mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
-//            in 0..15 -> {
-//                progress_bar.progressDrawable.setColorFilter(
-//                    Color.RED, android.graphics.PorterDuff.Mode.SRC_IN
-//                )
-//                text_current_workout.text = "Take a rest"
-//                image_current_workout.visibility = View.INVISIBLE
-//            }
-//            in 16..60 -> {
-//                progress_bar.progressDrawable.setColorFilter(
-//                    Color.rgb(109, 162, 232), android.graphics.PorterDuff.Mode.SRC_IN
-//                )
-//
-//                image_current_workout.visibility = View.VISIBLE
+//               40 -> { playsound()
+//                Log.i("SOUND", "SOUND PLAYED")
 //            }
 //        }
+        when (progress_bar.progress) {
+            (REST_TIME_IN_MILLIS/1000).toInt() -> {
+            mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
+                progress_bar.progressDrawable.setColorFilter(
+                    Color.parseColor("#F48FB1"), android.graphics.PorterDuff.Mode.SRC_IN
+                )
+                text_current_workout.text = "Take a rest!"
+                image_current_workout.visibility = View.INVISIBLE
+                playsound()
+            }
+            ((START_TIME_IN_MILLIS/1000)-1).toInt() -> {
+                progress_bar.progressDrawable.setColorFilter(
+                    Color.parseColor("#C5E1A5"), android.graphics.PorterDuff.Mode.SRC_IN
+                )
+                playsound()
+                text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
+                image_current_workout.visibility = View.VISIBLE
+            }
+        }
 
     }
 
@@ -235,9 +268,9 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun updateButton() {
         if (mTimerRunning) {
-            button_start_pause.text = "Pause"
+            button_start_pause.setImageResource(R.drawable.ic_pause_white)
         } else {
-            button_start_pause.text = "Resume"
+            button_start_pause.setImageResource(R.drawable.ic_play_white)
         }
     }
 
@@ -277,7 +310,6 @@ class WorkoutActivity : AppCompatActivity() {
                     Observer<List<Workout>> {
                         multiplyFactor = 1
                         numberOfSets = it.size
-                        workoutList = it
                         changeAnimation()
                     })
             }
@@ -286,7 +318,6 @@ class WorkoutActivity : AppCompatActivity() {
                     Observer<List<Workout>> {
                         multiplyFactor = 2
                         numberOfSets = it.size
-                        workoutList = it
                         changeAnimation()
                     })
             }
@@ -295,17 +326,15 @@ class WorkoutActivity : AppCompatActivity() {
                     Observer<List<Workout>> {
                         multiplyFactor = 3
                         numberOfSets = it.size
-                        workoutList = it
                         changeAnimation()
                     })
-
             }
-            "Premium plan" -> {
-                loseWeightViewModel.getAllWorkouts().observe(this,
+            "Insane plan" -> {
+                loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 4
                         numberOfSets = it.size
-                        workoutList = it
+                        finalWorkoutList = it
                         changeAnimation()
                     })
             }
@@ -313,17 +342,21 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     fun changeAnimation() {
-        image_current_workout.setImageResource(workoutList[currentSet - 1].imagePath)
-        val currentWorkoutText = workoutList[currentSet - 1].name
-        text_current_workout.text = "Current workout: $currentWorkoutText"
+//        val path = finalWorkoutList[currentSet - 1].imagePath
+//        val gifFromPath = GifDrawable(resources, path)
+//        gifFromPath.setSpeed(1.5f)
+        image_current_workout.setImageDrawable(gifDrawable)
+
+        val currentWorkoutText = text_current_workout.text.toString()
+        text_current_workout.text = currentWorkoutText
         mTextToSpeech.setSpeechRate(0.9f)
         mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
     }
 
-
     private fun showDialogFinish() {
         val dialog = Dialog(this)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_workout_finished)
@@ -351,7 +384,6 @@ class WorkoutActivity : AppCompatActivity() {
         super.onPause()
         if (mTimerRunning) {
             pauseTimer()
-
         }
     }
 
@@ -379,7 +411,6 @@ class WorkoutActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
     private fun prepareTimer() {
         when (planTitle) {
             "Beginner plan" -> {
@@ -403,6 +434,36 @@ class WorkoutActivity : AppCompatActivity() {
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
         }
+    }
+
+
+    private fun toggleAnimation() = when {
+        gifDrawable.isPlaying -> gifDrawable.stop()
+        else -> gifDrawable.start()
+    }
+
+    override fun onAnimationCompleted(loopNumber: Int) {
+
+        }
+    private fun resetAnimation() {
+        gifDrawable.stop()
+        gifDrawable.loopCount = 4
+        gifDrawable.seekToFrameAndGet(5)
+    }
+
+    fun initialTimer() {
+        initialTimer = object: CountDownTimer(3000, 1000){
+            override fun onFinish() {
+                startTimer()
+                initialStart = false
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                text_view_countdown.text = "$millisUntilFinished"
+            }
+
+        }
+
     }
 
 }

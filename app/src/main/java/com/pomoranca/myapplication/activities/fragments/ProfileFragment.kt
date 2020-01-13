@@ -3,6 +3,7 @@ package com.pomoranca.myapplication.activities.fragments
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +28,6 @@ class ProfileFragment : Fragment() {
     private var userExperience = 0
     private var medalsWon = 0
     private val PREFS_NAME = "MyPrefsFile"
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +59,8 @@ class ProfileFragment : Fragment() {
                 startActivity(intent)
             }
         })
+
+
 
 
 

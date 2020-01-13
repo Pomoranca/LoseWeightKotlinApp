@@ -2,6 +2,7 @@ package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -36,15 +37,12 @@ class MainActivity : AppCompatActivity(),
     private val PREFS_NAME = "MyPrefsFile"
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-//        toolbar.setOnMenuItemClickListener {
-//            startActivity(Intent(this, CalendarActivity::class.java))
-//            return@setOnMenuItemClickListener false
-//        }
         checkFirstTimeRun()
 
         main_fab_calendar.setOnClickListener {
@@ -185,6 +183,7 @@ class MainActivity : AppCompatActivity(),
         val width = ViewGroup.LayoutParams.MATCH_PARENT
         val height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog.window?.setLayout(width,height)
+        dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
         dialog.dialog_welcome_name.text = "Welcome"
 //        val textView = view.findViewById<TextView>(R.id.dialog_welcome_name)
 //        textView.text= "Welcome $userName"
@@ -211,6 +210,7 @@ class MainActivity : AppCompatActivity(),
         val width = ViewGroup.LayoutParams.MATCH_PARENT
         val height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog.window?.setLayout(width,height)
+        dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.dialog_about_button_close.setOnClickListener{
             dialog.dismiss()
         }

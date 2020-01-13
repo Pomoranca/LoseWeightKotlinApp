@@ -7,22 +7,22 @@ import com.pomoranca.myapplication.data.DatabaseRepository
 import com.pomoranca.myapplication.data.MyCalendarDate
 import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.data.Workout
-import ru.cleverpumpkin.calendar.CalendarDate
 
 class LoseWeightViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository: DatabaseRepository = DatabaseRepository(application)
-    private var allWorkouts = repository.getAllWorkouts()
     private var allUsers = repository.getAllUsers()
     private var allCalendarDates = repository.getAllCalendarDates()
     private var beginnerWorkouts = repository.getBeginnerWorkouts()
     private var intermediateWorkouts = repository.getIntermediateWorkouts()
     private var advancedWorkouts = repository.getAdvancedWorkouts()
+    private var insaneWorkouts = repository.getInsaneWorkouts()
 
 
 
-    fun getAllWorkouts(): LiveData<List<Workout>> {
-        return allWorkouts
+
+    fun getInsaneWorkouts(): LiveData<List<Workout>> {
+        return insaneWorkouts
     }
     fun getAllUsers(): LiveData<List<User>> {
         return allUsers
