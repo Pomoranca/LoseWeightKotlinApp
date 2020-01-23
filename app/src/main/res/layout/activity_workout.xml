@@ -83,7 +83,6 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_workout">
 
         <View
-            android:id="@+id/line_top"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@drawable/shadow"
@@ -101,7 +100,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/line_bottom"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@drawable/shadow"

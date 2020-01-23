@@ -30,12 +30,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
-        val settings: SharedPreferences = getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-        val editor = settings.edit()
 
-        val hasLoggedIn = settings.getBoolean("hasLoggedIn", false)
-
-        
         setSupportActionBar(toolbar_workout_plan)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = "Workout plan"
@@ -54,27 +49,23 @@ class WorkoutPlanActivity : AppCompatActivity() {
                     adapter.workoutList = it as MutableList<Workout>
                     finalWorkoutList = it
                     adapter.notifyDataSetChanged()
-//                    workout_plan_image_header.setImageResource(R.drawable.plan_beginner)
                 })
             "Intermediate plan" -> loseWeightViewModel.getIntermediateWorkouts().observe(this,
                 Observer<List<Workout>> {
                     adapter.workoutList = it as MutableList<Workout>
                     finalWorkoutList = it
-//                    workout_plan_image_header.setImageResource(R.drawable.plan_intermediate)
                     adapter.notifyDataSetChanged()
                 })
             "Advanced plan" -> loseWeightViewModel.getAdvancedWorkouts().observe(this,
                 Observer<List<Workout>> {
                     adapter.workoutList = it as MutableList<Workout>
                     finalWorkoutList = it
-//                    workout_plan_image_header.setImageResource(R.drawable.plan_advanced)
                     adapter.notifyDataSetChanged()
                 })
             "Insane plan" -> loseWeightViewModel.getInsaneWorkouts().observe(this,
                 Observer<List<Workout>> {
                     adapter.workoutList = it as MutableList<Workout>
                     finalWorkoutList = it
-//                    workout_plan_image_header.setImageResource(R.drawable.plan_premium)
                     adapter.notifyDataSetChanged()
                 })
         }

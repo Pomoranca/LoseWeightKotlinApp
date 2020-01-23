@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.data.Workout
 import kotlinx.android.synthetic.main.workout_recycler_view_item.view.*
@@ -29,7 +30,13 @@ class ItemRecyclerViewAdapter : RecyclerView.Adapter<ItemRecyclerViewAdapter.Ite
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val currentWorkout = workoutList[position]
-        holder.recyclerWorkoutImage.setImageResource(currentWorkout.imagePath)
+
+        Glide
+            .with(holder.recyclerWorkoutImage.context)
+            .load(currentWorkout.imagePath)
+            .centerCrop()
+            .into(holder.recyclerWorkoutImage)
+//        holder.recyclerWorkoutImage.setImageResource(currentWorkout.imagePath)
         holder.recyclerWorkoutName.text = currentWorkout.name
     }
 

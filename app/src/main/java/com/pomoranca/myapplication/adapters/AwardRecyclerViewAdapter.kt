@@ -5,21 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.activities.fragments.ProfileFragment
 import com.pomoranca.myapplication.data.Award
+import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.recycler_view_award.view.*
 
 class AwardRecyclerViewAdapter :
     RecyclerView.Adapter<AwardRecyclerViewAdapter.AchievementHolder>() {
     lateinit var listener: OnItemClickListener
     val awardsList = mutableListOf<Award>()
+    val experience = 0
+    lateinit var loseWeightViewModel : LoseWeightViewModel
 
     inner class AchievementHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val card: ImageView = itemView.award_card_background
 
         init {
-            itemView.alpha = 0.9f
             itemView.setOnClickListener {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -35,6 +41,8 @@ class AwardRecyclerViewAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_award, parent, false)
+
+
         return AchievementHolder(itemView)
 
     }
@@ -45,6 +53,17 @@ class AwardRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: AchievementHolder, position: Int) {
         val currentAward = awardsList[position]
+        val isWon = currentAward.won
+        if(isWon) {
+          holder.itemView.isClickable = true
+            holder.card.alpha = 0.9f
+        } else if(!isWon) {
+            holder.itemView.setOnClickListener {
+           Snackbar.make(holder.itemView, "You have not yet won this award :(", Snackbar.LENGTH_LONG).setTextColor(Color.parseColor("#FFFFFF")).show()
+
+            }
+            holder.card.alpha = 0.2f
+        }
 
         Glide
             .with(holder.background.context)
@@ -59,8 +78,6 @@ class AwardRecyclerViewAdapter :
         awardsList.add(Award("Beast","One of the best awards ever this medal is absolutely brilliand", R.drawable.ico_medal_finisher))
         awardsList.add(Award("Finisher","One of the best awards ever this medal is absolutely brilliand", R.drawable.ico_medal_beast))
         awardsList.add(Award("Ruler","One of the best awards ever this medal is absolutely brilliand", R.drawable.ico_medal_best))
-
-
     }
 
     interface OnItemClickListener {

@@ -15,7 +15,6 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_award"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -56,7 +55,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_medal_header"
                 style="@style/headerFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +62,6 @@
                 android:text="Starter" />
 
             <TextView
-                android:id="@+id/text_medal_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/material_drawer_account_header_horizontal_bottom"

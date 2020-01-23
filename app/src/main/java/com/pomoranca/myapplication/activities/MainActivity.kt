@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.fragments.MainFragment
+import com.pomoranca.myapplication.activities.fragments.MealTipsFragment
 import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
 import com.pomoranca.myapplication.activities.fragments.ProfileFragment
 import com.pomoranca.myapplication.activities.fragments.SettingsFragment
@@ -48,8 +49,6 @@ class MainActivity : AppCompatActivity(),
         main_fab_calendar.setOnClickListener {
             startActivity(Intent(this, CalendarActivity::class.java))
         }
-
-
         // Create the AccountHeader
         val headerResult = AccountHeaderBuilder()
             .withPaddingBelowHeader(false)
@@ -69,7 +68,6 @@ class MainActivity : AppCompatActivity(),
         val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("My Profile").withIcon(R.drawable.profile_ico)
         val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar").withIcon(R.drawable.ico_calendar_blk)
         val settingsItem = PrimaryDrawerItem().withIdentifier(1).withName("Settings").withIcon(R.drawable.settings_ico)
-
 
 //create the drawer and remember the `Drawer` result object
         val result = DrawerBuilder()
@@ -151,6 +149,16 @@ class MainActivity : AppCompatActivity(),
 
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.meal_nav -> {
+                val fragment = MealTipsFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
+                    .addToBackStack(null)
+                    .commit()
+
+                return@OnNavigationItemSelectedListener true
+            }
+
             R.id.profile_nav -> {
                 val fragment = ProfileFragment()
                 supportFragmentManager.beginTransaction()

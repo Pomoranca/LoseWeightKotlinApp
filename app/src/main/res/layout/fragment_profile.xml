@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             app:layout_collapseMode="parallax"
@@ -30,8 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/raleway_black"
-            android:text=""
-            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_image" />
@@ -44,7 +42,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_achievements"/>
+            app:layout_constraintTop_toBottomOf="@+id/profile_text_user_name"/>
 
 
         <LinearLayout
@@ -75,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Experience gained: 132" />
+                    android:text="Experience gained: 0" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,14 +94,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Days spent working out: 123" />
+                    android:text="Days spent working out: 0" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -118,20 +116,29 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Medals won: 12" />
+                    android:text="Medals won: 0" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ico_medal" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="Steps made: 0" />
             </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView_achievements"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/headerFont"
-            android:text="Achievements"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_text_user_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp">
 
@@ -15,8 +15,9 @@
             android:id="@+id/award_card_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.8"
+            android:alpha="0.2"
             android:elevation="0dp"
+            android:clickable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

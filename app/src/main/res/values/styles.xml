@@ -16,10 +16,6 @@
     </style>
 
 
-
-    <style name="MyActionBar" parent="Theme.AppCompat.NoActionBar">
-
-    </style>
     <style name="headerFont">
         <item name="android:fontFamily">@font/lato_bold</item>
         <item name="android:textSize">26sp</item>
@@ -31,14 +27,6 @@
     <style name="dialog_slide">
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
-    </style>
-
-    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10sp</item>
-    </style>
-
-    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">11sp</item>
     </style>
 
 

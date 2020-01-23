@@ -80,7 +80,6 @@ class MainFragment : Fragment(), SensorEventListener {
         })
 
         val recyclerView = rootView!!.recyclerViewPlan
-
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         val planRecyclerViewAdapter = PlanRecyclerViewAdapter()
@@ -104,9 +103,11 @@ class MainFragment : Fragment(), SensorEventListener {
     override fun onResume() {
         super.onResume()
         running = true
-        var stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
         if (stepSensor == null) {
-            Toast.makeText(context, "No Step Counter Sensor !", Toast.LENGTH_SHORT).show()
+            fragment_main_text_step_counter.visibility = View.GONE
+            fragment_main_progress_step.visibility = View.GONE
+
         } else {
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
         }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -35,22 +36,30 @@ class ProfileFragment : Fragment() {
     ): View? {
 
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
-        val settings: SharedPreferences = context!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+        val settings: SharedPreferences =
+            context!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
         val avatarMale = settings.getBoolean("pick_male", true)
 
-        if(avatarMale) {
+        //Question variables for profile information
+        val questionOne = settings.getString("Q 0", "")
+        val questionTwo = settings.getString("Q 1", "")
+//        Toast.makeText(context, "$a $b", Toast.LENGTH_LONG).show()
+
+        if (avatarMale) {
             rootView.profile_image.setImageResource(R.drawable.male_pick_ful_size)
         } else {
             rootView.profile_image.setImageResource(R.drawable.female_pick_full_size)
         }
 
         val recyclerView = rootView.recycler_view_awards
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         val awardRecyclerViewAdapter = AwardRecyclerViewAdapter()
         awardRecyclerViewAdapter.populateAwardList()
         recyclerView.adapter = awardRecyclerViewAdapter
 
-        awardRecyclerViewAdapter.setOnItemClickListener(object : AwardRecyclerViewAdapter.OnItemClickListener{
+        awardRecyclerViewAdapter.setOnItemClickListener(object :
+            AwardRecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(award: Award) {
                 val intent = Intent(activity, AwardActivity::class.java)
                 intent.putExtra("NAME", award.name)
@@ -60,10 +69,6 @@ class ProfileFragment : Fragment() {
             }
         })
 
-
-
-
-
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
@@ -72,40 +77,38 @@ class ProfileFragment : Fragment() {
             profile_experience_text.text = "Experience gained: ${it[0].experience}"
             userExperience = it[0].experience
 //
-//
-//
-//            when (userExperience) {
-//                in 1..99 -> {
-//                    image_starter.visibility = View.VISIBLE
-//                    medalsWon = 1
-//                }
-//                in 100..200 -> {
-//                    image_starter.visibility = View.VISIBLE
-//                    image_achiever.visibility = View.VISIBLE
-//                    medalsWon = 2
-//                }
-//                in 201..500 -> {
-//                    image_starter.visibility = View.VISIBLE
-//                    image_achiever.visibility = View.VISIBLE
-//                    image_beast.visibility = View.VISIBLE
-//                    medalsWon = 3
-//                }
-//                in 501..800 -> {
-//                    image_starter.visibility = View.VISIBLE
-//                    image_achiever.visibility = View.VISIBLE
-//                    image_beast.visibility = View.VISIBLE
-//                    image_finisher.visibility = View.VISIBLE
-//                    medalsWon = 4
-//                }
-//                in 801..1000 -> {
-//                    image_starter.visibility = View.VISIBLE
-//                    image_achiever.visibility = View.VISIBLE
-//                    image_beast.visibility = View.VISIBLE
-//                    image_finisher.visibility = View.VISIBLE
-//                    image_best.visibility = View.VISIBLE
-//                    medalsWon = 5
-//                }
-//            }
+
+            when (userExperience) {
+                in 1..99 -> {
+                   awardRecyclerViewAdapter.awardsList[0].won = true
+                }
+                in 100..200 -> {
+                    awardRecyclerViewAdapter.awardsList[0].won = true
+                    awardRecyclerViewAdapter.awardsList[1].won = true
+
+                }
+                in 201..500 -> {
+                    awardRecyclerViewAdapter.awardsList[0].won = true
+                    awardRecyclerViewAdapter.awardsList[1].won = true
+                    awardRecyclerViewAdapter.awardsList[2].won = true
+
+                }
+                in 501..800 -> {
+                    awardRecyclerViewAdapter.awardsList[0].won = true
+                    awardRecyclerViewAdapter.awardsList[1].won = true
+                    awardRecyclerViewAdapter.awardsList[2].won = true
+                    awardRecyclerViewAdapter.awardsList[3].won = true
+
+                }
+                in 801..1000 -> {
+                    awardRecyclerViewAdapter.awardsList[0].won = true
+                    awardRecyclerViewAdapter.awardsList[1].won = true
+                    awardRecyclerViewAdapter.awardsList[2].won = true
+                    awardRecyclerViewAdapter.awardsList[3].won = true
+                    awardRecyclerViewAdapter.awardsList[4].won = true
+
+                }
+            }
             profile_medals_text.text = "Medals won: $medalsWon"
 
         })
