@@ -6,5 +6,4 @@ class WorkoutPlan(
     val backgroundPath: Int,
     val workoutTime: Long,
     val restTime: Long
-) {
-}
+)

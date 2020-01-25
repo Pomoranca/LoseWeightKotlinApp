@@ -1,13 +1,20 @@
 package com.pomoranca.myapplication.adapters
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.activities.MainActivity
+import com.pomoranca.myapplication.activities.WorkoutPlanActivity
 import com.pomoranca.myapplication.data.WorkoutPlan
 import kotlinx.android.synthetic.main.recycler_view_plan.view.*
 
@@ -54,11 +61,19 @@ class PlanRecyclerViewAdapter :
         holder.courseLength.text = "Suggested duration  "
         holder.planTextView.text = currentPlan.name
         holder.daysTextView.text = "${currentPlan.duration} days"
+        holder.planCard.setColorFilter(Color.parseColor("#E8D8D8D8"), PorterDuff.Mode.MULTIPLY)
+
         Glide
             .with(holder.planCard.context)
             .load(currentPlan.backgroundPath)
             .centerCrop()
             .into(holder.planCard)
+        holder.planCard.setOnClickListener {
+            val intent = Intent(it.context, WorkoutPlanActivity::class.java)
+            intent.putExtra("NAME", currentPlan.name)
+            intent.putExtra("BACKGROUND", currentPlan.backgroundPath)
+            startActivity(it.context, intent, null)
+        }
     }
 
     fun populatePlanList() {

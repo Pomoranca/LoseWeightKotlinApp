@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(),
         val settingsItem = PrimaryDrawerItem().withIdentifier(1).withName("Settings").withIcon(R.drawable.settings_ico)
 
 //create the drawer and remember the `Drawer` result object
-        val result = DrawerBuilder()
+        DrawerBuilder()
             .withActivity(this)
             .withToolbar(toolbar)
             .withAccountHeader(headerResult)

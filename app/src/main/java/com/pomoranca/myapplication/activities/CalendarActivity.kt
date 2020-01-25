@@ -19,8 +19,6 @@ class CalendarActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
      var preselectedDates = mutableListOf<CalendarDate>()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)

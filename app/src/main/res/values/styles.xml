@@ -20,6 +20,15 @@
         <item name="android:fontFamily">@font/lato_bold</item>
         <item name="android:textSize">26sp</item>
     </style>
+    <style name="toolbarFont">
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#fcfcfc</item>
+    </style>
+    <style name="bottomNavFont">
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
     <style name="dialog_slide_out">
     <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>

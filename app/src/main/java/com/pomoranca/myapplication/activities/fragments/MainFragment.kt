@@ -2,7 +2,6 @@ package com.pomoranca.myapplication.activities.fragments
 
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -15,16 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.activities.MainActivity
-import com.pomoranca.myapplication.activities.WorkoutPlanActivity
 import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
-import com.pomoranca.myapplication.data.WorkoutPlan
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -59,6 +54,7 @@ class MainFragment : Fragment(), SensorEventListener {
 
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)
 
+
         stepCounterText = rootView.findViewById(R.id.fragment_main_text_step_counter)
         progressBar = rootView.findViewById(R.id.fragment_main_progress_step)
         // Inflate the layout for this fragment
@@ -79,22 +75,14 @@ class MainFragment : Fragment(), SensorEventListener {
             text_hi.text = "Hi ${it[0].name}"
         })
 
-        val recyclerView = rootView!!.recyclerViewPlan
+        val recyclerView = rootView!!.recyclerViewMain
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         val planRecyclerViewAdapter = PlanRecyclerViewAdapter()
         planRecyclerViewAdapter.populatePlanList()
         recyclerView.adapter = planRecyclerViewAdapter
 
-        planRecyclerViewAdapter.setOnItemClickListener(object :
-            PlanRecyclerViewAdapter.OnItemClickListener {
-            override fun onItemClick(workoutPlan: WorkoutPlan) {
-                val intent = Intent(activity, WorkoutPlanActivity::class.java)
-                intent.putExtra("NAME", workoutPlan.name)
-                intent.putExtra("BACKGROUND", workoutPlan.backgroundPath)
-                startActivityForResult(intent, MainActivity.WORKOUT_PLAN)
-            }
-        })
+
         sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         return rootView

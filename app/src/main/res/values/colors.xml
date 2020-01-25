@@ -8,5 +8,6 @@
     <color name="darkDrawer">#31353A</color>
     <color name="buttonColor">#81D4FA</color>
     <color name="cardview_dark_background">#535353</color>
+    <color name="focusedColor">#E8D8D8D8</color>
 
 </resources>
