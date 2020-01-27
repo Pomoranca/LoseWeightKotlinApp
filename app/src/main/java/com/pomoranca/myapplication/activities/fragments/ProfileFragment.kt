@@ -39,11 +39,18 @@ class ProfileFragment : Fragment() {
         val settings: SharedPreferences =
             context!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
         val avatarMale = settings.getBoolean("pick_male", true)
+        rootView.profile_steps_text.text = settings.getFloat("stepsMadeTotal", 0F).toInt().toString()
+
 
         //Question variables for profile information
         val questionOne = settings.getString("Q 0", "")
         val questionTwo = settings.getString("Q 1", "")
-//        Toast.makeText(context, "$a $b", Toast.LENGTH_LONG).show()
+        val loginDate = settings.getString("CURRENT_DATE","")
+
+        rootView.profile_text_question_one.text = questionOne
+        rootView.profile_text_question_two.text = questionTwo
+        rootView.profile_text_date_joined.text = loginDate
+
 
         if (avatarMale) {
             rootView.profile_image.setImageResource(R.drawable.male_pick_ful_size)
@@ -73,8 +80,8 @@ class ProfileFragment : Fragment() {
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
             profile_text_user_name.text = it[0].name
-            profile_days_text.text = "Days spent working out: ${it[0].days}"
-            profile_experience_text.text = "Experience gained: ${it[0].experience}"
+            profile_days_text.text = "${it[0].days}"
+            profile_experience_text.text = "${it[0].experience}"
             userExperience = it[0].experience
 //
 
@@ -109,9 +116,10 @@ class ProfileFragment : Fragment() {
 
                 }
             }
-            profile_medals_text.text = "Medals won: $medalsWon"
+            profile_medals_text.text = "$medalsWon"
 
         })
+
 
 
         return rootView

@@ -66,6 +66,7 @@ class PlanRecyclerViewAdapter :
         Glide
             .with(holder.planCard.context)
             .load(currentPlan.backgroundPath)
+            .thumbnail(0.3f)
             .centerCrop()
             .into(holder.planCard)
         holder.planCard.setOnClickListener {

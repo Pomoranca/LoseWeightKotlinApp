@@ -1,18 +1,16 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
-import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
-import android.util.Log
+import android.util.DisplayMetrics
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pomoranca.myapplication.R
@@ -83,9 +81,20 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         setContentView(R.layout.activity_workout)
         setSupportActionBar(toolbar_workout)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val height = displayMetrics.heightPixels
+        val width = displayMetrics.widthPixels
+
+        progress_bar.layoutParams.height = width
+
+
+
         val path = finalWorkoutList[currentSet - 1].imagePath
         gifDrawable = GifDrawable.createFromResource(resources, path) as GifDrawable
-        gifDrawable.setSpeed(1.5f)
+//        gifDrawable.setSpeed(1.5f)
         gifDrawable.addAnimationListener(this)
         resetAnimation()
 
@@ -166,8 +175,9 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     private fun startTimer() {
         toggleAnimation()
         progress_bar.progressDrawable.setColorFilter(
-            Color.parseColor("#C5E1A5"), android.graphics.PorterDuff.Mode.SRC_IN
+            resources.getColor(R.color.startTimer), android.graphics.PorterDuff.Mode.SRC_IN
         )
+
         val currentWorkoutText = finalWorkoutList[currentSet - 1].name
         mTextToSpeech.setSpeechRate(0.9f)
         mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
@@ -191,7 +201,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                     startTimer()
                 } else if (currentSet == numberOfSets) {
                     mTimerRunning = false
-                    button_start_pause.setImageResource(R.drawable.ic_play_white)
+                    button_start_pause.text = "Start"
                     resetTimer()
                     mTextToSpeech.speak(
                         "Great job",
@@ -209,7 +219,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         }.start()
 
         mTimerRunning = true
-        button_start_pause.setImageResource(R.drawable.ic_pause_white)
+        button_start_pause.text = "Pause"
     }
 
     private fun pauseTimer() {
@@ -217,11 +227,11 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         mTimerRunning = false
         toggleAnimation()
 
-        button_start_pause.setImageResource(R.drawable.ic_play_white)
+        button_start_pause.text = "Start"
         mTextToSpeech.setSpeechRate(1f)
         mTextToSpeech.speak("Workout paused", TextToSpeech.QUEUE_FLUSH, null)
         progress_bar.progressDrawable.setColorFilter(
-            Color.parseColor("#F48FB1"), android.graphics.PorterDuff.Mode.SRC_IN
+            resources.getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN
         )
 
     }
@@ -231,26 +241,22 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         text_view_countdown.text = "$seconds"
         progress_bar.progress = seconds
 
-
-//        when (progress_bar.progress) {
-//               40 -> { playsound()
-//                Log.i("SOUND", "SOUND PLAYED")
-//            }
-//        }
         when (progress_bar.progress) {
             (REST_TIME_IN_MILLIS/1000).toInt() -> {
             mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
                 progress_bar.progressDrawable.setColorFilter(
-                    Color.parseColor("#F48FB1"), android.graphics.PorterDuff.Mode.SRC_IN
+                    resources.getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN
                 )
+                button_start_pause.visibility = View.INVISIBLE
                 text_current_workout.text = "Take a rest!"
                 image_current_workout.visibility = View.INVISIBLE
                 playsound()
             }
             ((START_TIME_IN_MILLIS/1000)-1).toInt() -> {
                 progress_bar.progressDrawable.setColorFilter(
-                    Color.parseColor("#C5E1A5"), android.graphics.PorterDuff.Mode.SRC_IN
+                    resources.getColor(R.color.startTimer), android.graphics.PorterDuff.Mode.SRC_IN
                 )
+
                 playsound()
                 text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
                 image_current_workout.visibility = View.VISIBLE
@@ -268,9 +274,9 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
 
     private fun updateButton() {
         if (mTimerRunning) {
-            button_start_pause.setImageResource(R.drawable.ic_pause_white)
+            button_start_pause.text = "Pause"
         } else {
-            button_start_pause.setImageResource(R.drawable.ic_play_white)
+            button_start_pause.text = "Start"
         }
     }
 
@@ -342,9 +348,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     }
 
     fun changeAnimation() {
-//        val path = finalWorkoutList[currentSet - 1].imagePath
-//        val gifFromPath = GifDrawable(resources, path)
-//        gifFromPath.setSpeed(1.5f)
+//
         image_current_workout.setImageDrawable(gifDrawable)
 
         val currentWorkoutText = text_current_workout.text.toString()
@@ -415,22 +419,22 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         when (planTitle) {
             "Beginner plan" -> {
                 REST_TIME_IN_MILLIS = 20000
-                START_TIME_IN_MILLIS = 30000 + REST_TIME_IN_MILLIS
+                START_TIME_IN_MILLIS = 40000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
             "Intermediate plan" -> {
                 REST_TIME_IN_MILLIS = 15000
-                START_TIME_IN_MILLIS = 30000 + REST_TIME_IN_MILLIS
+                START_TIME_IN_MILLIS = 45000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
             "Advanced plan" -> {
                 REST_TIME_IN_MILLIS = 15000
-                START_TIME_IN_MILLIS = 30000 + REST_TIME_IN_MILLIS
+                START_TIME_IN_MILLIS = 45000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "Premium plan" -> {
-                REST_TIME_IN_MILLIS = 15000
-                START_TIME_IN_MILLIS = 30000 + REST_TIME_IN_MILLIS
+            "Insane plan" -> {
+                REST_TIME_IN_MILLIS = 10000
+                START_TIME_IN_MILLIS = 50000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
         }
@@ -449,20 +453,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         gifDrawable.stop()
         gifDrawable.loopCount = 4
         gifDrawable.seekToFrameAndGet(5)
-    }
-
-    fun initialTimer() {
-        initialTimer = object: CountDownTimer(3000, 1000){
-            override fun onFinish() {
-                startTimer()
-                initialStart = false
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                text_view_countdown.text = "$millisUntilFinished"
-            }
-
-        }
+        button_start_pause.visibility = View.VISIBLE
 
     }
 

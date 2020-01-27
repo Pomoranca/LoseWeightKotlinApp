@@ -11,6 +11,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.WorkoutActivity.Companion.finalWorkoutList
@@ -36,7 +37,8 @@ class WorkoutPlanActivity : AppCompatActivity() {
         title = "Workout plan"
 
 
-        workoutRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        workoutRecyclerView.layoutManager =
+            GridLayoutManager(this, 3)
         workoutRecyclerView.setHasFixedSize(true)
         val adapter = ItemRecyclerViewAdapter()
         workoutRecyclerView.adapter = adapter
@@ -44,30 +46,46 @@ class WorkoutPlanActivity : AppCompatActivity() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //POPULATE recyclerview regarding which plan is clicked
         when (planTitle) {
-            "Beginner plan" -> loseWeightViewModel.getBeginnerWorkouts().observe(this,
-                Observer<List<Workout>> {
-                    adapter.workoutList = it as MutableList<Workout>
-                    finalWorkoutList = it
-                    adapter.notifyDataSetChanged()
-                })
-            "Intermediate plan" -> loseWeightViewModel.getIntermediateWorkouts().observe(this,
-                Observer<List<Workout>> {
-                    adapter.workoutList = it as MutableList<Workout>
-                    finalWorkoutList = it
-                    adapter.notifyDataSetChanged()
-                })
-            "Advanced plan" -> loseWeightViewModel.getAdvancedWorkouts().observe(this,
-                Observer<List<Workout>> {
-                    adapter.workoutList = it as MutableList<Workout>
-                    finalWorkoutList = it
-                    adapter.notifyDataSetChanged()
-                })
-            "Insane plan" -> loseWeightViewModel.getInsaneWorkouts().observe(this,
-                Observer<List<Workout>> {
-                    adapter.workoutList = it as MutableList<Workout>
-                    finalWorkoutList = it
-                    adapter.notifyDataSetChanged()
-                })
+            "Beginner plan" -> {
+                loseWeightViewModel.getBeginnerWorkouts().observe(this,
+                    Observer<List<Workout>> {
+                        adapter.workoutList = it as MutableList<Workout>
+                        finalWorkoutList = it
+                        adapter.notifyDataSetChanged()
+
+                    })
+                setValues("40", "20", "3-5")
+            }
+            "Intermediate plan" -> {
+                loseWeightViewModel.getIntermediateWorkouts().observe(this,
+                    Observer<List<Workout>> {
+                        adapter.workoutList = it as MutableList<Workout>
+                        finalWorkoutList = it
+                        adapter.notifyDataSetChanged()
+                    })
+                setValues("45", "15", "3 - 5")
+
+            }
+            "Advanced plan" -> {
+                loseWeightViewModel.getAdvancedWorkouts().observe(this,
+                    Observer<List<Workout>> {
+                        adapter.workoutList = it as MutableList<Workout>
+                        finalWorkoutList = it
+                        adapter.notifyDataSetChanged()
+                    })
+                setValues("45", "15", "4 - 6")
+
+            }
+            "Insane plan" -> {
+                loseWeightViewModel.getInsaneWorkouts().observe(this,
+                    Observer<List<Workout>> {
+                        adapter.workoutList = it as MutableList<Workout>
+                        finalWorkoutList = it
+                        adapter.notifyDataSetChanged()
+                    })
+                setValues("50", "10", "5 - 7")
+
+            }
         }
         checkFirstTimeWorkout()
 
@@ -102,6 +120,12 @@ class WorkoutPlanActivity : AppCompatActivity() {
         val editor = settings.edit()
         editor.putBoolean("isFirstWorkout", false)
         editor.apply()
+    }
+
+    private fun setValues(work: String, rest: String, sets: String) {
+        plan_text_work.text = "$work seconds"
+        plan_text_rest.text = "$rest seconds"
+        plan_text_sets.text = "$sets sets"
     }
 
 }

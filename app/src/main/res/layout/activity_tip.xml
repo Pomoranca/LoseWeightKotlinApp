@@ -10,19 +10,19 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/tip_appbar"
-        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:background="@color/colorWhite"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:expandedTitleTextAppearance="@style/toolbarFont"
+            app:contentScrim="?attr/colorPrimaryDark"
             app:expandedTitleGravity="center|bottom"
             app:expandedTitleMarginBottom="20dp"
-            app:contentScrim="?attr/colorPrimaryDark"
+            app:expandedTitleTextAppearance="@style/toolbarFont"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -37,21 +37,31 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:subtitleTextAppearance="@style/headerFont"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:subtitleTextAppearance="@style/headerFont" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:id="@+id/tip_description"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="?attr/backgroundColor"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/tip_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="?attr/backgroundColor"
+            android:fitsSystemWindows="true"
+            android:fontFamily="@font/nunito_sans"
+            android:text="You’ve probably heard it more than once: drinking more water will help you lose more weight. But does water really help weight loss? The short answer is yes. Drinking water helps boost your metabolism, cleanse your body of waste, and acts as an appetite suppressant. Also, drinking more water helps your body stop retaining water, leading you to drop those extra pounds of water weight. What can you do to make sure you’re drinking the recommended eight to ten eight-ounce glasses per day to keep yourself hydrated and encourage weight loss?
+
+STEP 1: DRINK BEFORE YOU EAT
+Because water is an appetite suppressant, drinking it before meals can make you feel fuller, therefore reducing the amount of food you eat. Health resource website WebMD states th" />
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,8 +11,8 @@
         android:id="@+id/toolbar_workout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/md_white_1000"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,28 +20,69 @@
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/progress_bar"
         style="@style/Widget.MaterialProgressBar.ProgressBar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
         android:max="60"
+        android:padding="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_start_pause"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_current_workout"
+        app:layout_constraintTop_toBottomOf="@+id/informationTwo"
         app:layout_constraintVertical_weight="1" />
 
     <TextView
         android:id="@+id/text_current_workout"
+        style="@style/toolbarFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/nunito_sans"
-        android:text="TextView"
+        android:text="Wide squats"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/text_view_countdown"
-        app:layout_constraintStart_toStartOf="@+id/text_view_countdown"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_header" />
+
+    <ImageView
+        android:id="@+id/informationCircleOne"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/informationTwo"
+        app:layout_constraintStart_toStartOf="@id/text_current_workout"
+        app:layout_constraintTop_toBottomOf="@id/text_current_workout"
+        app:srcCompat="@drawable/blue_circle" />
+
+    <ImageView
+        android:id="@+id/informationCircleTwo"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/informationTwo"
+        app:layout_constraintStart_toStartOf="@id/informationCircleOne"
+        app:layout_constraintTop_toTopOf="@+id/informationTwo"
+        app:srcCompat="@drawable/blue_circle" />
+
+    <TextView
+        android:id="@+id/informationOne"
+        style="@style/informationFontWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Don't stop until workout is done"
+        app:layout_constraintStart_toEndOf="@id/informationCircleOne"
+        app:layout_constraintTop_toBottomOf="@+id/text_current_workout" />
+
+    <TextView
+        android:id="@+id/informationTwo"
+        style="@style/informationFontWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Embrace the pain"
+        app:layout_constraintStart_toEndOf="@id/informationCircleTwo"
+        app:layout_constraintTop_toBottomOf="@id/informationOne" />
 
     <TextView
         android:id="@+id/text_view_countdown"
@@ -49,31 +90,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/nunito_sans"
         android:text="45"
+        style="@style/toolbarFont"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
-        android:textSize="100sp"
+        android:textSize="80sp"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_current_workout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/progress_bar" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/button_start_pause"
-        style="@style/headerFont"
+        style="@style/toolbarFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_play_pause"
+        android:text="Play"
         android:textAllCaps="false"
-        android:textColor="@color/md_white_1000"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar"
-        app:srcCompat="@drawable/ic_play_white" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/workout_header"
@@ -91,7 +130,7 @@
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/image_current_workout"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:src="@drawable/abs_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

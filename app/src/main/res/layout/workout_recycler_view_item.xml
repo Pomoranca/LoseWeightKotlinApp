@@ -9,10 +9,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/recycler_workout_card"
-        android:layout_width="120dp"
-        android:layout_height="125dp"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="20dp"
+        android:layout_width="110dp"
+        android:layout_height="105dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,9 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:textSize="15sp"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recycler_workout_card"
         app:layout_constraintStart_toStartOf="@+id/recycler_workout_card"

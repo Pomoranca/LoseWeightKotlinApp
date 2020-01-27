@@ -36,8 +36,6 @@ class LoginFragmentTwo : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_login_two, container, false)
         val settings: SharedPreferences = activity!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
         val editor = settings.edit()
-        val hasLoggedIn = settings.getBoolean("hasLoggedIn", false)
-
 
         //init expanding recyclerview
         val recyclerView = rootView.login_two_recyclerView
@@ -48,13 +46,6 @@ class LoginFragmentTwo : Fragment() {
         loginQuestionRecyclerViewAdapter.populateQuestionList()
         recyclerView.adapter = loginQuestionRecyclerViewAdapter
 
-        rootView.login_fragment_two_button_confirm.setOnClickListener {
-                val intent = Intent(activity, MainActivity::class.java)
-                editor.putBoolean("hasLoggedIn", true)
-                // Commit the edits!
-                editor.apply()
-                startActivity(intent)
-        }
 
         return rootView
 

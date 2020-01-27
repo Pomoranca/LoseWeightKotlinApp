@@ -18,17 +18,88 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimaryDark"
+            app:collapsedTitleTextAppearance="@color/colorWhite"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
-            <ImageView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/appbar_background2"
-                app:layout_collapseMode="parallax" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/header_image_source"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:src="@drawable/appbar_background2"
+                    app:layout_collapseMode="parallax"
+                    app:layout_constraintEnd_toStartOf="@+id/ico_plan_work"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ico_plan_work"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/ico_plan_rest"
+                    app:layout_constraintEnd_toStartOf="@+id/plan_text_work"
+                    app:layout_constraintTop_toTopOf="@+id/header_image_source"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:srcCompat="@drawable/ico_work" />
+
+                <ImageView
+                    android:id="@+id/ico_plan_rest"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/ico_plan_work"
+                    app:layout_constraintTop_toBottomOf="@+id/ico_plan_work"
+                    app:srcCompat="@drawable/ico_rest" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/ico_plan_rest"
+                    app:layout_constraintTop_toBottomOf="@+id/ico_plan_rest"
+                    app:srcCompat="@drawable/ico_sets" />
+
+                <TextView
+                    android:id="@+id/plan_text_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50dp"
+                    android:text="45 seconds"
+                    android:textColor="@color/toolbarTextColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/ico_plan_work"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ico_plan_work" />
+
+                <TextView
+                    android:id="@+id/plan_text_rest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15 seconds"
+                    android:textColor="@color/toolbarTextColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/ico_plan_rest"
+                    app:layout_constraintStart_toStartOf="@+id/plan_text_sets"
+                    app:layout_constraintTop_toTopOf="@+id/ico_plan_rest" />
+
+                <TextView
+                    android:id="@+id/plan_text_sets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 - 5 sets"
+                    android:textColor="@color/toolbarTextColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/plan_text_work"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_workout_plan"
@@ -50,76 +121,15 @@
             android:background="@color/md_white_1000"
             android:fitsSystemWindows="true">
 
-            <ImageView
-                android:id="@+id/ico_plan_work"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/ico_plan_rest"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ico_work" />
-
-            <ImageView
-                android:id="@+id/ico_plan_rest"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ico_plan_work"
-                app:layout_constraintTop_toTopOf="@+id/ico_plan_work"
-                app:srcCompat="@drawable/ico_rest" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ico_plan_rest"
-                app:layout_constraintTop_toTopOf="@+id/ico_plan_rest"
-                app:srcCompat="@drawable/ico_sets" />
-
-            <TextView
-                android:id="@+id/plan_text_work"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="45 seconds"
-                android:textColor="@color/toolbarTextColor"
-                app:layout_constraintEnd_toEndOf="@+id/ico_plan_work"
-                app:layout_constraintStart_toStartOf="@+id/ico_plan_work"
-                app:layout_constraintTop_toBottomOf="@+id/ico_plan_work" />
-
-            <TextView
-                android:id="@+id/plan_text_rest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15 seconds"
-                android:textColor="@color/toolbarTextColor"
-                app:layout_constraintEnd_toEndOf="@+id/ico_plan_rest"
-                app:layout_constraintStart_toStartOf="@+id/ico_plan_rest"
-                app:layout_constraintTop_toTopOf="@+id/plan_text_work" />
-
-            <TextView
-                android:id="@+id/plan_text_sets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3 - 5 sets"
-                android:textColor="@color/toolbarTextColor"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/plan_text_work" />
 
             <Button
                 android:id="@+id/button_begin_workout"
                 style="@style/headerFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="32dp"
                 android:background="@drawable/welcome_button_shape"
                 android:focusable="true"
                 android:includeFontPadding="false"
@@ -129,7 +139,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_text_sets" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/workoutRecyclerView"

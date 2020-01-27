@@ -2,34 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".activities.fragments.LoginFragmentOne">
 
 
     <ImageView
         android:id="@+id/login_background"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:padding="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/image_login_workout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_login_workout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcome_card_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/raleway"
-        android:text="Welcome to IntenseFit.\nPlease tell me your name?"
+        android:text="Welcome to OneMinute Workout.\nPlease tell me your name?"
         android:textAlignment="center"
+        android:textColor="@color/md_white_1000"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_background" />
+        app:layout_constraintTop_toBottomOf="@+id/login_background" />
 
     <EditText
         android:id="@+id/welcomeCardInput"
@@ -39,36 +38,26 @@
         android:background="#00FFFDE7"
         android:fontFamily="@font/raleway_black"
         android:hint="e.g. John"
-        android:maxLines="2"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="16"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="#436DA2E8"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#43FFFFFF"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome_card_text" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/login_one_button_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:focusable="true"
-        app:srcCompat="@drawable/ic_navigate_next"
-        android:stateListAnimator="@null"
-        android:textColor="#FFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pick_male" />
-
     <View
         android:id="@+id/view2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/shadow"
+        android:background="@drawable/shadow_white"
+        app:layout_constraintEnd_toEndOf="@+id/welcome_card_text"
+        app:layout_constraintStart_toStartOf="@+id/welcome_card_text"
         app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput" />
 
     <TextView
@@ -76,8 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:fontFamily="@font/raleway"
         android:text="Pick avatar"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -88,6 +78,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/avatar_selected"
         app:layout_constraintEnd_toStartOf="@+id/pick_female"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,12 +91,14 @@
         android:id="@+id/pick_female"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/avatar_selected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/pick_male"
         app:layout_constraintTop_toTopOf="@+id/pick_male"
         app:srcCompat="@drawable/female_pick_full_size" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

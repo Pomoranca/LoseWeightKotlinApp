@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -27,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.dialog_welcome.*
 import kotlinx.android.synthetic.main.dialog_welcome.dialog_welcome_name
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(),
@@ -42,7 +45,12 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+//        setSupportActionBar(toolbar)
+        Glide
+            .with(this)
+            .load(R.drawable.appbar_background)
+            .centerCrop()
+            .into(header_image)
 
         checkFirstTimeRun()
 
@@ -64,8 +72,8 @@ class MainActivity : AppCompatActivity(),
             .withDividerBelowHeader(false)
             .build()
 
-        val homeItem = PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.home_ico)
-        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("My Profile").withIcon(R.drawable.profile_ico)
+        val homeItem = PrimaryDrawerItem().withIdentifier(1).withName("Plan").withIcon(R.drawable.home_ico)
+        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("Profile").withIcon(R.drawable.profile_ico)
         val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar").withIcon(R.drawable.ico_calendar_blk)
         val settingsItem = PrimaryDrawerItem().withIdentifier(1).withName("Settings").withIcon(R.drawable.settings_ico)
 
@@ -179,10 +187,6 @@ class MainActivity : AppCompatActivity(),
         false
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.action_bar_menu, menu)
-//        return true
-//    }
 
     private fun showDialog() {
         val dialog = Dialog(this)
@@ -202,6 +206,10 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun checkFirstTimeRun() {
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        val CURRENT_DATE = formatter.format(calendar.time)
         val settings = getSharedPreferences(PREFS_NAME, 0)
         val firstTimeRun = settings.getBoolean("isFirstRun", true)
         if (firstTimeRun) {
@@ -209,6 +217,7 @@ class MainActivity : AppCompatActivity(),
         }
         val editor = settings.edit()
         editor.putBoolean("isFirstRun", false)
+        editor.putString("CURRENT_DATE", CURRENT_DATE)
         editor.apply()
     }
 

@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/question_checked"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="16dp"
-            android:background="@drawable/buttonstyle"
+            android:background="@drawable/blue_circle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_check" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/login_two_expandable_header_title"
@@ -46,14 +46,21 @@
         <Button
             android:id="@+id/login_two_continue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/buttonstyle"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="32dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:background="@drawable/button_question_continue"
             android:text="Continue"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/md_white_1000"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/background_item_selected"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupFirst" />
 
         <ImageView
@@ -119,7 +126,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:textColor="#FFFFFF"
-
                 android:background="@drawable/radio_button_background"
                 android:button="@null"
                 android:text="RadioButton"

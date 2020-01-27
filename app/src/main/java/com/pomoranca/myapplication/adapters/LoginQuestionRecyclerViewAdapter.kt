@@ -1,7 +1,9 @@
 package com.pomoranca.myapplication.adapters
 
 import android.app.ActionBar
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
@@ -12,8 +14,11 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.data.LoginQuestion
 import kotlinx.android.synthetic.main.fragment_login_two.view.*
 import kotlinx.android.synthetic.main.login_recycler_row.view.*
@@ -21,9 +26,7 @@ import kotlin.coroutines.coroutineContext
 
 class LoginQuestionRecyclerViewAdapter :
     RecyclerView.Adapter<LoginQuestionRecyclerViewAdapter.LoginQuestionViewHolder>() {
-
     var questionList = mutableListOf<LoginQuestion>()
-    var a = 0
     private val PREFS_NAME = "MyPrefsFile"
 
 
@@ -42,6 +45,8 @@ class LoginQuestionRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: LoginQuestionViewHolder, position: Int) {
         val currentQuestion = questionList[position]
+        val settings: SharedPreferences = holder.itemView.context!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+        val editor = settings.edit()
 
         holder.recyclerQuestionTitle.text = currentQuestion.title
         holder.recyclerQuestionImage.setImageResource(currentQuestion.imagePath)
@@ -53,7 +58,15 @@ class LoginQuestionRecyclerViewAdapter :
         val isExpanded = currentQuestion.expanded
         val isFinalQuestion = currentQuestion.finalQuestion
         holder.expandableLayout.visibility = if (isExpanded) View.VISIBLE else View.GONE
-        holder.recyclerQuestionButtonNext.visibility = if(isFinalQuestion) View.GONE else View.VISIBLE
+        if(isFinalQuestion) {
+            holder.recyclerQuestionButtonNext.setOnClickListener {
+            val intent = Intent(holder.itemView.context, MainActivity::class.java)
+            editor.putBoolean("hasLoggedIn", true)
+            // Commit the edits!
+            editor.apply()
+            startActivity(holder.itemView.context, intent, null)
+            }
+        }
         holder.radioGroupQuestion.visibility =  if(isFinalQuestion) View.GONE else View.VISIBLE
 
     }
@@ -67,6 +80,7 @@ class LoginQuestionRecyclerViewAdapter :
         val recyclerQuestionRadio3: RadioButton = itemView.login_radio3
         val recyclerQuestionRadio4: RadioButton = itemView.login_radio4
          val recyclerQuestionButtonNext: Button = itemView.login_two_continue
+        val loginQuestionCheck: ImageView = itemView.question_checked
         val radioGroupQuestion : RadioGroup = itemView.radioGroupFirst
 
 
@@ -74,24 +88,37 @@ class LoginQuestionRecyclerViewAdapter :
 
         init {
             recyclerQuestionButtonNext.setOnClickListener {
-                checkButton()
-                TransitionManager.beginDelayedTransition(expandableLayout, object: AutoTransition(){})
-                val question = questionList[adapterPosition]
-                val nextQuestion = questionList[adapterPosition + 1]
-                question.expanded = !question.expanded
-                nextQuestion.expanded = !question.expanded
-                notifyDataSetChanged()
+                if(checkButton()) {
+                        val question = questionList[adapterPosition]
+                        val nextQuestion = questionList[adapterPosition + 1]
+                        question.expanded = !question.expanded
+                        nextQuestion.expanded = !question.expanded
+                    loginQuestionCheck.setImageResource(R.drawable.ic_check)
+                        notifyDataSetChanged()
+                    } else {
+                    Snackbar.make(
+                        itemView,
+                        "Please select answer",
+                        Snackbar.LENGTH_LONG
+                    )
+                }
             }
         }
-        private fun checkButton() {
-            val settings: SharedPreferences = recyclerQuestionButtonNext.context.getSharedPreferences(PREFS_NAME, 0)
-            val editor = settings.edit()
+        private fun checkButton() : Boolean {
             val radioId = radioGroupQuestion.checkedRadioButtonId
-            val radioButtonAnswer = itemView.findViewById<RadioButton>(radioId)
-            val answer = radioButtonAnswer.text.toString()
-            editor.putString("Q $adapterPosition", answer)
-            // Commit the edits!
-            editor.apply()
+            if(radioId== -1){
+                return false
+                } else {
+                val settings: SharedPreferences =
+                    recyclerQuestionButtonNext.context.getSharedPreferences(PREFS_NAME, 0)
+                val editor = settings.edit()
+                val radioButtonAnswer = itemView.findViewById<RadioButton>(radioId)
+                val answer = radioButtonAnswer.text.toString()
+                editor.putString("Q $adapterPosition", answer)
+                // Commit the edits!
+                editor.apply()
+                }
+            return true
         }
     }
 

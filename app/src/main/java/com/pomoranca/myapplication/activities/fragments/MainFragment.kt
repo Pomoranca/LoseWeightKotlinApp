@@ -145,6 +145,7 @@ class MainFragment : Fragment(), SensorEventListener {
         stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
         LAST_DATE = settings.getString("lastDate", "")!!
 
+
         if (LAST_DATE != CURRENT_DATE) {
             stepsMadeToday = 0F
             LAST_DATE = CURRENT_DATE
