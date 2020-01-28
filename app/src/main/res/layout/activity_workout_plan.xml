@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.WorkoutPlanActivity">
+    tools:context=".activities.WorkoutPlanActivity"
+    android:background="?attr/colorBackground">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appbar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@color/md_white_1000"
+        android:background="?attr/colorBackground"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -74,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
                     android:text="45 seconds"
-                    android:textColor="@color/toolbarTextColor"
+                    android:textColor="?attr/textColor"
                     app:layout_constraintBottom_toBottomOf="@+id/ico_plan_work"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ico_plan_work" />
@@ -84,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="15 seconds"
-                    android:textColor="@color/toolbarTextColor"
+                    android:textColor="?attr/textColor"
                     app:layout_constraintBottom_toBottomOf="@+id/ico_plan_rest"
                     app:layout_constraintStart_toStartOf="@+id/plan_text_sets"
                     app:layout_constraintTop_toTopOf="@+id/ico_plan_rest" />
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3 - 5 sets"
-                    android:textColor="@color/toolbarTextColor"
+                    android:textColor="?attr/textColor"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                     app:layout_constraintStart_toStartOf="@+id/plan_text_work"
                     app:layout_constraintTop_toTopOf="@+id/imageView4" />
@@ -113,12 +114,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:background="?attr/colorBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_white_1000"
             android:fitsSystemWindows="true">
 
 

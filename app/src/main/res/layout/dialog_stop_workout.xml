@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="#00C50C0C"
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorBackground"
         android:padding="16dp">
 
 
@@ -28,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Are you leaving?"
+            android:textColor="?attr/textColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -38,24 +42,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="If you go quit now, you wont gain any experience and you will have to start again."
+            android:textColor="?attr/textColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialog_welcome_name" />
 
         <Button
             android:id="@+id/dialog_button_continue"
+            style="@style/toolbarFont"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/welcome_button_shape"
+            android:gravity="center"
+            android:background="@drawable/button_question_continue"
             android:focusable="true"
             android:includeFontPadding="false"
             android:text="Stay"
             android:textAllCaps="false"
             android:textColor="#FFF"
-            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/dialog_button_leave"
             app:layout_constraintHorizontal_bias="0.5"
@@ -65,19 +71,18 @@
 
         <Button
             android:id="@+id/dialog_button_leave"
+            style="@style/toolbarFont"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_height="32dp"
             android:layout_marginStart="8dp"
-
-            android:background="@drawable/welcome_button_shape"
+            android:background="@drawable/button_question_continue"
             android:focusable="true"
             android:includeFontPadding="false"
             android:padding="5dp"
             android:text="Leave"
             android:textAllCaps="false"
             android:textColor="#FFF"
-            android:textSize="18sp"
-
             app:layout_constraintBottom_toBottomOf="@+id/dialog_button_continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

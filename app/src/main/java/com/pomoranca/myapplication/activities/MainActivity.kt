@@ -1,8 +1,10 @@
 package com.pomoranca.myapplication.activities
 
+import android.annotation.TargetApi
 import android.app.Dialog
 import android.content.Intent
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -189,12 +191,10 @@ class MainActivity : AppCompatActivity(),
 
 
     private fun showDialog() {
-        val dialog = Dialog(this)
+        val dialog = Dialog(this, R.style.Theme_Dialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_welcome)
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog.window?.setLayout(width,height)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
         dialog.dialog_welcome_name.text = "Welcome"
 //        val textView = view.findViewById<TextView>(R.id.dialog_welcome_name)
@@ -211,22 +211,21 @@ class MainActivity : AppCompatActivity(),
         val calendar = Calendar.getInstance()
         val CURRENT_DATE = formatter.format(calendar.time)
         val settings = getSharedPreferences(PREFS_NAME, 0)
+        val editor = settings.edit()
         val firstTimeRun = settings.getBoolean("isFirstRun", true)
         if (firstTimeRun) {
             showDialog()
+            editor.putString("CURRENT_DATE", CURRENT_DATE)
         }
-        val editor = settings.edit()
         editor.putBoolean("isFirstRun", false)
-        editor.putString("CURRENT_DATE", CURRENT_DATE)
         editor.apply()
     }
 
     private fun showAboutDialog() {
-        val dialog = Dialog(this)
+        val dialog = Dialog(this, R.style.Theme_Dialog)
         dialog.setContentView(R.layout.dialog_about)
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog.window?.setLayout(width,height)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.dialog_about_button_close.setOnClickListener{
             dialog.dismiss()

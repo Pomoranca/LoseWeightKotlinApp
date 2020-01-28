@@ -1,11 +1,13 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +37,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     private var REST_TIME_IN_MILLIS = 15000L
 
     companion object {
-         var finalWorkoutList: List<Workout> = listOf()
+        var finalWorkoutList: List<Workout> = listOf()
     }
 
     var planTitle: String = ""
@@ -48,8 +50,6 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     var CURRENT_DATE = 0L
     var CURRENT_DATE_CONVERTED = ""
     private lateinit var gifDrawable: GifDrawable
-     var initialStart : Boolean = true
-
 
 
     //USER PREFERENCES
@@ -66,7 +66,6 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
 
 
     private lateinit var mCountDownTimer: CountDownTimer
-    private lateinit var initialTimer: CountDownTimer
     private var mTimerRunning: Boolean = false
     private var mTimeLeftMillis = START_TIME_IN_MILLIS
     private var mEndTime: Long = 0
@@ -82,14 +81,12 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         setSupportActionBar(toolbar_workout)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+        //adjust progressbar size according to screen width
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val height = displayMetrics.heightPixels
-        val width = displayMetrics.widthPixels
-
+        val width = displayMetrics.widthPixels / 2
         progress_bar.layoutParams.height = width
-
+        progress_bar.layoutParams.width = width
 
 
         val path = finalWorkoutList[currentSet - 1].imagePath
@@ -125,7 +122,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
 
         mTextToSpeech = TextToSpeech(
             this,
-            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH},
+            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH },
             "com.google.android.tts"
         )
 
@@ -136,12 +133,14 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                 startTimer()
             }
         }
+        workout_set_number.text = "$currentSet / $numberOfSets"
         progress_bar.progress = (START_TIME_IN_MILLIS / 1000).toInt()
         text_view_countdown.text = (START_TIME_IN_MILLIS / 1000).toString()
         text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
         populateList()
 
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -195,10 +194,12 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                     currentSet++
                     changeAnimation()
                     resetAnimation()
-//                    toggleAnimation()
                     mTimeLeftMillis = START_TIME_IN_MILLIS
-
                     startTimer()
+                    Log.i("LAST", "$currentSet")
+                    if (currentSet == numberOfSets - 1) {
+                        REST_TIME_IN_MILLIS = 0
+                    }
                 } else if (currentSet == numberOfSets) {
                     mTimerRunning = false
                     button_start_pause.text = "Start"
@@ -242,8 +243,8 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         progress_bar.progress = seconds
 
         when (progress_bar.progress) {
-            (REST_TIME_IN_MILLIS/1000).toInt() -> {
-            mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
+            (REST_TIME_IN_MILLIS / 1000).toInt() -> {
+                mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
                 progress_bar.progressDrawable.setColorFilter(
                     resources.getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN
                 )
@@ -252,11 +253,22 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                 image_current_workout.visibility = View.INVISIBLE
                 playsound()
             }
-            ((START_TIME_IN_MILLIS/1000)-1).toInt() -> {
+            (START_TIME_IN_MILLIS / 1000 - 10).toInt() -> {
+                mTextToSpeech.speak("${informationOne.text}", TextToSpeech.QUEUE_FLUSH, null)
+            }
+            (REST_TIME_IN_MILLIS / 1000 + 10).toInt() -> {
+                mTextToSpeech.speak("Ten seconds remaining", TextToSpeech.QUEUE_FLUSH, null)
+            }
+            in REST_TIME_IN_MILLIS / 1000..REST_TIME_IN_MILLIS / 1000 + 5 -> mTextToSpeech.speak(
+                "${progress_bar.progress - REST_TIME_IN_MILLIS / 1000}",
+                TextToSpeech.QUEUE_FLUSH,
+                null
+            )
+            5 -> mTextToSpeech.speak("Get ready", TextToSpeech.QUEUE_FLUSH, null)
+            ((START_TIME_IN_MILLIS / 1000) - 1).toInt() -> {
                 progress_bar.progressDrawable.setColorFilter(
                     resources.getColor(R.color.startTimer), android.graphics.PorterDuff.Mode.SRC_IN
                 )
-
                 playsound()
                 text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
                 image_current_workout.visibility = View.VISIBLE
@@ -303,7 +315,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     }
 
     //PLAY SOUND ON LAST 3 SECONDS of PLAY and REST
-    fun playsound() {
+    private fun playsound() {
         val mp: MediaPlayer = MediaPlayer.create(this, R.raw.sound_finished)
         mp.start()
     }
@@ -355,10 +367,25 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         text_current_workout.text = currentWorkoutText
         mTextToSpeech.setSpeechRate(0.9f)
         mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
+        workout_set_number.text = "$currentSet / $numberOfSets"
+
     }
 
     private fun showDialogFinish() {
-        val dialog = Dialog(this)
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "I just finished my workout using OneMinute Workout App. Join us @OneMinuteWorkout"
+            )
+
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "Share activity").apply {
+
+        }
+        val dialog = Dialog(this, R.style.Theme_Dialog)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -370,6 +397,9 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         }
         dialog.dialog_button_end_workout.setOnClickListener {
             this@WorkoutActivity.finish()
+        }
+        dialog.finish_button_share.setOnClickListener {
+            startActivity(shareIntent)
         }
         dialog.show()
     }
@@ -397,13 +427,11 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     }
 
     private fun showDialogBack() {
-        val dialog = Dialog(this)
+        val dialog = Dialog(this, R.style.Theme_Dialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_stop_workout)
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog.window?.setLayout(width, height)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         dialog.dialog_button_continue.setOnClickListener {
             dialog.dismiss()
@@ -418,8 +446,8 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     private fun prepareTimer() {
         when (planTitle) {
             "Beginner plan" -> {
-                REST_TIME_IN_MILLIS = 20000
-                START_TIME_IN_MILLIS = 40000 + REST_TIME_IN_MILLIS
+                REST_TIME_IN_MILLIS = 1000
+                START_TIME_IN_MILLIS = 20000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
             "Intermediate plan" -> {
@@ -448,7 +476,8 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
 
     override fun onAnimationCompleted(loopNumber: Int) {
 
-        }
+    }
+
     private fun resetAnimation() {
         gifDrawable.stop()
         gifDrawable.loopCount = 4
@@ -456,5 +485,6 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         button_start_pause.visibility = View.VISIBLE
 
     }
+
 
 }

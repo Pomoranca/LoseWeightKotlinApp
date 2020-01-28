@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
@@ -44,8 +43,8 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundColor"
         android:fitsSystemWindows="true"
+        android:background="?attr/colorBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -74,8 +73,10 @@
         android:layout_height="55dp"
         android:layout_gravity="bottom"
         android:fitsSystemWindows="true"
-        app:backgroundTint="?attr/backgroundColor"
-        app:elevation="0dp"
+        app:itemRippleColor="@color/colorPrimary"
+        app:itemIconTint="@color/bottom_nav_icon_selector"
+        app:itemTextColor="@color/bottom_nav_icon_selector"
+        android:background="?attr/bottomNavBackgrounds"
         app:itemTextAppearanceActive="@style/bottomNavFont"
         app:itemTextAppearanceInactive="@style/bottomNavFont"
         app:labelVisibilityMode="labeled"

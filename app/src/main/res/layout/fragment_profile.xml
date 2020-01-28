@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="?attr/colorBackground"
     android:orientation="vertical"
     tools:context=".activities.fragments.ProfileFragment">
 
@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:textColor="?attr/textColor"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,6 +41,8 @@
             android:layout_height="wrap_content"
             android:text="Initial  fitness level:"
             android:textStyle="bold"
+            android:textColor="?attr/textColor"
+
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -48,6 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textColor="?attr/textColor"
+
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
             android:text="Initial activity status:" />
@@ -58,6 +63,8 @@
             android:layout_height="wrap_content"
             android:text="Joined:"
             android:textStyle="bold"
+            android:textColor="?attr/textColor"
+
             app:layout_constraintStart_toStartOf="@+id/profile_text_user_name"
             app:layout_constraintTop_toBottomOf="@+id/profile_text_user_name" />
 
@@ -67,6 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:text="TextView"
+            android:textColor="?attr/textColor"
+
             app:layout_constraintBottom_toBottomOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView9" />
@@ -76,6 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="?attr/textColor"
+
             app:layout_constraintBottom_toBottomOf="@+id/textView11"
             app:layout_constraintStart_toStartOf="@+id/profile_text_question_two"
             app:layout_constraintTop_toTopOf="@+id/textView11" />
@@ -85,6 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="?attr/textColor"
+
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintStart_toStartOf="@+id/profile_text_date_joined"
             app:layout_constraintTop_toTopOf="@+id/textView10" />
@@ -123,6 +136,8 @@
                     android:id="@+id/profile_experience_text"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:textColor="?attr/textColor"
+
                     android:background="@drawable/gray_circle"
                     android:gravity="center" />
 
@@ -131,6 +146,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:textColor="?attr/textColor"
+
                     android:text="Experience gained" />
             </LinearLayout>
 
@@ -144,6 +161,8 @@
                     android:id="@+id/profile_days_text"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:textColor="?attr/textColor"
+
                     android:background="@drawable/gray_circle"
                     android:gravity="center" />
 
@@ -152,6 +171,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:textColor="?attr/textColor"
+
                     android:text="Days spent working out" />
             </LinearLayout>
 
@@ -165,6 +186,8 @@
                     android:id="@+id/profile_medals_text"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:textColor="?attr/textColor"
+
                     android:background="@drawable/gray_circle"
                     android:gravity="center" />
 
@@ -173,6 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:textColor="?attr/textColor"
+
                     android:text="Medals won" />
             </LinearLayout>
 
@@ -187,12 +212,16 @@
                     android:id="@+id/profile_steps_text"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:textColor="?attr/textColor"
+
                     android:background="@drawable/gray_circle"
                     android:gravity="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="Steps made" />

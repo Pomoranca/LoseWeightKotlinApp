@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.adapters.AwardRecyclerViewAdapter
 import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -32,12 +33,11 @@ import java.util.*
  */
 class MainFragment : Fragment(), SensorEventListener {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
-    private var userExperience = 0
-    private var medalsWon = 0
     var running = false
     var sensorManager: SensorManager? = null
     lateinit var stepCounterText: TextView
     lateinit var progressBar: ProgressBar
+    lateinit var awardRecyclerViewAdapter: AwardRecyclerViewAdapter
 
 
     //SHARED PREFERENCES
@@ -60,17 +60,45 @@ class MainFragment : Fragment(), SensorEventListener {
         // Inflate the layout for this fragment
         CURRENT_DATE = getDate()
         getValues()
+        awardRecyclerViewAdapter = AwardRecyclerViewAdapter()
+        awardRecyclerViewAdapter.populateAwardList()
+
 
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
-            userExperience = it[0].experience
-            when (userExperience) {
-                in 1..99 -> medalsWon = 1
-                in 100..200 -> medalsWon = 2
-                in 201..500 -> medalsWon = 3
-                in 501..800 -> medalsWon = 4
-                in 801..1000 -> medalsWon = 5
+            when (it[0].experience) {
+                in 1..99 -> {
+                    AwardRecyclerViewAdapter.awardsList[0].won = true
+                }
+                in 100..200 -> {
+                    AwardRecyclerViewAdapter.awardsList[0].won = true
+                    AwardRecyclerViewAdapter.awardsList[1].won = true
+
+                }
+                in 201..500 -> {
+                    AwardRecyclerViewAdapter.awardsList[0].won = true
+                    AwardRecyclerViewAdapter.awardsList[1].won = true
+                    AwardRecyclerViewAdapter.awardsList[2].won = true
+
+                }
+                in 501..800 -> {
+                    AwardRecyclerViewAdapter.awardsList[0].won = true
+                    AwardRecyclerViewAdapter.awardsList[1].won = true
+                    AwardRecyclerViewAdapter.awardsList[2].won = true
+                    AwardRecyclerViewAdapter.awardsList[3].won = true
+
+                }
+                in 801..1000 -> {
+                    AwardRecyclerViewAdapter.awardsList[0].won = true
+                    AwardRecyclerViewAdapter.awardsList[1].won = true
+                    AwardRecyclerViewAdapter.awardsList[2].won = true
+                    AwardRecyclerViewAdapter.awardsList[3].won = true
+                    AwardRecyclerViewAdapter.awardsList[4].won = true
+                }
+                else ->Log.i("USEREXP", " ELSE $")
+
+
             }
             text_hi.text = "Hi ${it[0].name}"
         })

@@ -3,14 +3,16 @@
     <color name="colorPrimary">#0B8dd8</color>
     <color name="colorPrimaryDark">#0B8dd8</color>
     <color name="colorAccent">#0B8dd8</color>
-    <color name="toolbarTextColor">#3D3D3D</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="darkDrawer">#31353A</color>
+    <color name="colorWhite">#F0F0F0</color>
+    <color name="darkDrawer">#424242</color>
     <color name="buttonColor">#0B8dd8 </color>
     <color name="grayButton">#707070</color>
     <color name="focusedColor">#E8D8D8D8</color>
     <color name="startTimer">#c8e6c9</color>
-    <color name="emphasizeYellow">#FFE623</color>
+    <color name="emphasizeYellow">#CEFFE623</color>
     <color name="grayTransparent">#28808080</color>
 
+
+
 </resources>
+

@@ -24,23 +24,22 @@
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:max="60"
-        android:padding="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button_start_pause"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/informationTwo"
-        app:layout_constraintVertical_weight="1" />
+        app:layout_constraintVertical_weight="0.5" />
 
     <TextView
         android:id="@+id/text_current_workout"
         style="@style/toolbarFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="Wide squats"
         android:textAlignment="center"
-        android:textColor="@color/colorWhite"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_header" />
@@ -70,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Don't stop until workout is done"
+        android:text="Keep your back straight"
         app:layout_constraintStart_toEndOf="@id/informationCircleOne"
         app:layout_constraintTop_toBottomOf="@+id/text_current_workout" />
 
@@ -80,20 +79,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Embrace the pain"
+        android:text="Don't stop until workout is done"
         app:layout_constraintStart_toEndOf="@id/informationCircleTwo"
         app:layout_constraintTop_toBottomOf="@id/informationOne" />
 
     <TextView
         android:id="@+id/text_view_countdown"
+        style="@style/toolbarFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginBottom="8dp"
         android:text="45"
-        style="@style/toolbarFont"
         android:textAlignment="center"
-        android:textColor="@color/colorWhite"
         android:textSize="80sp"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,12 +104,14 @@
         style="@style/toolbarFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/button_play_pause"
         android:text="Play"
         android:textAllCaps="false"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -143,7 +143,30 @@
             android:layout_height="3dp"
             android:background="@drawable/shadow"
             app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="411dp"
+        app:barrierDirection="top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/workout_set_number"
+        style="@style/toolbarFont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toEndOf="@+id/text_current_workout"
+        app:layout_constraintTop_toTopOf="@+id/text_current_workout"
+        tools:text="TextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -31,7 +31,6 @@
             android:id="@+id/meal_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/raleway_black"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
             android:shadowDx="0.5"
@@ -39,6 +38,7 @@
             android:shadowRadius="1.0"
             android:shadowColor="#3D3D3D"
             android:layout_margin="16dp"
+            android:fontFamily="@font/nunito_sans_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

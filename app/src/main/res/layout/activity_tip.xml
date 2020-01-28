@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="?attr/colorBackground"
     android:fitsSystemWindows="true"
     tools:context=".activities.TipActivity">
 
@@ -12,7 +12,6 @@
         android:id="@+id/tip_appbar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@color/colorWhite"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -54,13 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="?attr/backgroundColor"
             android:fitsSystemWindows="true"
-            android:fontFamily="@font/nunito_sans"
-            android:text="You’ve probably heard it more than once: drinking more water will help you lose more weight. But does water really help weight loss? The short answer is yes. Drinking water helps boost your metabolism, cleanse your body of waste, and acts as an appetite suppressant. Also, drinking more water helps your body stop retaining water, leading you to drop those extra pounds of water weight. What can you do to make sure you’re drinking the recommended eight to ten eight-ounce glasses per day to keep yourself hydrated and encourage weight loss?
-
-STEP 1: DRINK BEFORE YOU EAT
-Because water is an appetite suppressant, drinking it before meals can make you feel fuller, therefore reducing the amount of food you eat. Health resource website WebMD states th" />
+            android:text=""
+            android:textColor="?attr/textColor" />
     </androidx.core.widget.NestedScrollView>
 
 

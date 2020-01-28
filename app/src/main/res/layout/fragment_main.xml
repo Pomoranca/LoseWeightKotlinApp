@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.fragments.MainFragment"
-    android:background="@color/colorWhite">
+    android:background="?attr/colorBackground"
+    >
 
     <LinearLayout
         android:fitsSystemWindows="true"
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:textColor="?attr/textColor"
             android:fontFamily="@font/lato_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +38,7 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/nunito_sans"
             android:text='"The journey of a thousand miles begins with a single step."'
-            android:textColor="#DD7C7C7C"
+            android:textColor="?attr/textColor"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +60,7 @@
                 android:gravity="center_vertical"
                 android:text="Steps"
                 android:textSize="16sp"
+                android:textColor="?attr/textColor"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />

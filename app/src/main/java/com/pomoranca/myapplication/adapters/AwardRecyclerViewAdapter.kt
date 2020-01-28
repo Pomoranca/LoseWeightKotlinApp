@@ -5,22 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.activities.fragments.ProfileFragment
 import com.pomoranca.myapplication.data.Award
-import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.recycler_view_award.view.*
 
 class AwardRecyclerViewAdapter :
     RecyclerView.Adapter<AwardRecyclerViewAdapter.AchievementHolder>() {
+
     lateinit var listener: OnItemClickListener
-    val awardsList = mutableListOf<Award>()
-    val experience = 0
-    lateinit var loseWeightViewModel : LoseWeightViewModel
+
+    companion object {
+        var awardsList = mutableListOf<Award>()
+    }
 
     inner class AchievementHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val card: ImageView = itemView.award_card_background
@@ -30,6 +29,7 @@ class AwardRecyclerViewAdapter :
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(awardsList[position])
+
             }
             }
 

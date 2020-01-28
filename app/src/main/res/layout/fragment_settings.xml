@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="?attr/colorBackground"
     tools:context=".activities.fragments.SettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/settings"
-            android:textColor="#000000"
-            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:textSize="16sp"
+            style="@style/toolbarFont"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,9 +39,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="24dp"
-            android:fontFamily="@font/lato"
+            android:textColor="?attr/textColor"
             android:switchPadding="30dp"
-            android:text="Narration"
+            android:text="Dark theme"
 
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,9 +64,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="24dp"
-            android:fontFamily="@font/lato"
             android:switchPadding="30dp"
             android:text="Tips"
+            android:textColor="?attr/textColor"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,13 +87,11 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="6dp"
             android:clickable="true"
+            android:textColor="?attr/textColor"
             android:focusable="true"
-            android:fontFamily="@font/raleway_black"
             android:text="About"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 

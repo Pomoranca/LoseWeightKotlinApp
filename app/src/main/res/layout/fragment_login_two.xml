@@ -16,19 +16,30 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/nunito_sans"
         android:paddingStart="10dp"
-        android:paddingEnd="10dp"
         android:text="All answers are optional"
+        android:textStyle="italic"
         android:textColor="#57000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="40dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/blue_line_small"
+        app:layout_constraintEnd_toEndOf="@+id/text_optional"
+        app:layout_constraintStart_toStartOf="@+id/dialog_welcome_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_optional" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/login_two_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_optional"
+        app:layout_constraintTop_toBottomOf="@+id/view"
         tools:itemCount="1"
         tools:listitem="@layout/login_recycler_row">
 

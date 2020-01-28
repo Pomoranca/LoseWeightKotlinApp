@@ -97,14 +97,11 @@ class WorkoutPlanActivity : AppCompatActivity() {
     }
 
     private fun showDialog() {
-        val dialog = Dialog(this)
+        val dialog = Dialog(this, R.style.Theme_Dialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setContentView(R.layout.dialog_how_to_workout)
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog.window?.setLayout(width, height)
-
         dialog.dialog_first_workout_button_dismiss.setOnClickListener {
             dialog.dismiss()
         }

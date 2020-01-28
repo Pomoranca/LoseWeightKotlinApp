@@ -6,13 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundColor">#fcfcfc</item>
+        <item name="colorBackground">#fcfcfc</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="android:textColor">#000000</item>
+        <item name="textColor">#AD000000</item>
         <item name="android:textColorPrimary">#3A3939</item>
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
+        <item name="bottomNavBackgrounds">@color/colorWhite</item>
+        <item name="bottomNavIcon">#8D8D8D</item>
+        <item name="bottomNavPressed">@color/colorPrimary</item>
     </style>
 
 
@@ -20,28 +23,54 @@
         <item name="android:fontFamily">@font/nunito_sans_black</item>
         <item name="android:textSize">26sp</item>
     </style>
+
     <style name="toolbarFont">
         <item name="android:fontFamily">@font/nunito_sans_black</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">#fcfcfc</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
+
     <style name="bottomNavFont">
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="informationFontWhite">
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#fcfcfc</item>
-
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="dialog_slide_out">
-    <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
     </style>
+
     <style name="dialog_slide">
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="Theme_Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+
+    <style name="CustomDarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorBackground">@color/darkDrawer</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="textColor">@color/colorWhite</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textSize">14sp</item>
+        <item name="bottomNavBackgrounds">#383838</item>
+        <item name="bottomNavIcon">#8D8D8D</item>
+        <item name="bottomNavPressed">@color/colorPrimary</item>
+
+
     </style>
 
 </resources>
