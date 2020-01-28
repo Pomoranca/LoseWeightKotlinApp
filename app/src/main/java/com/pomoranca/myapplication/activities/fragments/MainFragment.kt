@@ -7,6 +7,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,8 +23,11 @@ import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.adapters.AwardRecyclerViewAdapter
 import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import java.nio.file.FileSystem
+import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,6 +68,8 @@ class MainFragment : Fragment(), SensorEventListener {
         awardRecyclerViewAdapter.populateAwardList()
 
 
+
+
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
         loseWeightViewModel.getAllUsers().observe(this, Observer {
@@ -96,7 +102,7 @@ class MainFragment : Fragment(), SensorEventListener {
                     AwardRecyclerViewAdapter.awardsList[3].won = true
                     AwardRecyclerViewAdapter.awardsList[4].won = true
                 }
-                else ->Log.i("USEREXP", " ELSE $")
+                else -> Log.i("USEREXP", " ELSE $")
 
 
             }

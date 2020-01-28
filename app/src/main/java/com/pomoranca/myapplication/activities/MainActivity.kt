@@ -1,15 +1,16 @@
 package com.pomoranca.myapplication.activities
 
-import android.annotation.TargetApi
 import android.app.Dialog
 import android.content.Intent
-import android.hardware.SensorManager
-import android.os.Build
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,13 +24,14 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.fragments.MainFragment
 import com.pomoranca.myapplication.activities.fragments.MealTipsFragment
-import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
 import com.pomoranca.myapplication.activities.fragments.ProfileFragment
 import com.pomoranca.myapplication.activities.fragments.SettingsFragment
+import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.dialog_welcome.*
 import kotlinx.android.synthetic.main.dialog_welcome.dialog_welcome_name
+import pl.droidsonroids.gif.GifDrawable
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,22 +39,25 @@ import java.util.*
 class MainActivity : AppCompatActivity(),
     OnAboutClickedListener {
 
+    lateinit var gifDrawable: GifDrawable
+
     companion object {
         const val WORKOUT_PLAN = 1
     }
-    private val PREFS_NAME = "MyPrefsFile"
 
+    private val PREFS_NAME = "MyPrefsFile"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        setSupportActionBar(toolbar)
-        Glide
-            .with(this)
-            .load(R.drawable.appbar_background)
-            .centerCrop()
-            .into(header_image)
+
+
+        showVideo()
+
+
+
 
         checkFirstTimeRun()
 
@@ -63,7 +68,11 @@ class MainActivity : AppCompatActivity(),
         val headerResult = AccountHeaderBuilder()
             .withPaddingBelowHeader(false)
             .withOnAccountHeaderListener(object : AccountHeader.OnAccountHeaderListener {
-                override fun onProfileChanged(view: View?, profile: IProfile<*>, current: Boolean): Boolean {
+                override fun onProfileChanged(
+                    view: View?,
+                    profile: IProfile<*>,
+                    current: Boolean
+                ): Boolean {
                     return false
                 }
             })
@@ -74,10 +83,15 @@ class MainActivity : AppCompatActivity(),
             .withDividerBelowHeader(false)
             .build()
 
-        val homeItem = PrimaryDrawerItem().withIdentifier(1).withName("Plan").withIcon(R.drawable.home_ico)
-        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("Profile").withIcon(R.drawable.profile_ico)
-        val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar").withIcon(R.drawable.ico_calendar_blk)
-        val settingsItem = PrimaryDrawerItem().withIdentifier(1).withName("Settings").withIcon(R.drawable.settings_ico)
+        val homeItem =
+            PrimaryDrawerItem().withIdentifier(1).withName("Plan").withIcon(R.drawable.home_ico)
+        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("Profile")
+            .withIcon(R.drawable.profile_ico)
+        val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar")
+            .withIcon(R.drawable.ico_calendar_blk)
+        val settingsItem = PrimaryDrawerItem().withIdentifier(1).withName("Settings")
+            .withIcon(R.drawable.settings_ico)
+        val aboutItem = PrimaryDrawerItem().withIdentifier(1).withName("About")
 
 //create the drawer and remember the `Drawer` result object
         DrawerBuilder()
@@ -88,7 +102,8 @@ class MainActivity : AppCompatActivity(),
                 homeItem,
                 profileItem
                 , settingsItem,
-                calendarItem
+                calendarItem,
+                aboutItem
             ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
@@ -136,9 +151,14 @@ class MainActivity : AppCompatActivity(),
                             startActivity(Intent(this@MainActivity, CalendarActivity::class.java))
                             return false
                         }
+                        5 -> {
+                            showAboutDialog()
+                        }
+
                     }
                     return false
                 }
+
 
             })
             .build()
@@ -227,7 +247,7 @@ class MainActivity : AppCompatActivity(),
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
-        dialog.dialog_about_button_close.setOnClickListener{
+        dialog.dialog_about_button_close.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
@@ -235,6 +255,45 @@ class MainActivity : AppCompatActivity(),
 
     override fun onAboutClicked() {
         showAboutDialog()
+    }
+
+    private fun showVideo() {
+
+        val video = findViewById<VideoView>(R.id.header_image)
+        val path = "android.resource://" + packageName + "/" + R.raw.appbar_background
+        video.setVideoPath(path)
+        video.requestFocus()
+        video.setOnPreparedListener {
+            val videoRatio = it.videoWidth / it.videoHeight.toFloat()
+            val screenRatio = header_image.width / header_image.height.toFloat()
+            val scaleX = videoRatio / screenRatio
+//            if (scaleX >= 1f) {
+//                video.scaleX = scaleX
+//            } else {
+//                video.scaleY = 1f / scaleX
+//            }
+        }
+        video.setOnCompletionListener {
+            Glide
+                .with(this)
+                .load(R.drawable.appbar_fading_image)
+                .centerCrop()
+                .into(header_fading_image)
+            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+            val myFadeInAnimation: Animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+            fadingImage.visibility = View.VISIBLE
+            fadingImage.startAnimation(myFadeInAnimation)
+        }
+
+
+
+
+
+
+
+        video.start()
+
+
     }
 
 
