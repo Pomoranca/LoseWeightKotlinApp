@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ds">
+        <attr name="tintColor" format="color" />
+        <attr name="buttonColor" format="color" />
+        <attr name="colorPrimary" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="colorAccent" format="color" />
+        <attr name="android:textColorPrimary" format="color" />
+        <attr name="android:windowBackground" format="color" />
+        <attr name="textColor" format="color"/>
+        <attr name="colorBackground" format="color" />
+        <attr name="bottomNavBackgrounds" format="color"/>
+        <attr name="bottomNavIcon" format="color"/>
+        <attr name="bottomNavPressed" format="color"/>
+        <attr name="toolbar_color" format="color"/>
+
+
+    </declare-styleable>
+
+
+</resources>
