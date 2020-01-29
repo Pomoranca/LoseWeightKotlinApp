@@ -30,6 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|center"
                 android:gravity="bottom|center"
+                android:visibility="gone"
                 app:layout_collapseMode="parallax" />
 
             <ImageView

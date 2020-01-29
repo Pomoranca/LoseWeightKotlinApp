@@ -2,9 +2,12 @@ package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.SurfaceTexture
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
+import android.view.Surface
+import android.view.TextureView
 import android.view.View
 import android.view.Window
 import android.view.animation.Animation
@@ -31,7 +34,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.dialog_welcome.*
 import kotlinx.android.synthetic.main.dialog_welcome.dialog_welcome_name
-import pl.droidsonroids.gif.GifDrawable
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +41,6 @@ import java.util.*
 class MainActivity : AppCompatActivity(),
     OnAboutClickedListener {
 
-    lateinit var gifDrawable: GifDrawable
 
     companion object {
         const val WORKOUT_PLAN = 1
@@ -51,10 +52,6 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        setSupportActionBar(toolbar)
-
-
-        showVideo()
 
 
 
@@ -220,6 +217,7 @@ class MainActivity : AppCompatActivity(),
 //        val textView = view.findViewById<TextView>(R.id.dialog_welcome_name)
 //        textView.text= "Welcome $userName"
         dialog.dialog_button_lets_start.setOnClickListener {
+            showVideo()
             dialog.dismiss()
         }
         dialog.show()
@@ -236,6 +234,8 @@ class MainActivity : AppCompatActivity(),
         if (firstTimeRun) {
             showDialog()
             editor.putString("CURRENT_DATE", CURRENT_DATE)
+        } else {
+            showImage()
         }
         editor.putBoolean("isFirstRun", false)
         editor.apply()
@@ -257,8 +257,9 @@ class MainActivity : AppCompatActivity(),
         showAboutDialog()
     }
 
-    private fun showVideo() {
 
+    private fun showVideo() {
+        header_image.visibility = View.VISIBLE
         val video = findViewById<VideoView>(R.id.header_image)
         val path = "android.resource://" + packageName + "/" + R.raw.appbar_background
         video.setVideoPath(path)
@@ -274,27 +275,20 @@ class MainActivity : AppCompatActivity(),
 //            }
         }
         video.setOnCompletionListener {
-            Glide
-                .with(this)
-                .load(R.drawable.appbar_fading_image)
-                .centerCrop()
-                .into(header_fading_image)
-            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
-            val myFadeInAnimation: Animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-            fadingImage.visibility = View.VISIBLE
-            fadingImage.startAnimation(myFadeInAnimation)
+           showImage()
         }
-
-
-
-
-
-
-
         video.start()
-
-
     }
-
+    private fun showImage() {
+        Glide
+            .with(this)
+            .load(R.drawable.appbar_fading_image)
+            .centerCrop()
+            .into(header_fading_image)
+        val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+        val myFadeInAnimation: Animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+        fadingImage.visibility = View.VISIBLE
+        fadingImage.startAnimation(myFadeInAnimation)
+    }
 
 }
