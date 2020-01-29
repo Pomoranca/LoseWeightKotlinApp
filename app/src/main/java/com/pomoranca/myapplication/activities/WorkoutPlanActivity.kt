@@ -3,23 +3,43 @@ package com.pomoranca.myapplication.activities
 import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.TransitionDrawable
+import android.media.MediaPlayer
+import android.media.PlaybackParams
+import android.os.Build
 import android.os.Bundle
+import android.transition.Explode
 import android.transition.Slide
+import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.BounceInterpolator
+import android.widget.TextView
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.WorkoutActivity.Companion.finalWorkoutList
 import com.pomoranca.myapplication.adapters.ItemRecyclerViewAdapter
+import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
 import com.pomoranca.myapplication.data.Workout
+import com.pomoranca.myapplication.data.WorkoutPlan
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_workout_plan.*
 import kotlinx.android.synthetic.main.dialog_how_to_workout.*
+import kotlinx.android.synthetic.main.dialog_workout_preview.*
 
 
 class WorkoutPlanActivity : AppCompatActivity() {
@@ -31,6 +51,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
+
 
         setSupportActionBar(toolbar_workout_plan)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -46,7 +67,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //POPULATE recyclerview regarding which plan is clicked
         when (planTitle) {
-            "Beginner plan" -> {
+            "BEGINNER\nWORKOUT" -> {
                 loseWeightViewModel.getBeginnerWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -56,7 +77,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                     })
                 setValues("40", "20", "3-5")
             }
-            "Intermediate plan" -> {
+            "INTERMEDIATE\nWORKOUT" -> {
                 loseWeightViewModel.getIntermediateWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -66,7 +87,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 setValues("45", "15", "3 - 5")
 
             }
-            "Advanced plan" -> {
+            "ADVANCED\nWORKOUT" -> {
                 loseWeightViewModel.getAdvancedWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -76,7 +97,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 setValues("45", "15", "4 - 6")
 
             }
-            "Insane plan" -> {
+            "INSANE\nWORKOUT" -> {
                 loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -88,6 +109,40 @@ class WorkoutPlanActivity : AppCompatActivity() {
             }
         }
         checkFirstTimeWorkout()
+
+        adapter.setOnItemClickListener(object : ItemRecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(workout: Workout) {
+                val dialog = Dialog(this@WorkoutPlanActivity, R.style.Theme_Dialog)
+                val a = R.layout.dialog_workout_preview
+                dialog.setContentView(a)
+                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                dialog.window?.setWindowAnimations(R.style.dialog_fade)
+                val title = dialog.findViewById<TextView>(R.id.workout_preview_title)
+                title.text = workout.name
+                val video = dialog.findViewById<VideoView>(R.id.workout_preview_video)
+                val path = "android.resource://" + packageName + "/" + workout.imagePath
+                video.setZOrderOnTop(true)
+                video.setVideoPath(path)
+                video.requestFocus()
+                video.start()
+                video.setOnPreparedListener {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        val myPlayBackParams = PlaybackParams()
+                        myPlayBackParams.speed = 0.7f
+                        it.playbackParams = myPlayBackParams
+                    }
+                    it.isLooping = true
+
+                }
+                dialog.setOnDismissListener {
+                    video.stopPlayback()
+                }
+
+                dialog.show()
+            }
+
+
+        })
 
         button_begin_workout.setOnClickListener {
             val intent = Intent(this, WorkoutActivity::class.java)
@@ -124,5 +179,6 @@ class WorkoutPlanActivity : AppCompatActivity() {
         plan_text_rest.text = "$rest seconds"
         plan_text_sets.text = "$sets sets"
     }
+
 
 }

@@ -41,6 +41,8 @@ import java.util.*
 class MainActivity : AppCompatActivity(),
     OnAboutClickedListener {
 
+    lateinit var video: VideoView
+
 
     companion object {
         const val WORKOUT_PLAN = 1
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        video = findViewById(R.id.header_image)
 
 
         checkFirstTimeRun()
@@ -260,25 +262,17 @@ class MainActivity : AppCompatActivity(),
 
     private fun showVideo() {
         header_image.visibility = View.VISIBLE
-        val video = findViewById<VideoView>(R.id.header_image)
         val path = "android.resource://" + packageName + "/" + R.raw.appbar_background
         video.setVideoPath(path)
         video.requestFocus()
         video.setOnPreparedListener {
-            val videoRatio = it.videoWidth / it.videoHeight.toFloat()
-            val screenRatio = header_image.width / header_image.height.toFloat()
-            val scaleX = videoRatio / screenRatio
-//            if (scaleX >= 1f) {
-//                video.scaleX = scaleX
-//            } else {
-//                video.scaleY = 1f / scaleX
-//            }
         }
         video.setOnCompletionListener {
-           showImage()
+            showImage()
         }
         video.start()
     }
+
     private fun showImage() {
         Glide
             .with(this)
@@ -286,9 +280,17 @@ class MainActivity : AppCompatActivity(),
             .centerCrop()
             .into(header_fading_image)
         val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
-        val myFadeInAnimation: Animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+        val myFadeInAnimation: Animation =
+            AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
         fadingImage.visibility = View.VISIBLE
         fadingImage.startAnimation(myFadeInAnimation)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        video.stopPlayback()
+
     }
 
 }

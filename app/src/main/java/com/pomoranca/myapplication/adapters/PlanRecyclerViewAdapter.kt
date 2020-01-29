@@ -1,5 +1,7 @@
 package com.pomoranca.myapplication.adapters
 
+import android.app.ActivityOptions
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -16,6 +18,7 @@ import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.activities.WorkoutPlanActivity
 import com.pomoranca.myapplication.data.WorkoutPlan
+import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.recycler_view_plan.view.*
 
 
@@ -34,13 +37,14 @@ class PlanRecyclerViewAdapter :
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onItemClick(planList[position])
+
                 }
             }
         }
 
-        val courseLength: TextView = itemView.course_length_text
+//        val courseLength: TextView = itemView.course_length_text
         val planTextView: TextView = itemView.plan_textView
-        val daysTextView: TextView = itemView.course_days_text
+//        val daysTextView: TextView = itemView.course_days_text
         val planCard: ImageView = itemView.plan_card_background
     }
 
@@ -57,9 +61,9 @@ class PlanRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: PlanHolder, position: Int) {
         val currentPlan = planList[position]
-        holder.courseLength.text = "Suggested duration  "
+//        holder.courseLength.text = "Duration:"
         holder.planTextView.text = currentPlan.name
-        holder.daysTextView.text = "${currentPlan.duration} days"
+//        holder.daysTextView.text = "${currentPlan.duration} days"
         holder.planCard.setColorFilter(Color.parseColor("#E8D8D8D8"), PorterDuff.Mode.MULTIPLY)
 
         Glide
@@ -77,10 +81,10 @@ class PlanRecyclerViewAdapter :
     }
 
     fun populatePlanList() {
-        planList.add(WorkoutPlan("Beginner plan", 20, R.drawable.plan_beginner, 30, 20))
-        planList.add(WorkoutPlan("Intermediate plan", 30, R.drawable.plan_intermediate, 40, 20))
-        planList.add(WorkoutPlan("Advanced plan", 40, R.drawable.plan_advanced, 45, 15))
-        planList.add(WorkoutPlan("Insane plan", 60, R.drawable.plan_premium, 45, 15))
+        planList.add(WorkoutPlan("BEGINNER\nWORKOUT", 20, R.drawable.plan_beginner, 30, 20))
+        planList.add(WorkoutPlan("INTERMEDIATE\nWORKOUT", 30, R.drawable.plan_intermediate, 40, 20))
+        planList.add(WorkoutPlan("ADVANCED\nWORKOUT", 40, R.drawable.plan_advanced, 45, 15))
+        planList.add(WorkoutPlan("INSANE\nWORKOUT", 60, R.drawable.plan_premium, 45, 15))
     }
 
     interface OnItemClickListener {
@@ -89,6 +93,10 @@ class PlanRecyclerViewAdapter :
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
+    }
+
+    private fun showPreview() {
+
     }
 
 }

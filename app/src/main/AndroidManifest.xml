@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomDarkTheme">
-        <activity android:name=".activities.TipActivity"></activity>
+        <activity android:name=".activities.TipActivity" />
         <activity
             android:name=".activities.AwardActivity"
             android:parentActivityName=".activities.MainActivity" />

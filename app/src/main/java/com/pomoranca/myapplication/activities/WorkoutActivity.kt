@@ -2,7 +2,10 @@ package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.Configuration
 import android.media.MediaPlayer
+import android.media.PlaybackParams
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
@@ -10,8 +13,9 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
+import android.widget.MediaController
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,15 +27,14 @@ import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_workout.*
 import kotlinx.android.synthetic.main.dialog_stop_workout.*
 import kotlinx.android.synthetic.main.dialog_workout_finished.*
-import pl.droidsonroids.gif.AnimationListener
-import pl.droidsonroids.gif.GifDrawable
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class WorkoutActivity : AppCompatActivity(), AnimationListener {
+class WorkoutActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
-
+    lateinit var video: VideoView
+    private var stoppedPosition: Int = 100
 
     private var START_TIME_IN_MILLIS = 40000L
     private var REST_TIME_IN_MILLIS = 15000L
@@ -49,7 +52,6 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     var LAST_DATE_CONVERTED = ""
     var CURRENT_DATE = 0L
     var CURRENT_DATE_CONVERTED = ""
-    private lateinit var gifDrawable: GifDrawable
 
 
     //USER PREFERENCES
@@ -80,20 +82,28 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
         setContentView(R.layout.activity_workout)
         setSupportActionBar(toolbar_workout)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        video = findViewById(R.id.image_current_workout)
 
         //adjust progressbar size according to screen width
+        val orientation = resources.configuration.orientation
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val width = displayMetrics.widthPixels / 2
-        progress_bar.layoutParams.height = width
-        progress_bar.layoutParams.width = width
+        val width = displayMetrics.widthPixels
 
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //LANDSCAPE SETTINGS
+            progress_bar.layoutParams.height = width / 4
+            progress_bar.layoutParams.width = width / 4
+        } else {
+            //PORTRAIT SETTINGS
+            progress_bar.layoutParams.height = width / 2
+            progress_bar.layoutParams.width = width / 2
+        }
 
-        val path = finalWorkoutList[currentSet - 1].imagePath
-        gifDrawable = GifDrawable.createFromResource(resources, path) as GifDrawable
-//        gifDrawable.setSpeed(1.5f)
-        gifDrawable.addAnimationListener(this)
-        resetAnimation()
+        if (stoppedPosition == 100) {
+            startVideoUnLooped()
+        }
+
 
         title = "Workout"
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
@@ -131,6 +141,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                 pauseTimer()
             } else {
                 startTimer()
+                startVideoLooped()
             }
         }
         workout_set_number.text = "$currentSet / $numberOfSets"
@@ -226,6 +237,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
     private fun pauseTimer() {
         mCountDownTimer.cancel()
         mTimerRunning = false
+        video.pause()
         toggleAnimation()
 
         button_start_pause.text = "Start"
@@ -250,7 +262,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                 )
                 button_start_pause.visibility = View.INVISIBLE
                 text_current_workout.text = "Take a rest!"
-                image_current_workout.visibility = View.INVISIBLE
+                startVideoUnLooped()
                 playsound()
             }
             (START_TIME_IN_MILLIS / 1000 - 10).toInt() -> {
@@ -271,7 +283,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                 )
                 playsound()
                 text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
-                image_current_workout.visibility = View.VISIBLE
+                video.visibility = View.VISIBLE
             }
         }
 
@@ -294,16 +306,23 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
+        outState.putInt("stoppedPosition", video.currentPosition)
+        Log.i("AAA","SAVED $video.currentPosition" )
         outState.putLong("milisLeft", mTimeLeftMillis)
         outState.putBoolean("mTimerRunning", mTimerRunning)
         outState.putLong("endTime", mEndTime)
+        outState.putInt("currentSet", currentSet)
+        outState.putInt("currentVideoMill", video.currentPosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+        Log.i("AAA","RESTORED $video.currentPosition" )
+        stoppedPosition = savedInstanceState.getInt("stoppedPosition", 100)
+        Log.i("AAA","STOPPED POSITION $stoppedPosition")
         mTimeLeftMillis = savedInstanceState.getLong("milisLeft")
         mTimerRunning = savedInstanceState.getBoolean("mTimerRunning")
+        currentSet = savedInstanceState.getInt("currentSet")
         updateCountDownText()
         updateButton()
 
@@ -328,7 +347,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                     Observer<List<Workout>> {
                         multiplyFactor = 1
                         numberOfSets = it.size
-                        changeAnimation()
+                        workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
             "Intermediate plan" -> {
@@ -336,7 +355,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                     Observer<List<Workout>> {
                         multiplyFactor = 2
                         numberOfSets = it.size
-                        changeAnimation()
+                        workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
             "Advanced plan" -> {
@@ -344,7 +363,7 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                     Observer<List<Workout>> {
                         multiplyFactor = 3
                         numberOfSets = it.size
-                        changeAnimation()
+                        workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
             "Insane plan" -> {
@@ -353,16 +372,14 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
                         multiplyFactor = 4
                         numberOfSets = it.size
                         finalWorkoutList = it
-                        changeAnimation()
+                        workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
         }
     }
 
     fun changeAnimation() {
-//
-        image_current_workout.setImageDrawable(gifDrawable)
-
+        startVideoLooped()
         val currentWorkoutText = text_current_workout.text.toString()
         text_current_workout.text = currentWorkoutText
         mTextToSpeech.setSpeechRate(0.9f)
@@ -470,20 +487,57 @@ class WorkoutActivity : AppCompatActivity(), AnimationListener {
 
 
     private fun toggleAnimation() = when {
-        gifDrawable.isPlaying -> gifDrawable.stop()
-        else -> gifDrawable.start()
-    }
-
-    override fun onAnimationCompleted(loopNumber: Int) {
+        video.isPlaying -> video.setOnPreparedListener {
+            it.pause()
+        }
+        else -> {
+            video.setOnPreparedListener {
+                if (mTimerRunning) {
+                    it.isLooping = true
+                    it.start()
+                } else {
+                    it.seekTo(stoppedPosition)
+                }
+            }
+        }
 
     }
 
     private fun resetAnimation() {
-        gifDrawable.stop()
-        gifDrawable.loopCount = 4
-        gifDrawable.seekToFrameAndGet(5)
+//        video.start()
         button_start_pause.visibility = View.VISIBLE
+    }
 
+    private fun startVideoLooped() {
+        current_workout_overdraw.visibility = View.INVISIBLE
+        image_current_workout.visibility = View.VISIBLE
+        val path =
+            "android.resource://" + packageName + "/" + finalWorkoutList[currentSet - 1].imagePath
+        video.setVideoPath(path)
+        video.requestFocus()
+        video.setOnPreparedListener {
+            it.isLooping = true
+        }
+        video.start()
+    }
+
+    private fun startVideoUnLooped() {
+        current_workout_overdraw.visibility = View.VISIBLE
+        val path =
+            "android.resource://" + packageName + "/" + finalWorkoutList[currentSet - 1].imagePath
+        video.setVideoPath(path)
+        video.setOnPreparedListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val myPlayBackParams = PlaybackParams()
+                myPlayBackParams.speed = 0.8f
+                it.playbackParams = myPlayBackParams
+            }
+            it.isLooping = false
+        }
+        video.setOnCompletionListener {
+            button_start_pause.visibility = View.VISIBLE
+        }
+        video.start()
     }
 
 
