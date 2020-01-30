@@ -49,9 +49,10 @@
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
     </style>
+
     <style name="dialog_fade">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-<!--        <item name="android:windowExitAnimation">@android:anim/fade_out</item>-->
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
 
     </style>
 
@@ -60,21 +61,9 @@
         <item name="android:windowMinWidthMinor">80%</item>
     </style>
 
-    <style name="CustomDarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorBackground">@color/darkDrawer</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="textColor">@color/colorWhite</item>
-        <item name="android:textColorPrimary">@color/colorWhite</item>
-        <item name="android:fontFamily">@font/nunito_sans</item>
-        <item name="android:textSize">14sp</item>
-        <item name="bottomNavBackgrounds">#383838</item>
-        <item name="bottomNavIcon">#8D8D8D</item>
-        <item name="bottomNavPressed">@color/colorPrimary</item>
-
+    <style name="ThemeCustomDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="dialogCornerRadius">20dp</item>
     </style>
+
 
 </resources>

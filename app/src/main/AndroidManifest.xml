@@ -9,8 +9,6 @@
         android:name="android.hardware.sensor.stepdetector"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -18,7 +16,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/CustomDarkTheme">
+        android:theme="@style/AppTheme">
         <activity android:name=".activities.TipActivity" />
         <activity
             android:name=".activities.AwardActivity"
@@ -30,7 +28,7 @@
         <activity
             android:name=".activities.WorkoutActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.WorkoutPlanActivity"
             android:parentActivityName=".activities.MainActivity"
@@ -48,6 +46,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait" />
+
+        <receiver android:name=".NotificationReceiver" android:process=":remote"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
+    android:id="@+id/settings_container"
     tools:context=".activities.fragments.SettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@id/settings_header" />
 
         <Switch
-            android:id="@+id/switch_narration"
+            android:id="@+id/switch_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -55,30 +56,63 @@
             android:layout_height="1dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/shadow"
-            app:layout_constraintTop_toBottomOf="@id/switch_narration" />
+            app:layout_constraintTop_toBottomOf="@id/switch_theme" />
 
         <Switch
-            android:id="@+id/switch_tips"
+            android:id="@+id/switch_notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="24dp"
             android:switchPadding="30dp"
-            android:text="Tips"
+            android:text="Notifications"
             android:textColor="?attr/textColor"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
+        <Button
+            android:id="@+id/settings_button_timepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:background="@drawable/button_question_continue"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Pick time"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:foreground="@drawable/background_item_selected"
+            app:layout_constraintBottom_toTopOf="@+id/view4"
+            app:layout_constraintStart_toStartOf="@id/switch_notifications"
+            app:layout_constraintTop_toBottomOf="@id/switch_notifications" />
+
+        <TextView
+            android:id="@+id/settings_text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:textAlignment="center"
+            android:textColor="#90707070"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_button_timepicker"
+            app:layout_constraintEnd_toEndOf="@+id/switch_notifications"
+            app:layout_constraintTop_toTopOf="@id/settings_button_timepicker"
+            tools:text="09 : 00" />
+
         <View
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/shadow"
-            app:layout_constraintTop_toBottomOf="@id/switch_tips" />
+            app:layout_constraintTop_toBottomOf="@id/settings_button_timepicker" />
 
         <TextView
             android:id="@+id/text_about"
@@ -94,6 +128,17 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <TimePicker
+            android:id="@+id/settings_timepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"

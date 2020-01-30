@@ -1,22 +1,24 @@
 package com.pomoranca.myapplication.activities
 
-import android.app.Dialog
+import android.app.*
+import android.content.Context
 import android.content.Intent
-import android.graphics.SurfaceTexture
-import android.media.AudioManager
-import android.media.MediaPlayer
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.view.Surface
-import android.view.TextureView
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.VideoView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -24,24 +26,32 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
+import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.activities.fragments.MainFragment
-import com.pomoranca.myapplication.activities.fragments.MealTipsFragment
-import com.pomoranca.myapplication.activities.fragments.ProfileFragment
-import com.pomoranca.myapplication.activities.fragments.SettingsFragment
+import com.pomoranca.myapplication.SharedPref
+import com.pomoranca.myapplication.activities.fragments.*
 import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.dialog_welcome.*
 import kotlinx.android.synthetic.main.dialog_welcome.dialog_welcome_name
+import kotlinx.android.synthetic.main.dialog_workout_finished.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
+import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(),
-    OnAboutClickedListener {
+    OnAboutClickedListener, OnTimeSetListener {
 
     lateinit var video: VideoView
+    private lateinit var sharedPref: SharedPref
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var alarmManager: AlarmManager
 
 
     companion object {
@@ -54,8 +64,19 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPref = SharedPref(this)
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+        if (sharedPref.loadNightModeState()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         video = findViewById(R.id.header_image)
+        alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
 
 
         checkFirstTimeRun()
@@ -288,9 +309,79 @@ class MainActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-
         video.stopPlayback()
+    }
+
+
+    /******************************* ALERT TIALOG ********************************************/
+    private fun startAlarm(c: Calendar) {
+        Log.i("ALARMS", "ALARM STARTED")
+        if(sharedPref.loadNotificationState()) {
+            val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(this, NotificationReceiver::class.java)
+            val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
+            if (c.before(Calendar.getInstance())) {
+                c.add(Calendar.DATE, 1)
+            }
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
+        }
+        else {
+            cancelAlarm()
+        }
+    }
+
+    private fun cancelAlarm() {
+        val intent = Intent(this, NotificationReceiver::class.java)
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        alarmManager.cancel(pendingIntent)
+        Log.i("ALARMS", "ALARM CANCELED")
+    }
+
+    private fun getTime() {
+        val c = Calendar.getInstance()
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            c.set(Calendar.HOUR_OF_DAY, hour)
+            c.set(Calendar.MINUTE, minute)
+//            updateTimeText(c)
+            startAlarm(c)
+            Snackbar.make(findViewById(android.R.id.content), "Alarm set !", Snackbar.LENGTH_LONG)
+                .show()
+            //save alarm in sharedprefs
+            val a = SimpleDateFormat("HH:m").format(c.timeInMillis)
+            sharedPref.saveNotificationTime(a)
+            sharedPref.saveNotificationState(true)
+            restartSettingsFragment()
+
+        }
+
+        TimePickerDialog(
+            this,
+            R.style.ThemeCustomDialog,
+            timeSetListener,
+            c.get(Calendar.HOUR_OF_DAY),
+            c.get(Calendar.MINUTE),
+            true
+        ).show()
+
 
     }
 
+    //    private fun updateTimeText(c: Calendar) {
+//        val timeText = DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
+//        rootView.settings_text_time.text = timeText
+//    }
+    override fun onTimeSet() {
+        getTime()
+    }
+
+    fun restartSettingsFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SettingsFragment())
+            .commit()
+    }
+
+
 }
+
+
+

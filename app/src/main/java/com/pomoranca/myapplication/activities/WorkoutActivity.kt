@@ -342,7 +342,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun populateList() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         when (planTitle) {
-            "Beginner plan" -> {
+            "BEGINNER\nWORKOUT" -> {
                 loseWeightViewModel.getBeginnerWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 1
@@ -350,7 +350,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "Intermediate plan" -> {
+            "INTERMEDIATE\nWORKOUT" -> {
                 loseWeightViewModel.getIntermediateWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 2
@@ -358,7 +358,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "Advanced plan" -> {
+            "ADVANCED\nWORKOUT" -> {
                 loseWeightViewModel.getAdvancedWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 3
@@ -366,7 +366,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "Insane plan" -> {
+            "INSANE\nWORKOUT" -> {
                 loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 4
