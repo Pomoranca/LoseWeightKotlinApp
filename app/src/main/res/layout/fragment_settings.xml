@@ -2,10 +2,10 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
-    android:id="@+id/settings_container"
     tools:context=".activities.fragments.SettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,13 +15,13 @@
 
         <TextView
             android:id="@+id/settings_header"
+            style="@style/toolbarFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/settings"
             android:textColor="?attr/textColor"
             android:textSize="16sp"
-            style="@style/toolbarFont"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,9 +40,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="24dp"
-            android:textColor="?attr/textColor"
             android:switchPadding="30dp"
             android:text="Dark theme"
+            android:textColor="?attr/textColor"
 
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="24dp"
             android:switchPadding="30dp"
-            android:text="Notifications"
+            android:text="Reminders"
             android:textColor="?attr/textColor"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,19 +75,19 @@
 
         <Button
             android:id="@+id/settings_button_timepicker"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="8dp"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:background="@drawable/button_question_continue"
             android:clickable="true"
             android:focusable="true"
-            android:text="Pick time"
+            android:foreground="@drawable/background_item_selected"
+            android:text="Set time"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="16sp"
-            android:foreground="@drawable/background_item_selected"
             app:layout_constraintBottom_toTopOf="@+id/view4"
             app:layout_constraintStart_toStartOf="@id/switch_notifications"
             app:layout_constraintTop_toBottomOf="@id/switch_notifications" />
@@ -99,7 +99,7 @@
             android:clickable="true"
             android:focusable="true"
             android:textAlignment="center"
-            android:textColor="#90707070"
+            android:textColor="@color/colorInverse"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/settings_button_timepicker"
             app:layout_constraintEnd_toEndOf="@+id/switch_notifications"
@@ -121,10 +121,10 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="6dp"
             android:clickable="true"
-            android:textColor="?attr/textColor"
             android:focusable="true"
             android:text="About"
             android:textAlignment="center"
+            android:textColor="?attr/textColor"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view4" />

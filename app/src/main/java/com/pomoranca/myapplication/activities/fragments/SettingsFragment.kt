@@ -1,14 +1,20 @@
 package com.pomoranca.myapplication.activities.fragments
 
 
+import android.app.ActivityOptions
 import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.MainActivity
@@ -52,15 +58,31 @@ class SettingsFragment : Fragment(), View.OnClickListener,
             rootView.switch_notifications.isChecked = true
         }
 
+
         //edit theme settings
         rootView.switch_theme.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
                 sharedPref.saveNightModeState(true)
-                startActivity(Intent(rootView.context, MainActivity::class.java))
+                val i = Intent(activity, MainActivity::class.java)
+                if (Build.VERSION.SDK_INT > 20) {
+                    val options =
+                        ActivityOptions.makeSceneTransitionAnimation(activity)
+                    startActivity(i, options.toBundle())
+                } else {
+                    startActivity(i)
+                }
+//                startActivity(Intent(rootView.context, MainActivity::class.java))
             } else {
                 sharedPref.saveNightModeState(false)
-                startActivity(Intent(rootView.context, MainActivity::class.java))
+                val i = Intent(activity, MainActivity::class.java)
+                if (Build.VERSION.SDK_INT > 20) {
+                    val options =
+                        ActivityOptions.makeSceneTransitionAnimation(activity)
+                    startActivity(i, options.toBundle())
+                } else {
+                    startActivity(i)
+                }
             }
         }
         //edit notification settings
@@ -68,9 +90,13 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
             if (isChecked) {
                 sharedPref.saveNotificationState(true)
+                rootView.settings_button_timepicker.visibility = View.VISIBLE
+                timeSetListener?.onTimeSet()
 
             } else {
                 sharedPref.saveNotificationState(false)
+                cancelAlarm()
+                rootView.settings_button_timepicker.visibility = View.INVISIBLE
             }
         }
 
@@ -83,6 +109,19 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
 
         return rootView
+    }
+
+    private fun cancelAlarm() {
+        val intent = Intent(rootView.context, NotificationReceiver::class.java)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getBroadcast(rootView.context, 0, intent, 0)
+        alarmManager.cancel(pendingIntent)
+        Snackbar.make(
+            activity!!.findViewById(android.R.id.content),
+            "Reminder canceled !",
+            Snackbar.LENGTH_LONG
+        ).setBackgroundTint(activity!!.resources.getColor(R.color.startTimer))
+            .show()
     }
 
 
@@ -102,6 +141,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
     override fun onTimeSet() {
     }
+
     fun updateTime() {
         rootView.settings_text_time.text = sharedPref.loadNotificationTime()
 

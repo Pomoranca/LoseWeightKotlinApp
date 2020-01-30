@@ -91,11 +91,11 @@ class WorkoutActivity : AppCompatActivity() {
         val width = displayMetrics.widthPixels
 
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //LANDSCAPE SETTINGS
+            //LANDSCAPE SETTINGS  - progress bar takes 1/4 of width
             progress_bar.layoutParams.height = width / 4
             progress_bar.layoutParams.width = width / 4
         } else {
-            //PORTRAIT SETTINGS
+            //PORTRAIT SETTINGS - progress bar takes 1/2 of width
             progress_bar.layoutParams.height = width / 2
             progress_bar.layoutParams.width = width / 2
         }
@@ -462,22 +462,22 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun prepareTimer() {
         when (planTitle) {
-            "Beginner plan" -> {
+            "BEGINNER\nWORKOUT" -> {
                 REST_TIME_IN_MILLIS = 1000
                 START_TIME_IN_MILLIS = 20000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "Intermediate plan" -> {
+            "INTERMEDIATE\nWORKOUT" -> {
                 REST_TIME_IN_MILLIS = 15000
                 START_TIME_IN_MILLIS = 45000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "Advanced plan" -> {
+            "ADVANCED\nWORKOUT" -> {
                 REST_TIME_IN_MILLIS = 15000
                 START_TIME_IN_MILLIS = 45000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "Insane plan" -> {
+            "INSANE\nWORKOUT" -> {
                 REST_TIME_IN_MILLIS = 10000
                 START_TIME_IN_MILLIS = 50000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS

@@ -1,21 +1,22 @@
 package com.pomoranca.myapplication.activities
 
 import android.app.*
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.transition.Fade
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.ImageView
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -35,13 +36,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.dialog_welcome.*
 import kotlinx.android.synthetic.main.dialog_welcome.dialog_welcome_name
-import kotlinx.android.synthetic.main.dialog_workout_finished.*
-import kotlinx.android.synthetic.main.fragment_settings.view.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(),
@@ -50,19 +46,15 @@ class MainActivity : AppCompatActivity(),
     lateinit var video: VideoView
     private lateinit var sharedPref: SharedPref
     lateinit var notificationManager: NotificationManager
-    lateinit var notificationChannel: NotificationChannel
     lateinit var alarmManager: AlarmManager
-
-
-    companion object {
-        const val WORKOUT_PLAN = 1
-    }
+    private val BACK_STACK_ROOT_TAG = "root_fragment"
 
     private val PREFS_NAME = "MyPrefsFile"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAnimation()
         setContentView(R.layout.activity_main)
         sharedPref = SharedPref(this)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -76,7 +68,6 @@ class MainActivity : AppCompatActivity(),
 
         video = findViewById(R.id.header_image)
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
 
 
         checkFirstTimeRun()
@@ -98,9 +89,8 @@ class MainActivity : AppCompatActivity(),
             })
             .withHeaderBackground(R.drawable.drawer_header_logo)
             .withHeaderBackgroundScaleType(ImageView.ScaleType.FIT_CENTER)
-//            .withTranslucentStatusBar(true)
             .withActivity(this)
-            .withDividerBelowHeader(false)
+            .withDividerBelowHeader(true)
             .build()
 
         val homeItem =
@@ -192,18 +182,26 @@ class MainActivity : AppCompatActivity(),
         when (menuItem.itemId) {
             R.id.home_nav -> {
                 val fragment = MainFragment()
+                supportFragmentManager.popBackStack(
+                    BACK_STACK_ROOT_TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
-                    .addToBackStack(null)
+                    .addToBackStack(BACK_STACK_ROOT_TAG)
                     .commit()
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.meal_nav -> {
                 val fragment = MealTipsFragment()
+                supportFragmentManager.popBackStack(
+                    BACK_STACK_ROOT_TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
-                    .addToBackStack(null)
+                    .addToBackStack(BACK_STACK_ROOT_TAG)
                     .commit()
 
                 return@OnNavigationItemSelectedListener true
@@ -211,22 +209,40 @@ class MainActivity : AppCompatActivity(),
 
             R.id.profile_nav -> {
                 val fragment = ProfileFragment()
+                supportFragmentManager.popBackStack(
+                    BACK_STACK_ROOT_TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
-                    .addToBackStack(null)
+                    .addToBackStack(BACK_STACK_ROOT_TAG)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.settings_nav -> {
                 val fragment = SettingsFragment()
+                supportFragmentManager.popBackStack(
+                    BACK_STACK_ROOT_TAG,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, fragment.javaClass.simpleName)
-                    .addToBackStack(null)
+                    .addToBackStack(BACK_STACK_ROOT_TAG)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
+    }
+
+    private fun setAnimation() {
+        if (Build.VERSION.SDK_INT > 20) {
+            val fade = Fade()
+            fade.interpolator = android.view.animation.LinearInterpolator()
+            fade.duration = 1000
+            window.exitTransition = fade
+            window.enterTransition = fade
+        }
     }
 
 
@@ -237,8 +253,6 @@ class MainActivity : AppCompatActivity(),
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
         dialog.dialog_welcome_name.text = "Welcome"
-//        val textView = view.findViewById<TextView>(R.id.dialog_welcome_name)
-//        textView.text= "Welcome $userName"
         dialog.dialog_button_lets_start.setOnClickListener {
             showVideo()
             dialog.dismiss()
@@ -315,39 +329,41 @@ class MainActivity : AppCompatActivity(),
 
     /******************************* ALERT TIALOG ********************************************/
     private fun startAlarm(c: Calendar) {
-        Log.i("ALARMS", "ALARM STARTED")
-        if(sharedPref.loadNotificationState()) {
-            val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val alarmManager: AlarmManager =
+                getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val intent = Intent(this, NotificationReceiver::class.java)
-            val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
-            if (c.before(Calendar.getInstance())) {
-                c.add(Calendar.DATE, 1)
-            }
+            val pendingIntent: PendingIntent =
+                PendingIntent.getBroadcast(this, 1, intent, FLAG_UPDATE_CURRENT)
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP, c.timeInMillis,
+                AlarmManager.INTERVAL_DAY, pendingIntent
+            )
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
-        }
-        else {
-            cancelAlarm()
-        }
+
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "Reminder set !",
+                Snackbar.LENGTH_LONG
+            ).setBackgroundTint(resources.getColor(R.color.startTimer))
+                .show()
+
+
+
     }
 
-    private fun cancelAlarm() {
-        val intent = Intent(this, NotificationReceiver::class.java)
-        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-        alarmManager.cancel(pendingIntent)
-        Log.i("ALARMS", "ALARM CANCELED")
-    }
 
     private fun getTime() {
         val c = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+//            c.set(Calendar.DAY_OF_YEAR, 1)
             c.set(Calendar.HOUR_OF_DAY, hour)
             c.set(Calendar.MINUTE, minute)
-//            updateTimeText(c)
+            c.set(Calendar.SECOND, 0)
+            c.set(Calendar.MILLISECOND, 0)
             startAlarm(c)
-            Snackbar.make(findViewById(android.R.id.content), "Alarm set !", Snackbar.LENGTH_LONG)
-                .show()
-            //save alarm in sharedprefs
-            val a = SimpleDateFormat("HH:m").format(c.timeInMillis)
+
+            //save alarm in sharedprefs and update time text
+            val a = SimpleDateFormat("HH:mm").format(c.timeInMillis)
             sharedPref.saveNotificationTime(a)
             sharedPref.saveNotificationState(true)
             restartSettingsFragment()
@@ -366,15 +382,11 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    //    private fun updateTimeText(c: Calendar) {
-//        val timeText = DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
-//        rootView.settings_text_time.text = timeText
-//    }
     override fun onTimeSet() {
         getTime()
     }
 
-    fun restartSettingsFragment() {
+    private fun restartSettingsFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, SettingsFragment())
             .commit()
@@ -382,6 +394,9 @@ class MainActivity : AppCompatActivity(),
 
 
 }
+
+
+
 
 
 

@@ -9,7 +9,6 @@ import androidx.core.app.NotificationCompat
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.i("ALARMS", "ALARM RECEIVED")
         val notificationHelper = NotificationHelper(context)
         val nb: NotificationCompat.Builder = notificationHelper.channelNotification
         notificationHelper.manager!!.notify(1, nb.build())

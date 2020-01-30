@@ -2,16 +2,16 @@
 <resources>
     <color name="colorPrimary">#0B8dd8</color>
     <color name="colorPrimaryDark">#0B8dd8</color>
-    <color name="colorAccent">#0B8dd8</color>
+    <color name="colorAccent">#26a69a</color>
     <color name="colorWhite">#F0F0F0</color>
     <color name="darkDrawer">#424242</color>
-    <color name="buttonColor">#0B8dd8 </color>
+    <color name="buttonColor">#0B8dd8</color>
     <color name="grayButton">#707070</color>
     <color name="focusedColor">#E8D8D8D8</color>
-    <color name="startTimer">#43A047</color>
+    <color name="startTimer">#26a69a</color>
     <color name="emphasizeYellow">#CEFFE623</color>
     <color name="grayTransparent">#28808080</color>
-
+    <color name="colorInverse">@color/darkDrawer</color>
 
 
 </resources>

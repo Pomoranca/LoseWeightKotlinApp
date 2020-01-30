@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -16,6 +16,11 @@
         <item name="bottomNavBackgrounds">@color/colorWhite</item>
         <item name="bottomNavIcon">#8D8D8D</item>
         <item name="bottomNavPressed">@color/colorPrimary</item>
+
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
+
+        <!-- specify enter and exit transitions -->
     </style>
 
 

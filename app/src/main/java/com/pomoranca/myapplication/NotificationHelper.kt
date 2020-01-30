@@ -7,9 +7,11 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.pomoranca.myapplication.data.Reminders
 
 
 class NotificationHelper(base: Context?) : ContextWrapper(base) {
+    private val reminderList = Reminders()
     private var mManager: NotificationManager? = null
     @TargetApi(Build.VERSION_CODES.O)
     private fun createChannel() {
@@ -32,7 +34,7 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
     val channelNotification: NotificationCompat.Builder
         get() = NotificationCompat.Builder(applicationContext, channelID)
             .setContentTitle("Hey!")
-            .setContentText("Don't forget to")
+            .setContentText(reminderList.reminders.random())
             .setSmallIcon(R.drawable.ic_check)
 
     companion object {

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.adapters.AwardRecyclerViewAdapter
 import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
+import com.pomoranca.myapplication.data.Reminders
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -58,7 +59,6 @@ class MainFragment : Fragment(), SensorEventListener {
 
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)
 
-
         stepCounterText = rootView.findViewById(R.id.fragment_main_text_step_counter)
         progressBar = rootView.findViewById(R.id.fragment_main_progress_step)
         // Inflate the layout for this fragment
@@ -66,9 +66,7 @@ class MainFragment : Fragment(), SensorEventListener {
         getValues()
         awardRecyclerViewAdapter = AwardRecyclerViewAdapter()
         awardRecyclerViewAdapter.populateAwardList()
-
-
-
+        val reminderList = Reminders()
 
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //Populate USER OVERVIEW from DATABASE DATA
@@ -106,9 +104,9 @@ class MainFragment : Fragment(), SensorEventListener {
 
 
             }
-            text_hi.text = "Hi ${it[0].name}"
+            text_hi.text = "Hi, ${it[0].name}"
         })
-
+        rootView.textview_tips.text = reminderList.reminders.random()
         val recyclerView = rootView!!.recyclerViewMain
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
@@ -207,8 +205,8 @@ class MainFragment : Fragment(), SensorEventListener {
         editor.putFloat("stepsMadeTotal", stepsMadeTotal)
         editor.putFloat("stepsMadeToday", stepsMadeToday)
         editor.apply()
-
     }
+
 
 
 }
