@@ -32,8 +32,6 @@ class ProfileFragment : Fragment() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
     private var medalsWon = 0
     private val PREFS_NAME = "MyPrefsFile"
-    var experience = 0
-
 
 
     override fun onCreateView(

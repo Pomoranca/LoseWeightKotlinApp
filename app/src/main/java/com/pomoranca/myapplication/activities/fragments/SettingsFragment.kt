@@ -64,25 +64,31 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
             if (isChecked) {
                 sharedPref.saveNightModeState(true)
-                val i = Intent(activity, MainActivity::class.java)
-                if (Build.VERSION.SDK_INT > 20) {
-                    val options =
-                        ActivityOptions.makeSceneTransitionAnimation(activity)
-                    startActivity(i, options.toBundle())
-                } else {
-                    startActivity(i)
-                }
-//                startActivity(Intent(rootView.context, MainActivity::class.java))
+//                val i = Intent(activity, MainActivity::class.java)
+//                if (Build.VERSION.SDK_INT > 20) {
+//                    val options =
+//                        ActivityOptions.makeSceneTransitionAnimation(activity)
+//                    startActivity(i, options.toBundle())
+//                } else {
+//                    startActivity(i)
+//                }
+                startActivity(Intent(rootView.context, MainActivity::class.java))
+                activity!!.finish()
+
             } else {
                 sharedPref.saveNightModeState(false)
-                val i = Intent(activity, MainActivity::class.java)
-                if (Build.VERSION.SDK_INT > 20) {
-                    val options =
-                        ActivityOptions.makeSceneTransitionAnimation(activity)
-                    startActivity(i, options.toBundle())
-                } else {
-                    startActivity(i)
-                }
+//                val i = Intent(activity, MainActivity::class.java)
+//                if (Build.VERSION.SDK_INT > 20) {
+//                    val options =
+//                        ActivityOptions.makeSceneTransitionAnimation(activity)
+//                    startActivity(i, options.toBundle())
+//                } else {
+//                    startActivity(i)
+//                }
+//            }
+                startActivity(Intent(rootView.context, MainActivity::class.java))
+                activity!!.finish()
+
             }
         }
         //edit notification settings

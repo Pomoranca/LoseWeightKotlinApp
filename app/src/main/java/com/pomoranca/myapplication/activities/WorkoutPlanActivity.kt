@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.TransitionDrawable
 import android.media.MediaPlayer
 import android.media.PlaybackParams
@@ -51,15 +52,14 @@ class WorkoutPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
-
-
-        setSupportActionBar(toolbar_workout_plan)
+        setSupportActionBar(toolbar_plan)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Workout plan"
+
+        Glide.with(this).load(R.drawable.appbar_background2).centerCrop().into(header_image_source)
 
 
         workoutRecyclerView.layoutManager =
-            GridLayoutManager(this, 3)
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         workoutRecyclerView.setHasFixedSize(true)
         val adapter = ItemRecyclerViewAdapter()
         workoutRecyclerView.adapter = adapter
@@ -67,7 +67,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //POPULATE recyclerview regarding which plan is clicked
         when (planTitle) {
-            "BEGINNER\nWORKOUT" -> {
+            "Beginner workout" -> {
                 loseWeightViewModel.getBeginnerWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -77,7 +77,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                     })
                 setValues("40", "20", "3-5")
             }
-            "INTERMEDIATE\nWORKOUT" -> {
+            "Intermediate workout" -> {
                 loseWeightViewModel.getIntermediateWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -87,7 +87,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 setValues("45", "15", "3 - 5")
 
             }
-            "ADVANCED\nWORKOUT" -> {
+            "Advanced workout" -> {
                 loseWeightViewModel.getAdvancedWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -97,7 +97,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 setValues("45", "15", "4 - 6")
 
             }
-            "INSANE\nWORKOUT" -> {
+            "Insane workout" -> {
                 loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -175,9 +175,9 @@ class WorkoutPlanActivity : AppCompatActivity() {
     }
 
     private fun setValues(work: String, rest: String, sets: String) {
-        plan_text_work.text = "$work seconds"
-        plan_text_rest.text = "$rest seconds"
-        plan_text_sets.text = "$sets sets"
+        plan_text_work.text = "Work out for $work seconds"
+        plan_text_rest.text = "Rest $rest seconds"
+        plan_text_sets.text = "Do $sets sets"
     }
 
 

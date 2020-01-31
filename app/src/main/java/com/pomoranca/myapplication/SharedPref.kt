@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class SharedPref(context: Context) {
     private val settingsPref: SharedPreferences =
-        context.getSharedPreferences("theme", Context.MODE_PRIVATE)
+        context.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
 
     fun saveNightModeState(state: Boolean) {
         val editor: SharedPreferences.Editor = settingsPref.edit()

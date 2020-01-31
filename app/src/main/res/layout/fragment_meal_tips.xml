@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/textview_tips"
             tools:itemCount="5"
             tools:listitem="@layout/recycler_view_meal" />
 

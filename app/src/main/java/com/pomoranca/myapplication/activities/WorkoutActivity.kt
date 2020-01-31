@@ -147,7 +147,7 @@ class WorkoutActivity : AppCompatActivity() {
         workout_set_number.text = "$currentSet / $numberOfSets"
         progress_bar.progress = (START_TIME_IN_MILLIS / 1000).toInt()
         text_view_countdown.text = (START_TIME_IN_MILLIS / 1000).toString()
-        text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
+        updateText()
         populateList()
 
     }
@@ -342,7 +342,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun populateList() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         when (planTitle) {
-            "BEGINNER\nWORKOUT" -> {
+            "Beginner workout" -> {
                 loseWeightViewModel.getBeginnerWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 1
@@ -350,7 +350,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "INTERMEDIATE\nWORKOUT" -> {
+            "Intermediate workout" -> {
                 loseWeightViewModel.getIntermediateWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 2
@@ -358,7 +358,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "ADVANCED\nWORKOUT" -> {
+            "Advanced workout" -> {
                 loseWeightViewModel.getAdvancedWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 3
@@ -366,7 +366,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "INSANE\nWORKOUT" -> {
+            "INsane workout" -> {
                 loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 4
@@ -380,10 +380,10 @@ class WorkoutActivity : AppCompatActivity() {
 
     fun changeAnimation() {
         startVideoLooped()
-        val currentWorkoutText = text_current_workout.text.toString()
-        text_current_workout.text = currentWorkoutText
+        updateText()
+
         mTextToSpeech.setSpeechRate(0.9f)
-        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
+        mTextToSpeech.speak(text_current_workout.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
         workout_set_number.text = "$currentSet / $numberOfSets"
 
     }
@@ -538,6 +538,12 @@ class WorkoutActivity : AppCompatActivity() {
             button_start_pause.visibility = View.VISIBLE
         }
         video.start()
+    }
+
+    private fun updateText() {
+        text_current_workout.text = finalWorkoutList[currentSet - 1].name
+        informationOne.text = finalWorkoutList[currentSet - 1].tipOne
+        informationTwo.text = finalWorkoutList[currentSet - 1].tipTwo
     }
 
 

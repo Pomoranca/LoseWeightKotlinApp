@@ -53,24 +53,23 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setAnimation()
-        setContentView(R.layout.activity_main)
         sharedPref = SharedPref(this)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-
-        if (sharedPref.loadNightModeState()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
+        if (!sharedPref.loadNightModeState()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
         }
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         video = findViewById(R.id.header_image)
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-
         checkFirstTimeRun()
+
 
         main_fab_calendar.setOnClickListener {
             startActivity(Intent(this, CalendarActivity::class.java))
@@ -247,7 +246,7 @@ class MainActivity : AppCompatActivity(),
 
 
     private fun showDialog() {
-        val dialog = Dialog(this, R.style.Theme_Dialog)
+        val dialog = Dialog(this, R.style.ThemeCustomDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_welcome)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -279,7 +278,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun showAboutDialog() {
-        val dialog = Dialog(this, R.style.Theme_Dialog)
+        val dialog = Dialog(this, R.style.ThemeCustomDialog)
         dialog.setContentView(R.layout.dialog_about)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
@@ -329,24 +328,23 @@ class MainActivity : AppCompatActivity(),
 
     /******************************* ALERT TIALOG ********************************************/
     private fun startAlarm(c: Calendar) {
-            val alarmManager: AlarmManager =
-                getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(this, NotificationReceiver::class.java)
-            val pendingIntent: PendingIntent =
-                PendingIntent.getBroadcast(this, 1, intent, FLAG_UPDATE_CURRENT)
-            alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP, c.timeInMillis,
-                AlarmManager.INTERVAL_DAY, pendingIntent
-            )
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
+        val alarmManager: AlarmManager =
+            getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, NotificationReceiver::class.java)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getBroadcast(this, 1, intent, FLAG_UPDATE_CURRENT)
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP, c.timeInMillis,
+            AlarmManager.INTERVAL_DAY, pendingIntent
+        )
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
 
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                "Reminder set !",
-                Snackbar.LENGTH_LONG
-            ).setBackgroundTint(resources.getColor(R.color.startTimer))
-                .show()
-
+        Snackbar.make(
+            findViewById(android.R.id.content),
+            "Reminder set !",
+            Snackbar.LENGTH_LONG
+        ).setBackgroundTint(resources.getColor(R.color.startTimer))
+            .show()
 
 
     }
@@ -355,7 +353,7 @@ class MainActivity : AppCompatActivity(),
     private fun getTime() {
         val c = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-//            c.set(Calendar.DAY_OF_YEAR, 1)
+            //            c.set(Calendar.DAY_OF_YEAR, 1)
             c.set(Calendar.HOUR_OF_DAY, hour)
             c.set(Calendar.MINUTE, minute)
             c.set(Calendar.SECOND, 0)

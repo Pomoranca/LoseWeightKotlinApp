@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat.startActivity
@@ -46,6 +47,7 @@ class PlanRecyclerViewAdapter :
         val planTextView: TextView = itemView.plan_textView
 //        val daysTextView: TextView = itemView.course_days_text
         val planCard: ImageView = itemView.plan_card_background
+        val progressBar: ProgressBar = itemView.progressBar_difficulty
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanHolder {
@@ -65,6 +67,7 @@ class PlanRecyclerViewAdapter :
         holder.planTextView.text = currentPlan.name
 //        holder.daysTextView.text = "${currentPlan.duration} days"
         holder.planCard.setColorFilter(Color.parseColor("#E8D8D8D8"), PorterDuff.Mode.MULTIPLY)
+        holder.progressBar.progress = currentPlan.duration/7
 
         Glide
             .with(holder.planCard.context)
@@ -81,10 +84,10 @@ class PlanRecyclerViewAdapter :
     }
 
     fun populatePlanList() {
-        planList.add(WorkoutPlan("BEGINNER\nWORKOUT", 20, R.drawable.plan_beginner, 30, 20))
-        planList.add(WorkoutPlan("INTERMEDIATE\nWORKOUT", 30, R.drawable.plan_intermediate, 40, 20))
-        planList.add(WorkoutPlan("ADVANCED\nWORKOUT", 40, R.drawable.plan_advanced, 45, 15))
-        planList.add(WorkoutPlan("INSANE\nWORKOUT", 60, R.drawable.plan_premium, 45, 15))
+        planList.add(WorkoutPlan("Beginner workout", 20, R.drawable.plan_beginner, 30, 20))
+        planList.add(WorkoutPlan("Intermediate workout", 30, R.drawable.plan_intermediate, 40, 20))
+        planList.add(WorkoutPlan("Advanced workout", 40, R.drawable.plan_advanced, 45, 15))
+        planList.add(WorkoutPlan("Insane workout", 60, R.drawable.plan_premium, 45, 15))
     }
 
     interface OnItemClickListener {

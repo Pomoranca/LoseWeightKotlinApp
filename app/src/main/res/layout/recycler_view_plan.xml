@@ -1,56 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_marginStart="16dp"
-    app:cardCornerRadius="10dp"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="11dp"
+    android:layout_marginStart="11dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
->
+    android:paddingEnd="5dp"
+    android:paddingStart="5dp"
+    android:paddingBottom="15dp"
+    android:outlineProvider="bounds"
+    android:clipToPadding="false"
+    >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/plan_card_background"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_item_selected"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/background_item_selected"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:background="@drawable/plan_beginner" />
+        app:cardElevation="7dp"
+        app:cardCornerRadius="10dp">
 
-    <TextView
-        android:id="@+id/plan_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.7"
-        android:fontFamily="@font/raleway_black"
-        android:lineSpacingMultiplier="0.8"
-        android:textColor="@color/colorWhite"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="BEGINNER\nWORKOUT" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+            <ImageView
+                android:id="@+id/plan_card_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_item_selected"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/background_item_selected"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:background="@drawable/plan_beginner" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/plan_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="32dp"
+                android:alpha="0.9"
+                android:fontFamily="@font/nunito_sans_black"
+                android:lineSpacingMultiplier="0.8"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Beginner workout" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_difficulty"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:max="10"
+                android:progress="4"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="@+id/plan_textView"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Difficulty"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintStart_toStartOf="@+id/plan_textView"
+                app:layout_constraintTop_toBottomOf="@+id/plan_textView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

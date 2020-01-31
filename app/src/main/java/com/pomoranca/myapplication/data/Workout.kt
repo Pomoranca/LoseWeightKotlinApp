@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 class Workout(
     var name: String,
     var imagePath: Int,
-    var difficulty: Int) {
+    var difficulty: Int,
+    var tipOne : String,
+    var tipTwo : String
+    ) {
 
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0

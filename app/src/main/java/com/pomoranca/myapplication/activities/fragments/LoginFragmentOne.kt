@@ -37,12 +37,6 @@ class LoginFragmentOne : Fragment() {
             .centerCrop()
             .into(rootView.login_background)
 
-
-        val fragmentManager = activity!!.supportFragmentManager
-
-        val settings: SharedPreferences =
-            activity!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
 
 
