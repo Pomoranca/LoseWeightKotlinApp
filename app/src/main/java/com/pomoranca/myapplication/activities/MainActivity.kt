@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -359,15 +360,20 @@ class MainActivity : AppCompatActivity(),
 
     /******************************* ALERT TIALOG ********************************************/
     private fun startAlarm(c: Calendar) {
+
+
         val alarmManager: AlarmManager =
             getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         val intent = Intent(this, NotificationReceiver::class.java)
+
         val pendingIntent: PendingIntent =
             PendingIntent.getBroadcast(this, 1, intent, FLAG_UPDATE_CURRENT)
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, c.timeInMillis,
             AlarmManager.INTERVAL_DAY, pendingIntent
         )
+
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
 
         Snackbar.make(
@@ -407,9 +413,8 @@ class MainActivity : AppCompatActivity(),
             c.get(Calendar.MINUTE),
             true
         ).show()
-
-
     }
+
 
     override fun onTimeSet() {
         getTime()

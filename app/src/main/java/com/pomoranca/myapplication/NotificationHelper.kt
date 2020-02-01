@@ -3,10 +3,13 @@ package com.pomoranca.myapplication
 import android.annotation.TargetApi
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.data.Reminders
 
 
@@ -31,10 +34,18 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
             return mManager
         }
 
+    val activityIntent = Intent(this, MainActivity::class.java)
+    val contentIntent = PendingIntent.getActivity(this, 1, activityIntent, 0)
+
+
     val channelNotification: NotificationCompat.Builder
         get() = NotificationCompat.Builder(applicationContext, channelID)
-            .setContentTitle("Hey!")
+            .setContentTitle(getString(R.string.app_name))
             .setContentText(reminderList.reminders.random())
+            .setContentIntent(contentIntent)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setSmallIcon(R.drawable.ic_check)
 
     companion object {

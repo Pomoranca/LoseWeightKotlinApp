@@ -3,23 +3,23 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#e0f2f1</item>
+        <item name="colorPrimaryDark">#c7c7c7</item>
         <item name="colorPrimaryLight">#FFFFFF</item>
         <item name="colorSecondaryDark"></item>
         <item name="colorSecondaryLight">#8D8D8D</item>
         <item name="colorBackground">#ffffff</item>
-        <item name="colorAccent">#c8e6c9</item>
-        <item name="textColor">#000000</item>
+        <item name="colorAccent">#e1bee7</item>
+        <item name="android:textColor">#AD000000</item>
 
         <item name="textColorPrimary">#AD000000</item>
-        <item name="textColorFaded"></item>
+        <item name="textColorFaded">#CBFFFFFF</item>
         <item name="colorTextButton">#CBFFFFFF</item>
 
 
-        <item name="bottomNavBackgrounds">#fafafa</item>
-        <item name="bottomNavIcon">#8D8D8D</item>
-        <item name="bottomNavPressed">@color/colorPrimary</item>
+        <item name="bottomNavBackgrounds">#f5f5f5</item>
+        <item name="bottomNavIcon">#c2c2c2</item>
+        <item name="bottomNavPressed">#707070</item>
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
         <item name="windowActionBar">true</item>
@@ -36,7 +36,6 @@
     <style name="toolbarFont">
         <item name="android:fontFamily">@font/nunito_sans_black</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">?attr/colorPrimaryLight</item>
     </style>
 
     <style name="bottomNavFont">

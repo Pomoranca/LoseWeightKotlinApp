@@ -42,7 +42,6 @@
         android:text="Wide squats"
         android:textAlignment="center"
         android:textSize="32sp"
-        android:textColor="?attr/textColorFaded"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workout_header" />
 
@@ -67,23 +66,19 @@
 
     <TextView
         android:id="@+id/informationOne"
-        style="@style/informationFontWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="?attr/textColorFaded"
         android:text="Keep your back straight"
         app:layout_constraintStart_toEndOf="@id/informationCircleOne"
         app:layout_constraintTop_toBottomOf="@+id/text_current_workout" />
 
     <TextView
         android:id="@+id/informationTwo"
-        style="@style/informationFontWhite"
         android:fitsSystemWindows="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="?attr/textColorFaded"
         android:text="Don't stop until workout is done"
         app:layout_constraintStart_toEndOf="@id/informationCircleTwo"
         app:layout_constraintTop_toBottomOf="@id/informationOne" />
@@ -98,7 +93,6 @@
         android:text="45"
         android:textAlignment="center"
         android:textSize="80sp"
-        android:textColor="?attr/textColorFaded"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_current_workout"
@@ -178,7 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="?attr/colorSecondary"
+        android:textColor="?attr/colorSecondaryLight"
         app:layout_constraintStart_toEndOf="@+id/text_current_workout"
         app:layout_constraintTop_toTopOf="@+id/text_current_workout"
         tools:text="TextView" />

@@ -59,12 +59,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/material_drawer_account_header_horizontal_bottom"
+                android:textColor="?attr/textColorPrimary"
                 android:text="Starter" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/material_drawer_account_header_horizontal_bottom"
+                android:textColor="?attr/textColorPrimary"
+
                 android:text="Once you get this medal there is no way back. From now on, all you see in front yourself is goals waiting to be finished, and pounds waiting to be lost." />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

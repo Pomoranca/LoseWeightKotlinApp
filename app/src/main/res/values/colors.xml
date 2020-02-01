@@ -9,8 +9,7 @@
 <!--    <color name="grayButton">#cfd8dc</color>-->
     <color name="focusedColor">#E8D8D8D8</color>
     <color name="lightGreen">#26a69a</color>
-    <color name="timerPausedD">?attr/colorAccent</color>
-<!--    <color name="emphasizeYellow">#CEFFE623</color>-->
+    <color name="timerPausedD">#C08BD1</color>
     <color name="grayTransparent">#28808080</color>
 <!--    <color name="colorInverse">#000000</color>-->
 <!--    <color name="buttonTextColor">#000000</color>-->
