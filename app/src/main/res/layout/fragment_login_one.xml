@@ -1,104 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/md_white_1000"
     android:orientation="vertical"
     tools:context=".activities.fragments.LoginFragmentOne">
 
-
-    <ImageView
-        android:id="@+id/login_background"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/login_one_appbar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/image_login_workout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/md_white_1000"
+        android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/welcome_card_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to OneMinute Workout.\nPlease tell me your name?"
-        android:textAlignment="center"
-        android:textColor="@color/md_white_1000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_background" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="start"
+            app:collapsedTitleTextAppearance="@string/app_name"
+            app:contentScrim="?attr/colorBackground"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <EditText
-        android:id="@+id/welcomeCardInput"
+            <ImageView
+                android:id="@+id/login_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                android:padding="30dp"
+                android:src="@drawable/login_background" />
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/login_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/login_one_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="#00FFFDE7"
-        android:fontFamily="@font/raleway_black"
-        android:hint="e.g. John"
-        android:inputType="text"
-        android:maxLines="1"
-        android:maxLength="16"
-        android:textAlignment="center"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="#43FFFFFF"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/welcome_card_text" />
+        android:layout_height="300dp"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/shadow_white"
-        app:layout_constraintEnd_toEndOf="@+id/welcome_card_text"
-        app:layout_constraintStart_toStartOf="@+id/welcome_card_text"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Pick avatar"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+            <EditText
+                android:id="@+id/welcomeCardInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="#00FFFDE7"
+                android:fontFamily="@font/nunito_sans_black"
+                android:hint="Your name"
+                android:inputType="text"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="@color/darkDrawer"
+                android:textColorHint="#34000000"
+                android:textSize="42sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunito_sans_black"
+                android:text="PICK AVATAR"
+                android:textColor="@color/darkDrawer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput" />
 
 
-    <ImageView
-        android:id="@+id/pick_male"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/avatar_selected"
-        app:layout_constraintEnd_toStartOf="@+id/pick_female"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:srcCompat="@drawable/male_pick_ful_size" />
+            <ImageView
+                android:id="@+id/pick_male"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="32dp"
+                android:alpha="0.8"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/avatar_selected"
+                app:layout_constraintEnd_toStartOf="@+id/pick_female"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:srcCompat="@drawable/male_pick_ful_size" />
 
-    <ImageView
-        android:id="@+id/pick_female"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/avatar_selected"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pick_male"
-        app:layout_constraintTop_toTopOf="@+id/pick_male"
-        app:srcCompat="@drawable/female_pick_full_size" />
+            <ImageView
+                android:id="@+id/pick_female"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:alpha="0.8"
+                android:clickable="true"
+                android:focusable="true"
+
+                android:foreground="@drawable/avatar_selected"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/pick_male"
+                app:layout_constraintTop_toTopOf="@+id/pick_male"
+                app:srcCompat="@drawable/female_pick_full_size" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

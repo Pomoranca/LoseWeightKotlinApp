@@ -65,10 +65,11 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        video = findViewById(R.id.header_image)
+//        video = findViewById(R.id.header_image)
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         checkFirstTimeRun()
+        showImage()
 
 
         main_fab_calendar.setOnClickListener {
@@ -253,7 +254,7 @@ class MainActivity : AppCompatActivity(),
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
         dialog.dialog_welcome_name.text = "Welcome"
         dialog.dialog_button_lets_start.setOnClickListener {
-            showVideo()
+            //            showVideo()
             dialog.dismiss()
         }
         dialog.show()
@@ -270,8 +271,8 @@ class MainActivity : AppCompatActivity(),
         if (firstTimeRun) {
             showDialog()
             editor.putString("CURRENT_DATE", CURRENT_DATE)
-        } else {
-            showImage()
+//        } else {
+//            showImage()
         }
         editor.putBoolean("isFirstRun", false)
         editor.apply()
@@ -281,6 +282,23 @@ class MainActivity : AppCompatActivity(),
         val dialog = Dialog(this, R.style.ThemeCustomDialog)
         dialog.setContentView(R.layout.dialog_about)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            if (!sharedPref.loadNightModeState()) {
+                Glide
+                    .with(this@MainActivity)
+                    .load(R.drawable.version_logo_light)
+                    .into(dialog.dialog_about_image)
+                val myFadeInAnimation: Animation =
+                    AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+                dialog.dialog_about_image.startAnimation(myFadeInAnimation)
+            } else {
+                Glide
+                    .with(this@MainActivity)
+                    .load(R.drawable.version_logo_dark)
+                    .into(dialog.dialog_about_image)
+                val myFadeInAnimation: Animation =
+                    AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+                dialog.dialog_about_image.startAnimation(myFadeInAnimation)
+            }
 
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.dialog_about_button_close.setOnClickListener {
@@ -294,35 +312,48 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    private fun showVideo() {
-        header_image.visibility = View.VISIBLE
-        val path = "android.resource://" + packageName + "/" + R.raw.appbar_background
-        video.setVideoPath(path)
-        video.requestFocus()
-        video.setOnPreparedListener {
-        }
-        video.setOnCompletionListener {
-            showImage()
-        }
-        video.start()
-    }
+//    private fun showVideo() {
+//        header_image.visibility = View.VISIBLE
+//        val path = "android.resource://" + packageName + "/" + R.raw.appbar_background
+//        video.setVideoPath(path)
+//        video.requestFocus()
+//        video.setOnPreparedListener {
+//        }
+//        video.setOnCompletionListener {
+//            showImage()
+//        }
+//        video.start()
+//    }
 
     private fun showImage() {
-        Glide
-            .with(this)
-            .load(R.drawable.appbar_fading_image)
-            .centerCrop()
-            .into(header_fading_image)
-        val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
-        val myFadeInAnimation: Animation =
-            AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-        fadingImage.visibility = View.VISIBLE
-        fadingImage.startAnimation(myFadeInAnimation)
+        if (!sharedPref.loadNightModeState()) {
+            Glide
+                .with(this)
+                .load(R.drawable.main_appbar_image_light)
+                .centerCrop()
+                .into(header_fading_image)
+            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+            val myFadeInAnimation: Animation =
+                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+            fadingImage.startAnimation(myFadeInAnimation)
+        } else {
+            Glide
+                .with(this)
+                .load(R.drawable.main_appbar_image_dark)
+                .centerCrop()
+                .into(header_fading_image)
+            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+            val myFadeInAnimation: Animation =
+                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+            fadingImage.startAnimation(myFadeInAnimation)
+
+        }
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        video.stopPlayback()
+//        video.stopPlayback()
     }
 
 

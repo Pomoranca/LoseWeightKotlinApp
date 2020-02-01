@@ -2,45 +2,22 @@ package com.pomoranca.myapplication.activities
 
 import android.app.Dialog
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.TransitionDrawable
-import android.media.MediaPlayer
 import android.media.PlaybackParams
 import android.os.Build
 import android.os.Bundle
-import android.transition.Explode
-import android.transition.Slide
-import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.BounceInterpolator
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.WorkoutActivity.Companion.finalWorkoutList
 import com.pomoranca.myapplication.adapters.ItemRecyclerViewAdapter
-import com.pomoranca.myapplication.adapters.PlanRecyclerViewAdapter
 import com.pomoranca.myapplication.data.Workout
-import com.pomoranca.myapplication.data.WorkoutPlan
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_workout_plan.*
-import kotlinx.android.synthetic.main.dialog_how_to_workout.*
-import kotlinx.android.synthetic.main.dialog_workout_preview.*
 
 
 class WorkoutPlanActivity : AppCompatActivity() {
@@ -108,7 +85,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
 
             }
         }
-        checkFirstTimeWorkout()
+//        checkFirstTimeWorkout()
 
         adapter.setOnItemClickListener(object : ItemRecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(workout: Workout) {
@@ -151,28 +128,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog() {
-        val dialog = Dialog(this, R.style.Theme_Dialog)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.setContentView(R.layout.dialog_how_to_workout)
-        dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
-        dialog.dialog_first_workout_button_dismiss.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
 
-    private fun checkFirstTimeWorkout() {
-        val settings = getSharedPreferences(PREFS_NAME, 0)
-        val firstTimeRun = settings.getBoolean("isFirstWorkout", true)
-        if (firstTimeRun) {
-            showDialog()
-        }
-        val editor = settings.edit()
-        editor.putBoolean("isFirstWorkout", false)
-        editor.apply()
-    }
 
     private fun setValues(work: String, rest: String, sets: String) {
         plan_text_work.text = "Work out for $work seconds"

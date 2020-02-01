@@ -15,9 +15,12 @@
     >
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/plan_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardElevation="7dp"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,9 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_item_selected"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/background_item_selected"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

@@ -6,11 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorBackground">#fcfcfc</item>
+        <item name="colorBackground">#ffffff</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="textColor">#AD000000</item>
-        <item name="android:textColorPrimary">#3A3939</item>
+        <item name="android:textColorPrimary">#000000</item>
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
         <item name="bottomNavBackgrounds">@color/colorWhite</item>

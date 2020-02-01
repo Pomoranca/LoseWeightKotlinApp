@@ -1,25 +1,23 @@
 package com.pomoranca.myapplication.adapters
 
-import android.app.ActivityOptions
-import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.activities.WorkoutPlanActivity
 import com.pomoranca.myapplication.data.WorkoutPlan
-import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.recycler_view_plan.view.*
 
 
@@ -28,8 +26,7 @@ class PlanRecyclerViewAdapter :
 
     private lateinit var listener: OnItemClickListener
 
-        var planList = mutableListOf<WorkoutPlan>()
-
+    var planList = mutableListOf<WorkoutPlan>()
 
 
     inner class PlanHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,10 +40,11 @@ class PlanRecyclerViewAdapter :
             }
         }
 
-//        val courseLength: TextView = itemView.course_length_text
+        //        val courseLength: TextView = itemView.course_length_text
         val planTextView: TextView = itemView.plan_textView
-//        val daysTextView: TextView = itemView.course_days_text
-        val planCard: ImageView = itemView.plan_card_background
+        //        val daysTextView: TextView = itemView.course_days_text
+        val planCardImage: ImageView = itemView.plan_card_background
+        val planCard: CardView = itemView.plan_card
         val progressBar: ProgressBar = itemView.progressBar_difficulty
     }
 
@@ -66,20 +64,26 @@ class PlanRecyclerViewAdapter :
 //        holder.courseLength.text = "Duration:"
         holder.planTextView.text = currentPlan.name
 //        holder.daysTextView.text = "${currentPlan.duration} days"
-        holder.planCard.setColorFilter(Color.parseColor("#E8D8D8D8"), PorterDuff.Mode.MULTIPLY)
-        holder.progressBar.progress = currentPlan.duration/7
+        holder.planCardImage.setColorFilter(Color.parseColor("#E8D8D8D8"), PorterDuff.Mode.MULTIPLY)
+        holder.progressBar.progress = currentPlan.duration / 7
 
         Glide
-            .with(holder.planCard.context)
+            .with(holder.planCardImage.context)
             .load(currentPlan.backgroundPath)
             .thumbnail(0.3f)
             .centerCrop()
-            .into(holder.planCard)
+            .into(holder.planCardImage)
         holder.planCard.setOnClickListener {
             val intent = Intent(it.context, WorkoutPlanActivity::class.java)
             intent.putExtra("NAME", currentPlan.name)
             intent.putExtra("BACKGROUND", currentPlan.backgroundPath)
+//            val scaleAnimation: Animation =
+//                AnimationUtils.loadAnimation(holder.planCard.context, R.anim.anim_scale)
+//            it.startAnimation(scaleAnimation)
             startActivity(it.context, intent, null)
+
+//}
+
         }
     }
 

@@ -12,13 +12,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 
@@ -42,7 +47,6 @@ class SettingsFragment : Fragment(), View.OnClickListener,
     ): View? {
         //Save inflated settings fragment in a value
         rootView = inflater.inflate(R.layout.fragment_settings, container, false)
-
         alarmManager = activity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
 
@@ -102,7 +106,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
             } else {
                 sharedPref.saveNotificationState(false)
                 cancelAlarm()
-                rootView.settings_button_timepicker.visibility = View.INVISIBLE
+                rootView.settings_button_timepicker.visibility = View.GONE
             }
         }
 
@@ -115,6 +119,9 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
 
         return rootView
+    }
+
+    override fun onTimeSet() {
     }
 
     private fun cancelAlarm() {
@@ -145,18 +152,17 @@ class SettingsFragment : Fragment(), View.OnClickListener,
     }
 
 
-    override fun onTimeSet() {
-    }
-
     fun updateTime() {
         rootView.settings_text_time.text = sharedPref.loadNotificationTime()
 
     }
+
+
+
 }
 
-interface OnTimeSetListener {
-    fun onTimeSet()
-}
-
+    interface OnTimeSetListener {
+        fun onTimeSet()
+    }
 
 

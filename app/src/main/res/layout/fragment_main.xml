@@ -24,7 +24,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:textColor="?attr/textColor"
-            android:fontFamily="@font/lato_bold"
+            android:fontFamily="@font/nunito_sans_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,10 +57,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:fontFamily="@font/roboto_slab"
                 android:gravity="center_vertical"
                 android:text="Steps"
-                android:textSize="16sp"
                 android:textColor="?attr/textColor"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
@@ -88,7 +89,7 @@
                 android:background="@drawable/steps_button_shape"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/buttonTextColor"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"

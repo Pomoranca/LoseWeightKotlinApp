@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">OneMinute Workout™</string>
+    <string name="app_name">Fusion</string>
     <string name="home">Plan</string>
     <string name="settings">Setttings</string>
     <string name="profile">Profile</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="workout_dialog_info_tip">Hey! Just some quick tips. So, you will get info like this when you start workout. What this means is, you will be doing workout for <b>45 seconds, with 15 seconds rest.</b> Try to repeat this workout at least <b>3 times.</b> If you feel like you can\'t keep on going, try not to stop, just decrease your pace to as low as possible. We\'re in this together, now I wont bother you anymore, good luck and enjoy the process!</string>
     <string name="tips">Tips</string>
     <string name="string_welcome_text">Our team of proffesionals will make sure that you get where you want.\n\nJust stay focused, and no matter what, <b>don\'t give up.</b>\n\nWinners and losers both keep trying, but winners always finish what they started, and losers always find excuse and give up before the finish line.</string>
 </resources>
