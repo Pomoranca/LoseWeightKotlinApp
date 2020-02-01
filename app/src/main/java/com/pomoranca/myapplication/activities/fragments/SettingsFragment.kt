@@ -60,6 +60,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
         //load notification settings
         if (sharedPref.loadNotificationState()) {
             rootView.switch_notifications.isChecked = true
+            rootView.settings_button_timepicker.visibility = View.VISIBLE
         }
 
 
@@ -133,7 +134,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
             activity!!.findViewById(android.R.id.content),
             "Reminder canceled !",
             Snackbar.LENGTH_LONG
-        ).setBackgroundTint(activity!!.resources.getColor(R.color.startTimer))
+        ).setBackgroundTint(activity!!.resources.getColor(R.color.lightGreen))
             .show()
     }
 

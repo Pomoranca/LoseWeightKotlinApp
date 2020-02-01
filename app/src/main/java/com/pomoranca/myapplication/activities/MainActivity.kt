@@ -374,7 +374,7 @@ class MainActivity : AppCompatActivity(),
             findViewById(android.R.id.content),
             "Reminder set !",
             Snackbar.LENGTH_LONG
-        ).setBackgroundTint(resources.getColor(R.color.startTimer))
+        ).setBackgroundTint(resources.getColor(R.color.lightGreen))
             .show()
 
 

@@ -4,7 +4,7 @@
     <corners
         android:radius="20dp" />
     <solid
-        android:color="@color/buttonColor" />
+        android:color="?attr/colorSecondary" />
     <padding
         android:bottom="8dp"
         android:top="8dp"

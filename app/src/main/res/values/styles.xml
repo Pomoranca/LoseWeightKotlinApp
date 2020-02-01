@@ -5,17 +5,25 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryLight">#FFFFFF</item>
+        <item name="colorSecondaryDark"></item>
+        <item name="colorSecondaryLight">#8D8D8D</item>
         <item name="colorBackground">#ffffff</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="textColor">#AD000000</item>
-        <item name="android:textColorPrimary">#000000</item>
-        <item name="android:fontFamily">@font/nunito_sans</item>
-        <item name="android:textSize">14sp</item>
-        <item name="bottomNavBackgrounds">@color/colorWhite</item>
+        <item name="colorAccent">#c8e6c9</item>
+        <item name="textColor">#000000</item>
+
+        <item name="textColorPrimary">#AD000000</item>
+        <item name="textColorFaded"></item>
+        <item name="colorTextButton">#CBFFFFFF</item>
+
+
+        <item name="bottomNavBackgrounds">#fafafa</item>
         <item name="bottomNavIcon">#8D8D8D</item>
         <item name="bottomNavPressed">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textSize">14sp</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">true</item>
 
     </style>
 
@@ -28,7 +36,7 @@
     <style name="toolbarFont">
         <item name="android:fontFamily">@font/nunito_sans_black</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">?attr/colorPrimaryLight</item>
     </style>
 
     <style name="bottomNavFont">
@@ -39,7 +47,7 @@
     <style name="informationFontWhite">
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
     </style>
 
     <style name="dialog_slide_out">

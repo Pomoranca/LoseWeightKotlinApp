@@ -100,7 +100,7 @@
             android:clickable="true"
             android:focusable="true"
             android:textAlignment="center"
-            android:textColor="@color/colorInverse"
+            android:textColor="?attr/textColor"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/settings_button_timepicker"
             app:layout_constraintEnd_toEndOf="@+id/switch_notifications"

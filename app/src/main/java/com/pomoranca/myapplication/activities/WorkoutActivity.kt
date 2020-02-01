@@ -185,7 +185,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun startTimer() {
         toggleAnimation()
         progress_bar.progressDrawable.setColorFilter(
-            resources.getColor(R.color.startTimer), android.graphics.PorterDuff.Mode.SRC_IN
+            resources.getColor(R.color.lightGreen), android.graphics.PorterDuff.Mode.SRC_IN
         )
 
         val currentWorkoutText = finalWorkoutList[currentSet - 1].name
@@ -244,7 +244,7 @@ class WorkoutActivity : AppCompatActivity() {
         mTextToSpeech.setSpeechRate(1f)
         mTextToSpeech.speak("Workout paused", TextToSpeech.QUEUE_FLUSH, null)
         progress_bar.progressDrawable.setColorFilter(
-            resources.getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN
+            resources.getColor(R.color.timerPausedD), android.graphics.PorterDuff.Mode.SRC_IN
         )
 
     }
@@ -279,7 +279,7 @@ class WorkoutActivity : AppCompatActivity() {
             5 -> mTextToSpeech.speak("Get ready", TextToSpeech.QUEUE_FLUSH, null)
             ((START_TIME_IN_MILLIS / 1000) - 1).toInt() -> {
                 progress_bar.progressDrawable.setColorFilter(
-                    resources.getColor(R.color.startTimer), android.graphics.PorterDuff.Mode.SRC_IN
+                    resources.getColor(R.color.lightGreen), android.graphics.PorterDuff.Mode.SRC_IN
                 )
                 playsound()
                 text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"

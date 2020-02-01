@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#90a4ae</color>
-    <color name="colorPrimaryDark">#62757f</color>
-    <color name="colorAccent">#a094b7</color>
-    <color name="colorWhite">#B2FFFFFF</color>
-    <color name="darkDrawer">#424242</color>
-    <color name="buttonColor">#d1c4e9</color>
-    <color name="grayButton">#cfd8dc</color>
+<!--    <color name="colorPrimary">#90a4ae</color>-->
+<!--    <color name="colorPrimaryDark">#62757f</color>-->
+<!--    <color name="colorAccent">#a094b7</color>-->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="darkGray">#424242</color>
+<!--    <color name="buttonColor">#d1c4e9</color>-->
+<!--    <color name="grayButton">#cfd8dc</color>-->
     <color name="focusedColor">#E8D8D8D8</color>
-    <color name="startTimer">#26a69a</color>
-    <color name="emphasizeYellow">#CEFFE623</color>
+    <color name="lightGreen">#26a69a</color>
+    <color name="timerPausedD">?attr/colorAccent</color>
+<!--    <color name="emphasizeYellow">#CEFFE623</color>-->
     <color name="grayTransparent">#28808080</color>
-    <color name="colorInverse">#000000</color>
-    <color name="buttonTextColor">#000000</color>
+<!--    <color name="colorInverse">#000000</color>-->
+<!--    <color name="buttonTextColor">#000000</color>-->
 
 
 </resources>

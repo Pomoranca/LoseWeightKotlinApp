@@ -50,7 +50,7 @@ class LoginFragmentOne : Fragment() {
                     activity!!.findViewById(android.R.id.content),
                     "Please enter your name !",
                     Snackbar.LENGTH_LONG
-                ).setBackgroundTint(activity!!.resources.getColor(R.color.startTimer))
+                ).setBackgroundTint(activity!!.resources.getColor(R.color.lightGreen))
                     .show()
             } else {
                 rootView.pick_female.isClickable = false
@@ -75,7 +75,7 @@ class LoginFragmentOne : Fragment() {
                     activity!!.findViewById(android.R.id.content),
                     "Please enter your name !",
                     Snackbar.LENGTH_LONG
-                ).setBackgroundTint(activity!!.resources.getColor(R.color.startTimer))
+                ).setBackgroundTint(activity!!.resources.getColor(R.color.lightGreen))
                     .show()
             } else {
                 rootView.pick_male.isClickable = false

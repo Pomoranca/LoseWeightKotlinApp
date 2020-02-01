@@ -77,7 +77,7 @@
         android:background="?attr/bottomNavBackgrounds"
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/bottom_nav_icon_selector"
-        app:itemRippleColor="@color/colorPrimary"
+        app:itemRippleColor="?attr/colorPrimary"
         app:itemTextAppearanceActive="@style/bottomNavFont"
         app:itemTextAppearanceInactive="@style/bottomNavFont"
         app:itemTextColor="@color/bottom_nav_icon_selector"

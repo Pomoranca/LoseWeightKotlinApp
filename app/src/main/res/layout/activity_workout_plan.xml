@@ -30,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
-            app:title=""
+            app:titleTextColor="?attr/bottomNavBackgrounds"
+            android:background="?attr/bottomNavBackgrounds"
             tools:layout_editor_absoluteX="0dp" />
 
         <TextView
@@ -41,7 +42,7 @@
             android:layout_marginStart="16dp"
             android:elevation="5dp"
             android:text="Workouts"
-            android:textColor="@color/colorInverse"
+            android:textColor="?attr/textColorFaded"
             app:layout_constraintStart_toStartOf="@+id/plan_header_image_container"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_plan" />
 
@@ -88,7 +89,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/nunito_sans_black"
             android:text="TIPS FOR YOU"
-            android:textColor="@color/colorInverse"
+            android:textColor="?attr/textColorFaded"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/plan_header_image_container" />
 
@@ -98,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="45 seconds"
-            android:textColor="@color/colorInverse"
+            android:textColor="?attr/textColorFaded"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -108,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="3 - 5 sets"
-            android:textColor="@color/colorInverse"
+            android:textColor="?attr/textColorFaded"
             app:layout_constraintStart_toStartOf="@+id/plan_text_work"
             app:layout_constraintTop_toBottomOf="@+id/plan_text_work" />
 
@@ -118,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="15 seconds"
-            android:textColor="@color/colorInverse"
+            android:textColor="?attr/textColorFaded"
             app:layout_constraintStart_toStartOf="@+id/plan_text_rest"
             app:layout_constraintTop_toBottomOf="@+id/plan_text_rest" />
 

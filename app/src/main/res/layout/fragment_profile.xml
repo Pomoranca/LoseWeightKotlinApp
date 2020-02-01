@@ -106,7 +106,6 @@
             android:id="@+id/recycler_view_awards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grayTransparent"
             android:orientation="horizontal"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
