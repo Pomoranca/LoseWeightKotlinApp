@@ -4,7 +4,7 @@
     <corners
         android:radius="20dp" />
     <solid
-        android:color="?attr/colorSecondary" />
+        android:color="?attr/colorSecondaryLight" />
     <padding
         android:bottom="8dp"
         android:top="8dp"

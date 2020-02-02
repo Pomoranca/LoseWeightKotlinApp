@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryLight"
+    android:background="#cccccc"
     android:orientation="vertical"
     app:layoutDescription="@xml/motion_scene_tip_animation">
 
@@ -14,23 +13,35 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tips_training_routine" />
+        app:srcCompat="@drawable/background_light" />
 
+
+    <View
+        android:id="@+id/hamburgerBg"
+        android:background="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
 
     <ImageView
         android:id="@+id/hamburgerIcon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:tint="@color/colorWhite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_play_white" />
+        app:layout_constraintTop_toTopOf="@id/hamburgerBg"
+        app:layout_constraintBottom_toBottomOf="@id/hamburgerBg"
+        app:layout_constraintStart_toStartOf="@id/hamburgerBg"
+        app:layout_constraintEnd_toEndOf="@id/hamburgerBg"
+        android:elevation="4dp"
+        android:tint="#90caf9"
+        android:padding="9dp"
+        app:srcCompat="@drawable/ic_hamburger"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -38,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.29" />
+        app:layout_constraintGuide_percent="0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -52,9 +63,7 @@
         android:id="@+id/bgView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="?attr/bottomNavBackgrounds"
+        android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +74,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:fontFamily="serif-monospace"
         android:gravity="center"
         android:text="The Starry Night"
+        android:textColor="#000000"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/bgView"
@@ -77,10 +88,10 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="0.7dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        android:background="?attr/bottomNavBackgrounds"
+        android:layout_marginEnd="65dp"
+        android:background="#cccccc"
         app:layout_constraintEnd_toEndOf="@id/bgView"
         app:layout_constraintStart_toStartOf="@id/bgView"
         app:layout_constraintTop_toBottomOf="@id/titleTextView" />
@@ -90,8 +101,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="serif-monospace"
         android:gravity="center"
         android:text="Vincent van Gogh"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@id/bgView"
@@ -105,7 +118,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:background="?attr/bottomNavBackgrounds"
+        android:background="#cccccc"
         app:layout_constraintEnd_toEndOf="@id/bgView"
         app:layout_constraintStart_toStartOf="@id/bgView"
         app:layout_constraintTop_toBottomOf="@id/descTextView" />
@@ -115,8 +128,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="serif-monospace"
         android:gravity="center"
         android:text="June, 1889"
+        android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@id/bgView"
@@ -131,28 +146,22 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@id/bgView"
         app:layout_constraintStart_toStartOf="@id/bgView"
-        app:layout_constraintTop_toBottomOf="@id/dateTextView" />
+        app:layout_constraintTop_toBottomOf="@id/descTextView" />
 
     <TextView
         android:id="@+id/tip_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:nestedScrollingEnabled="false"
         android:padding="14dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:nestedScrollingEnabled="true"
-        android:scrollbars = "vertical"
-        android:background="?attr/bottomNavBackgrounds"
-        android:text="@string/sample_text"
         android:textSize="17sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shareLayout" />
-
-
-
-
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

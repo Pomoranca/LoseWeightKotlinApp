@@ -5,8 +5,8 @@
     android:layout_width="250dp"
     android:layout_height="180dp"
     android:layout_marginTop="3dp"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp"
+    android:paddingStart="3dp"
+    android:paddingEnd="3dp"
     android:clipToPadding="false"
     android:paddingBottom="16dp"
     tools:context=".activities.WorkoutPlanActivity">

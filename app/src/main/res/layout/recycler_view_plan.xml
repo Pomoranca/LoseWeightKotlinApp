@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_marginEnd="11dp"
-    android:layout_marginStart="11dp"
+    android:layout_marginStart="5dp"
     android:layout_marginTop="5dp"
-    android:paddingEnd="5dp"
-    android:paddingStart="5dp"
-    android:paddingBottom="15dp"
-    android:outlineProvider="bounds"
+    android:layout_marginEnd="5dp"
     android:clipToPadding="false"
-    >
+    android:outlineProvider="bounds"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingBottom="15dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/plan_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardElevation="7dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,8 +30,8 @@
                 android:id="@+id/plan_card_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:background="@drawable/background_item_selected"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

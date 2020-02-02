@@ -59,14 +59,15 @@
                 android:layout_marginTop="16dp"
                 android:background="#00FFFDE7"
                 android:fontFamily="@font/nunito_sans_black"
-                android:hint="Your name"
+                android:hint="eg. John"
                 android:inputType="text"
                 android:maxLength="16"
                 android:maxLines="1"
                 android:textAlignment="center"
+                android:textColor="#AD000000"
                 android:textColorHint="#34000000"
                 android:textSize="42sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -76,9 +77,22 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/nunito_sans_black"
                 android:text="PICK AVATAR"
+                android:textColor="#AD000000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput" />
 
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunito_sans_black"
+                android:text="PLEASE TELL ME YOUR NAME"
+                android:textColor="#AD000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/pick_male"
@@ -87,6 +101,7 @@
                 android:layout_marginTop="32dp"
                 android:alpha="0.8"
                 android:clickable="true"
+
                 android:focusable="true"
                 android:foreground="@drawable/avatar_selected"
                 app:layout_constraintEnd_toStartOf="@+id/pick_female"

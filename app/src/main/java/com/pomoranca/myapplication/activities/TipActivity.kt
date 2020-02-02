@@ -1,13 +1,10 @@
 package com.pomoranca.myapplication.activities
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_tip.*
-import kotlinx.android.synthetic.main.activity_tip.toolbar
 
 class TipActivity : AppCompatActivity() {
 

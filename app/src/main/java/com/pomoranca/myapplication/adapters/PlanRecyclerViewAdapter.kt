@@ -92,6 +92,10 @@ class PlanRecyclerViewAdapter :
         planList.add(WorkoutPlan("Intermediate workout", 30, R.drawable.plan_intermediate, 40, 20))
         planList.add(WorkoutPlan("Advanced workout", 40, R.drawable.plan_advanced, 45, 15))
         planList.add(WorkoutPlan("Insane workout", 60, R.drawable.plan_premium, 45, 15))
+        planList.add(WorkoutPlan("Beginner workout", 20, R.drawable.plan_beginner, 30, 20))
+        planList.add(WorkoutPlan("Intermediate workout", 30, R.drawable.plan_intermediate, 40, 20))
+        planList.add(WorkoutPlan("Advanced workout", 40, R.drawable.plan_advanced, 45, 15))
+        planList.add(WorkoutPlan("Insane workout", 60, R.drawable.plan_premium, 45, 15))
     }
 
     interface OnItemClickListener {

@@ -1,9 +1,15 @@
 package com.pomoranca.myapplication.activities
 
+import android.animation.ObjectAnimator
 import android.app.*
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
@@ -12,27 +18,27 @@ import android.view.View
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.animation.BounceInterpolator
 import android.widget.ImageView
-import android.widget.VideoView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.NotificationCompat
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
-import com.mikepenz.materialdrawer.Drawer
-import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.fragments.*
 import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
+import com.pomoranca.myapplication.data.Reminders
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.dialog_welcome.*
@@ -42,18 +48,55 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity(),
-    OnAboutClickedListener, OnTimeSetListener {
+    OnAboutClickedListener, OnTimeSetListener, SensorEventListener,
+    MotionLayout.TransitionListener {
 
-    lateinit var video: VideoView
     private lateinit var sharedPref: SharedPref
     lateinit var notificationManager: NotificationManager
     lateinit var alarmManager: AlarmManager
     private val BACK_STACK_ROOT_TAG = "root_fragment"
+    var sensorManager: SensorManager? = null
+    lateinit var stepCounterText: TextView
+    lateinit var progressBar: ProgressBar
+    var LAST_DATE = ""
+    var CURRENT_DATE = ""
+    var stepsMadeToday = 0F
+    var stepsMadeTotal = 0F
+    var running = false
+    private val motionLayout by lazy {
+        findViewById<MotionLayout>(R.id.motionLayout)
+    }
+
+
+    var layoutId = 0
+
+    override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+    }
+
+    override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+    }
+
+    override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+    }
+
+    override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+        doBounceAnimation(header_fading_image)
+
+    }
+
+    private fun doBounceAnimation(targetView: View) {
+        val animator = ObjectAnimator.ofFloat(targetView, "translationY", 0f, -10f, 0f)
+        animator.interpolator = BounceInterpolator()
+        animator.duration = 1000
+        animator.start()
+    }
 
     private val PREFS_NAME = "MyPrefsFile"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         sharedPref = SharedPref(this)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (!sharedPref.loadNightModeState()) {
@@ -63,14 +106,33 @@ class MainActivity : AppCompatActivity(),
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                    or View.SYSTEM_UI_FLAG_IMMERSIVE)
+//        }
+        motionLayout.setTransitionListener(this)
 
 //        video = findViewById(R.id.header_image)
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         checkFirstTimeRun()
         showImage()
+        val reminderList = Reminders()
+
+        textview_tips.text = reminderList.reminders.random()
+        stepCounterText = findViewById(R.id.fragment_main_text_step_counter)
+        progressBar = findViewById(R.id.fragment_main_progress_step)
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        CURRENT_DATE = getDate()
+        getValues()
+
 
 
         main_fab_calendar.setOnClickListener {
@@ -105,74 +167,74 @@ class MainActivity : AppCompatActivity(),
         val aboutItem = PrimaryDrawerItem().withIdentifier(1).withName("About")
 
 //create the drawer and remember the `Drawer` result object
-        DrawerBuilder()
-            .withActivity(this)
-            .withToolbar(toolbar)
-            .withAccountHeader(headerResult)
-            .addDrawerItems(
-                homeItem,
-                profileItem
-                , settingsItem,
-                calendarItem,
-                aboutItem
-            ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
-                override fun onItemClick(
-                    view: View?,
-                    position: Int,
-                    drawerItem: IDrawerItem<*>
-                ): Boolean {
-                    when (position) {
-                        1 -> {
-                            val fragment = MainFragment()
-                            supportFragmentManager.beginTransaction()
-                                .replace(
-                                    R.id.fragment_container,
-                                    fragment,
-                                    fragment.javaClass.simpleName
-                                )
-                                .addToBackStack(null)
-                                .commit()
-                            return false
-                        }
-                        2 -> {
-                            val fragment = ProfileFragment()
-                            supportFragmentManager.beginTransaction()
-                                .replace(
-                                    R.id.fragment_container,
-                                    fragment,
-                                    fragment.javaClass.simpleName
-                                )
-                                .addToBackStack(null)
-                                .commit()
-                            return false
-                        }
-                        3 -> {
-                            val fragment = SettingsFragment()
-                            supportFragmentManager.beginTransaction()
-                                .replace(
-                                    R.id.fragment_container,
-                                    fragment,
-                                    fragment.javaClass.simpleName
-                                )
-                                .addToBackStack(null)
-                                .commit()
-                            return false
-                        }
-                        4 -> {
-                            startActivity(Intent(this@MainActivity, CalendarActivity::class.java))
-                            return false
-                        }
-                        5 -> {
-                            showAboutDialog()
-                        }
-
-                    }
-                    return false
-                }
-
-
-            })
-            .build()
+//        DrawerBuilder()
+//            .withActivity(this)
+//            .withToolbar(toolbar)
+//            .withAccountHeader(headerResult)
+//            .addDrawerItems(
+//                homeItem,
+//                profileItem
+//                , settingsItem,
+//                calendarItem,
+//                aboutItem
+//            ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
+//                override fun onItemClick(
+//                    view: View?,
+//                    position: Int,
+//                    drawerItem: IDrawerItem<*>
+//                ): Boolean {
+//                    when (position) {
+//                        1 -> {
+//                            val fragment = MainFragment()
+//                            supportFragmentManager.beginTransaction()
+//                                .replace(
+//                                    R.id.fragment_container,
+//                                    fragment,
+//                                    fragment.javaClass.simpleName
+//                                )
+//                                .addToBackStack(null)
+//                                .commit()
+//                            return false
+//                        }
+//                        2 -> {
+//                            val fragment = ProfileFragment()
+//                            supportFragmentManager.beginTransaction()
+//                                .replace(
+//                                    R.id.fragment_container,
+//                                    fragment,
+//                                    fragment.javaClass.simpleName
+//                                )
+//                                .addToBackStack(null)
+//                                .commit()
+//                            return false
+//                        }
+//                        3 -> {
+//                            val fragment = SettingsFragment()
+//                            supportFragmentManager.beginTransaction()
+//                                .replace(
+//                                    R.id.fragment_container,
+//                                    fragment,
+//                                    fragment.javaClass.simpleName
+//                                )
+//                                .addToBackStack(null)
+//                                .commit()
+//                            return false
+//                        }
+//                        4 -> {
+//                            startActivity(Intent(this@MainActivity, CalendarActivity::class.java))
+//                            return false
+//                        }
+//                        5 -> {
+//                            showAboutDialog()
+//                        }
+//
+//                    }
+//                    return false
+//                }
+//
+//
+//            })
+//            .build()
 
         navigationView.setOnNavigationItemSelectedListener(navListener)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MainFragment())
@@ -236,6 +298,7 @@ class MainActivity : AppCompatActivity(),
         false
     }
 
+
     private fun setAnimation() {
         if (Build.VERSION.SDK_INT > 20) {
             val fade = Fade()
@@ -283,23 +346,23 @@ class MainActivity : AppCompatActivity(),
         val dialog = Dialog(this, R.style.ThemeCustomDialog)
         dialog.setContentView(R.layout.dialog_about)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-            if (!sharedPref.loadNightModeState()) {
-                Glide
-                    .with(this@MainActivity)
-                    .load(R.drawable.version_logo_light)
-                    .into(dialog.dialog_about_image)
-                val myFadeInAnimation: Animation =
-                    AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-                dialog.dialog_about_image.startAnimation(myFadeInAnimation)
-            } else {
-                Glide
-                    .with(this@MainActivity)
-                    .load(R.drawable.version_logo_dark)
-                    .into(dialog.dialog_about_image)
-                val myFadeInAnimation: Animation =
-                    AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-                dialog.dialog_about_image.startAnimation(myFadeInAnimation)
-            }
+        if (!sharedPref.loadNightModeState()) {
+            Glide
+                .with(this@MainActivity)
+                .load(R.drawable.version_logo_light)
+                .into(dialog.dialog_about_image)
+            val myFadeInAnimation: Animation =
+                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+            dialog.dialog_about_image.startAnimation(myFadeInAnimation)
+        } else {
+            Glide
+                .with(this@MainActivity)
+                .load(R.drawable.version_logo_dark)
+                .into(dialog.dialog_about_image)
+            val myFadeInAnimation: Animation =
+                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+            dialog.dialog_about_image.startAnimation(myFadeInAnimation)
+        }
 
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.dialog_about_button_close.setOnClickListener {
@@ -327,28 +390,28 @@ class MainActivity : AppCompatActivity(),
 //    }
 
     private fun showImage() {
-        if (!sharedPref.loadNightModeState()) {
-            Glide
-                .with(this)
-                .load(R.drawable.main_appbar_image_light)
-                .centerCrop()
-                .into(header_fading_image)
-            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
-            val myFadeInAnimation: Animation =
-                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-            fadingImage.startAnimation(myFadeInAnimation)
-        } else {
-            Glide
-                .with(this)
-                .load(R.drawable.main_appbar_image_dark)
-                .centerCrop()
-                .into(header_fading_image)
-            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
-            val myFadeInAnimation: Animation =
-                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-            fadingImage.startAnimation(myFadeInAnimation)
-
-        }
+//        if (!sharedPref.loadNightModeState()) {
+        Glide
+            .with(this)
+            .load(R.drawable.main_appbar_image_light)
+            .centerCrop()
+            .into(header_fading_image)
+        val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+        val myFadeInAnimation: Animation =
+            AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+        fadingImage.startAnimation(myFadeInAnimation)
+//        } else {
+//            Glide
+//                .with(this)
+//                .load(R.drawable.main_appbar_image_dark)
+//                .centerCrop()
+//                .into(header_fading_image)
+//            val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+//            val myFadeInAnimation: Animation =
+//                AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
+//            fadingImage.startAnimation(myFadeInAnimation)
+//
+//        }
 
     }
 
@@ -424,6 +487,93 @@ class MainActivity : AppCompatActivity(),
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, SettingsFragment())
             .commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        running = true
+        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+        if (stepSensor == null) {
+            fragment_main_text_step_counter.visibility = View.GONE
+            fragment_main_progress_step.visibility = View.GONE
+
+        } else {
+            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        running = false
+//        sensorManager?.unregisterListener(this)
+        saveValues()
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        val sensor: Sensor = event?.sensor!!
+        val values = event.values
+        var value = -1
+
+        if (values.isNotEmpty()) {
+            value = values[0].toInt()
+        }
+
+        if (sensor.type == Sensor.TYPE_STEP_DETECTOR) {
+            stepsMadeToday++
+//        stepsMade = event!!.values[0]
+            stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
+            progressBar.progress = value
+            Log.i("SENSOR", "${event!!.values[0]}")
+        }
+    }
+
+    private fun getDate(): String { // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        return formatter.format(calendar.time)
+    }
+
+    private fun getValues() {
+        val settings: SharedPreferences =
+            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+        val editor = settings.edit()
+        stepsMadeToday = settings.getFloat("stepsMadeToday", 0F)
+        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
+        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
+        LAST_DATE = settings.getString("lastDate", "")!!
+
+
+        if (LAST_DATE != CURRENT_DATE) {
+            stepsMadeToday = 0F
+            LAST_DATE = CURRENT_DATE
+            editor.putString("lastDate", LAST_DATE)
+            Log.i("steps", "DATES ARE NOT SAME")
+
+        }
+        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
+        progressBar.progress = stepsMadeToday.toInt()
+        editor.apply()
+    }
+
+    private fun saveValues() {
+        val settings: SharedPreferences =
+            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+        val editor = settings.edit()
+        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
+        stepsMadeTotal += stepsMadeToday
+        Log.i("steps", "TODAY - $stepsMadeToday")
+        Log.i("steps", "TOTAL - $stepsMadeTotal")
+        Log.i("steps", "DATE - $CURRENT_DATE , $LAST_DATE")
+
+
+
+        editor.putFloat("stepsMadeTotal", stepsMadeTotal)
+        editor.putFloat("stepsMadeToday", stepsMadeToday)
+        editor.apply()
     }
 
 

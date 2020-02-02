@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:textColor="#AD000000"
             style="hea"
             android:text="What are your goals" />
     </LinearLayout>

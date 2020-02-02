@@ -5,9 +5,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#e0f2f1</item>
         <item name="colorPrimaryDark">#c7c7c7</item>
-        <item name="colorPrimaryLight">#FFFFFF</item>
+        <item name="colorPrimaryLight">#cfd8dc</item>
         <item name="colorSecondaryDark"></item>
-        <item name="colorSecondaryLight">#8D8D8D</item>
+        <item name="colorSecondaryLight">#549FC4</item>
         <item name="colorBackground">#ffffff</item>
         <item name="colorAccent">#e1bee7</item>
         <item name="android:textColor">#AD000000</item>
