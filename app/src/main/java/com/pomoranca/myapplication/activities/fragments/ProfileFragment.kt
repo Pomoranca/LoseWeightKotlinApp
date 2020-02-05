@@ -1,29 +1,18 @@
 package com.pomoranca.myapplication.activities.fragments
 
 
-import android.content.Intent
 import android.content.SharedPreferences
-import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.activities.AwardActivity
-import com.pomoranca.myapplication.adapters.AwardRecyclerViewAdapter
-import com.pomoranca.myapplication.adapters.AwardRecyclerViewAdapter.Companion.awardsList
-import com.pomoranca.myapplication.data.Award
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
-import kotlin.properties.Delegates
-import kotlin.system.exitProcess
 
 /**
  * A simple [Fragment] subclass.
@@ -47,15 +36,6 @@ class ProfileFragment : Fragment() {
             profile_days_text.text = "${it[0].days}"
             profile_experience_text.text = "${it[0].experience}"
 
-
-
-            for (i in awardsList) {
-                if(i.won) {
-                    medalsWon++
-                }
-            }
-
-            profile_medals_text.text = "$medalsWon"
 
         })
 
@@ -81,22 +61,7 @@ class ProfileFragment : Fragment() {
             rootView.profile_image.setImageResource(R.drawable.female_pick_full_size)
         }
 
-        val recyclerView = rootView.recycler_view_awards
-        recyclerView.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        val awardRecyclerViewAdapter = AwardRecyclerViewAdapter()
-        recyclerView.adapter = awardRecyclerViewAdapter
-
-        awardRecyclerViewAdapter.setOnItemClickListener(object :
-            AwardRecyclerViewAdapter.OnItemClickListener {
-            override fun onItemClick(award: Award) {
-                val intent = Intent(activity, AwardActivity::class.java)
-                intent.putExtra("NAME", award.name)
-                intent.putExtra("DESC", award.desc)
-                intent.putExtra("BACKGROUND", award.imagePath)
-                startActivity(intent)
-            }
-        })
+//
 
         return rootView
     }

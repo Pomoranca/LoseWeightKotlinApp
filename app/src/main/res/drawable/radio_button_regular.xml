@@ -4,10 +4,14 @@
     <corners
         android:radius="20dp" />
     <solid
-        android:color="?attr/colorSecondaryLight" />
+        android:color="@color/colorBackground" />
     <padding
         android:bottom="8dp"
         android:top="8dp"
         android:left="8dp"
         android:right="8dp"/>
+    <stroke
+        android:color="#000000"
+        android:width="0.5dp"
+        />
 </shape>

@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="colorPrimary">#90a4ae</color>-->
-<!--    <color name="colorPrimaryDark">#62757f</color>-->
-<!--    <color name="colorAccent">#a094b7</color>-->
+
     <color name="colorWhite">#FFFFFF</color>
     <color name="darkGray">#424242</color>
-<!--    <color name="buttonColor">#d1c4e9</color>-->
-<!--    <color name="grayButton">#cfd8dc</color>-->
+
     <color name="focusedColor">#E8D8D8D8</color>
     <color name="lightGreen">#26a69a</color>
     <color name="timerPausedD">#C08BD1</color>
     <color name="grayTransparent">#28808080</color>
-<!--    <color name="colorInverse">#000000</color>-->
-<!--    <color name="buttonTextColor">#000000</color>-->
+
+    <color name="colorPrimary">#e0f2f1</color>
+    <color name="colorPrimaryDark">#c7c7c7</color>
+    <color name="colorPrimaryLight">#cfd8dc</color>
+    <color name="colorSecondaryDarks">#c2c2c2</color>
+    <color name="colorSecondaryLights">#549FC4</color>
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorAccent">#e1bee7</color>
+    <color name="textColor">#AD000000</color>
+
+    <color name="textColorPrimary">#AD000000</color>
+    <color name="textColorFaded">#CBFFFFFF</color>
+    <color name="colorTextButton">#FFFFFF</color>
+
+
+    <color name="bottomNavBackgrounds">#f5f5f5</color>
+    <color name="bottomNavIcon">#c2c2c2</color>
+    <color name="bottomNavPressed">#707070</color>
+
+    <color name="settingsDivider">#80F5F5F5</color>
 
 
 </resources>

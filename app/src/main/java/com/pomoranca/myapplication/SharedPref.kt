@@ -4,11 +4,21 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SharedPref(context: Context) {
-    private val settingsPref: SharedPreferences =
-        context.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+    private val settingsPref: SharedPreferences = context.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+    private val editor: SharedPreferences.Editor = settingsPref.edit()
+
+
+    fun saveUserName(name: String) {
+        editor.putString("Username", name)
+        editor.apply()
+    }
+
+    fun loadUserName(): String? {
+        return settingsPref.getString("Username", "")
+    }
+
 
     fun saveNightModeState(state: Boolean) {
-        val editor: SharedPreferences.Editor = settingsPref.edit()
         editor.putBoolean("NightMode", state)
         editor.apply()
     }
@@ -17,14 +27,22 @@ class SharedPref(context: Context) {
         return settingsPref.getBoolean("NightMode", false)
     }
 
+
+    fun saveNarrationState(state: Boolean) {
+        editor.putBoolean("NarrationState", state)
+        editor.apply()
+    }
+
+    fun loadNarrationState(): Boolean {
+        return settingsPref.getBoolean("NarrationState", true)
+    }
+
     fun saveNotificationState(state: Boolean) {
-        val editor: SharedPreferences.Editor = settingsPref.edit()
         editor.putBoolean("NotificationState", state)
         editor.apply()
     }
 
     fun saveNotificationTime(time: String) {
-        val editor: SharedPreferences.Editor = settingsPref.edit()
         editor.putString("NotificationTime", time)
         editor.apply()
 

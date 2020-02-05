@@ -19,14 +19,15 @@ class LoseWeightViewModel(application: Application) : AndroidViewModel(applicati
     private var insaneWorkouts = repository.getInsaneWorkouts()
 
 
-
-
     fun getInsaneWorkouts(): LiveData<List<Workout>> {
         return insaneWorkouts
     }
+
     fun getAllUsers(): LiveData<List<User>> {
         return allUsers
     }
+
+
     fun getAllCalendarDates(): LiveData<List<MyCalendarDate>> {
         return allCalendarDates
     }

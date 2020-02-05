@@ -15,11 +15,14 @@ import android.view.animation.Transformation
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.MainActivity
+import com.pomoranca.myapplication.activities.fragments.LoginFragmentTwo
 import com.pomoranca.myapplication.data.LoginQuestion
+import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.fragment_login_two.view.*
 import kotlinx.android.synthetic.main.login_recycler_row.view.*
 import kotlin.coroutines.coroutineContext
@@ -28,7 +31,7 @@ class LoginQuestionRecyclerViewAdapter :
     RecyclerView.Adapter<LoginQuestionRecyclerViewAdapter.LoginQuestionViewHolder>() {
     var questionList = mutableListOf<LoginQuestion>()
     private val PREFS_NAME = "MyPrefsFile"
-
+    lateinit var loseWeightViewModel: LoseWeightViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoginQuestionViewHolder {
         val itemView =
@@ -64,6 +67,7 @@ class LoginQuestionRecyclerViewAdapter :
             editor.putBoolean("hasLoggedIn", true)
             // Commit the edits!
             editor.apply()
+
             startActivity(holder.itemView.context, intent, null)
             }
         }
@@ -72,7 +76,6 @@ class LoginQuestionRecyclerViewAdapter :
     }
 
     inner class LoginQuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val recyclerQuestionheader: LinearLayout = itemView.login_two_expandable_header
         val recyclerQuestionTitle: TextView = itemView.login_two_expandable_header_title
         val recyclerQuestionImage: ImageView = itemView.login_two_expandable_image
         val recyclerQuestionRadio1: RadioButton = itemView.login_radio1
@@ -141,7 +144,7 @@ class LoginQuestionRecyclerViewAdapter :
             LoginQuestion(
                 "All set, we're good to go!",
                 R.drawable.welcome_dialog_background,
-                arrayListOf("Lorem", "Ipsums", "Data", "Nontos"),
+                arrayListOf("", "", "", ""),
                 finalQuestion = true
             )
         )

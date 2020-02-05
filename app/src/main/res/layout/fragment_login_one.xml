@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,49 +8,48 @@
     android:orientation="vertical"
     tools:context=".activities.fragments.LoginFragmentOne">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/login_one_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/md_white_1000"
-        android:fitsSystemWindows="true">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.0" />
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:collapsedTitleGravity="start"
-            app:collapsedTitleTextAppearance="@string/app_name"
-            app:contentScrim="?attr/colorBackground"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/login_background"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_collapseMode="parallax"
+                android:layout_height="350dp"
                 android:padding="30dp"
-                android:src="@drawable/login_background" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/login_background"
+                app:layout_constraintBottom_toTopOf="@+id/welcomeCardInput"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/login_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/login_one_container"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/login_one_button_confirm"
+                style="@style/ButtonContinue"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:text="CONFIRM"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcomeCardInput" />
 
             <EditText
                 android:id="@+id/welcomeCardInput"
@@ -59,78 +58,96 @@
                 android:layout_marginTop="16dp"
                 android:background="#00FFFDE7"
                 android:fontFamily="@font/nunito_sans_black"
-                android:hint="eg. John"
+                android:hint="Enter name"
                 android:inputType="text"
                 android:maxLength="16"
                 android:maxLines="1"
                 android:textAlignment="center"
-                android:textColor="#AD000000"
-                android:textColorHint="#34000000"
+                android:textColor="@color/textColorPrimary"
+                android:textColorHint="@color/bottomNavIcon"
                 android:textSize="42sp"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintBottom_toTopOf="@+id/login_one_button_confirm"
+                app:layout_constraintTop_toBottomOf="@+id/login_background" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radioGroupGender"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/nunito_sans_black"
-                android:text="PICK AVATAR"
-                android:textColor="#AD000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput" />
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/welcomeCardInput"
+                app:layout_constraintTop_toTopOf="@id/welcomeCardInput">
+
+                <RadioButton
+                    android:id="@+id/pick_male"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/radio_button_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="MALE"
+                    android:textColor="@drawable/radio_button_text"
+
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+                <RadioButton
+                    android:id="@+id/pick_female"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/radio_button_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="FEMALE"
+                    android:textColor="@drawable/radio_button_text"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+            </RadioGroup>
 
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/nunito_sans_black"
-                android:text="PLEASE TELL ME YOUR NAME"
-                android:textColor="#AD000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/pick_male"-->
+            <!--                android:layout_width="100dp"-->
+            <!--                android:layout_height="100dp"-->
+            <!--                android:clickable="true"-->
+            <!--                android:focusable="true"-->
+            <!--                android:padding="5dp"-->
+            <!--                android:visibility="invisible"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/pick_female"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/pick_female"-->
+            <!--                app:layout_constraintHorizontal_bias="0.5"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/pick_female"-->
+            <!--                app:srcCompat="@drawable/male_pick_ful_size" />-->
 
-            <ImageView
-                android:id="@+id/pick_male"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="32dp"
-                android:alpha="0.8"
-                android:clickable="true"
-
-                android:focusable="true"
-                android:foreground="@drawable/avatar_selected"
-                app:layout_constraintEnd_toStartOf="@+id/pick_female"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
-                app:srcCompat="@drawable/male_pick_ful_size" />
-
-            <ImageView
-                android:id="@+id/pick_female"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:alpha="0.8"
-                android:clickable="true"
-                android:focusable="true"
-
-                android:foreground="@drawable/avatar_selected"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/pick_male"
-                app:layout_constraintTop_toTopOf="@+id/pick_male"
-                app:srcCompat="@drawable/female_pick_full_size" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/pick_female"-->
+            <!--                android:layout_width="100dp"-->
+            <!--                android:layout_height="100dp"-->
+            <!--                android:layout_marginTop="32dp"-->
+            <!--                android:layout_marginBottom="16dp"-->
+            <!--                android:clickable="true"-->
+            <!--                android:focusable="true"-->
+            <!--                android:padding="5dp"-->
+            <!--                android:visibility="invisible"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.5"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/pick_male"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput"-->
+            <!--                app:srcCompat="@drawable/female_pick_full_size" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.core.widget.NestedScrollView>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 

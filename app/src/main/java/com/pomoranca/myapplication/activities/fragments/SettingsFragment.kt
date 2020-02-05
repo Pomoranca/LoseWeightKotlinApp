@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -62,6 +63,10 @@ class SettingsFragment : Fragment(), View.OnClickListener,
             rootView.switch_notifications.isChecked = true
             rootView.settings_button_timepicker.visibility = View.VISIBLE
         }
+        //load narration settings
+        if (sharedPref.loadNarrationState()) {
+            rootView.switch_narration.isChecked = true
+        }
 
 
         //edit theme settings
@@ -69,33 +74,29 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
             if (isChecked) {
                 sharedPref.saveNightModeState(true)
-//                val i = Intent(activity, MainActivity::class.java)
-//                if (Build.VERSION.SDK_INT > 20) {
-//                    val options =
-//                        ActivityOptions.makeSceneTransitionAnimation(activity)
-//                    startActivity(i, options.toBundle())
-//                } else {
-//                    startActivity(i)
-//                }
-                startActivity(Intent(rootView.context, MainActivity::class.java))
+//
                 activity!!.finish()
+                startActivity(Intent(rootView.context, MainActivity::class.java))
+
 
             } else {
                 sharedPref.saveNightModeState(false)
-//                val i = Intent(activity, MainActivity::class.java)
-//                if (Build.VERSION.SDK_INT > 20) {
-//                    val options =
-//                        ActivityOptions.makeSceneTransitionAnimation(activity)
-//                    startActivity(i, options.toBundle())
-//                } else {
-//                    startActivity(i)
-//                }
-//            }
-                startActivity(Intent(rootView.context, MainActivity::class.java))
                 activity!!.finish()
+                startActivity(Intent(rootView.context, MainActivity::class.java))
+
 
             }
         }
+        //edit narration settings
+        rootView.switch_narration.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sharedPref.saveNarrationState(true)
+            } else {
+                sharedPref.saveNarrationState(false)
+            }
+        }
+
+
         //edit notification settings
         rootView.switch_notifications.setOnCheckedChangeListener { _, isChecked ->
 
@@ -110,6 +111,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
                 rootView.settings_button_timepicker.visibility = View.GONE
             }
         }
+
 
         rootView.settings_button_timepicker.setOnClickListener {
             timeSetListener?.onTimeSet()
@@ -159,11 +161,10 @@ class SettingsFragment : Fragment(), View.OnClickListener,
     }
 
 
-
 }
 
-    interface OnTimeSetListener {
-        fun onTimeSet()
-    }
+interface OnTimeSetListener {
+    fun onTimeSet()
+}
 
 

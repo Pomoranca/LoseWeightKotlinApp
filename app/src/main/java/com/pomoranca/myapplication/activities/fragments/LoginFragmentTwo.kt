@@ -1,23 +1,15 @@
 package com.pomoranca.myapplication.activities.fragments
 
 
-import android.app.ActionBar
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.Transformation
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.activities.MainActivity
+import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.adapters.LoginQuestionRecyclerViewAdapter
-import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.fragment_login_two.view.*
 
 
@@ -25,8 +17,7 @@ import kotlinx.android.synthetic.main.fragment_login_two.view.*
  * Login fragment that contains questions about user
  */
 class LoginFragmentTwo : Fragment() {
-    private lateinit var loseWeightViewModel: LoseWeightViewModel
-    private val PREFS_NAME = "MyPrefsFile"
+    lateinit var sharedPref: SharedPref
     var name = ""
 
     override fun onCreateView(
@@ -34,8 +25,14 @@ class LoginFragmentTwo : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_login_two, container, false)
-        val settings: SharedPreferences = activity!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-        val editor = settings.edit()
+        sharedPref = SharedPref(activity!!)
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            name = bundle.getString("name", "")
+        }
+        sharedPref.saveUserName(name)
+
 
         //init expanding recyclerview
         val recyclerView = rootView.login_two_recyclerView
@@ -49,11 +46,10 @@ class LoginFragmentTwo : Fragment() {
 
         return rootView
 
-        }
-
-
-
     }
+
+
+}
 
 
 

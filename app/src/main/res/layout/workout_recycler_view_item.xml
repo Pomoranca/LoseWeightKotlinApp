@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
-    android:layout_height="180dp"
-    android:layout_marginTop="3dp"
-    android:paddingStart="3dp"
-    android:paddingEnd="3dp"
+    android:layout_width="180dp"
+    android:layout_height="150dp"
     android:clipToPadding="false"
+    android:paddingEnd="3dp"
+    android:paddingStart="3dp"
     android:paddingBottom="16dp"
     tools:context=".activities.WorkoutPlanActivity">
 
@@ -15,20 +14,18 @@
         android:id="@+id/recycler_workout_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="5dp"
         app:cardElevation="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:id="@+id/recycler_workout_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:alpha="0.9"
                 android:src="@drawable/plan_beginner" />
 
             <TextView
@@ -39,7 +36,7 @@
                 android:layout_marginStart="16dp"
                 android:lineSpacingMultiplier="0.8"
                 android:textAlignment="center"
-                android:textColor="?attr/textColorFaded"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintStart_toStartOf="parent"

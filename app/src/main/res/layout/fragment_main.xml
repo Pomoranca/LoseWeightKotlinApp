@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recyclerViewMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="32dp"
+    android:background="@color/colorBackground"
+    android:clipToPadding="false"
+    android:paddingTop="16dp"
     tools:context=".activities.fragments.MainFragment"
-    android:background="?attr/colorBackground">
+    tools:itemCount="5"
+    tools:listitem="@layout/recycler_view_plan">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="24dp"
-            android:id="@+id/recyclerViewMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/textview_tips"
-            tools:itemCount="5"
-            tools:listitem="@layout/recycler_view_plan" />
+</androidx.recyclerview.widget.RecyclerView>
 
-
-
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

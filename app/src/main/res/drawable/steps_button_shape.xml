@@ -8,6 +8,6 @@
         android:bottom="3dp"
         android:left="20dp"/>
 
-    <solid android:color="?attr/colorSecondaryLight"/>
+    <solid android:color="@color/colorSecondaryLights"/>
 
 </shape>

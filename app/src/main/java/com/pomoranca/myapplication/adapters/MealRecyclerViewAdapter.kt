@@ -58,11 +58,13 @@ class MealRecyclerViewAdapter : RecyclerView.Adapter<MealRecyclerViewAdapter.Mea
             PorterDuff.Mode.MULTIPLY
         )
 
-        Glide
-            .with(holder.mealBackground.context)
-            .load(currentMeal.backgroundPath)
-            .centerCrop()
-            .into(holder.mealBackground)
+//        Glide
+//            .with(holder.mealBackground.context)
+//            .load(currentMeal.backgroundPath)
+//            .centerCrop()
+//            .into(holder.mealBackground)
+
+        holder.mealBackground.setImageResource(currentMeal.backgroundPath)
 
 
         holder.mealBackground.setOnClickListener {
@@ -126,11 +128,11 @@ class MealRecyclerViewAdapter : RecyclerView.Adapter<MealRecyclerViewAdapter.Mea
                 "Get enough sleep",
                 "Sleep is important for many aspects of your health, including weight. Studies show that people who don't get enough sleep tend to gain more weight, which may include belly fat (49Trusted Source, 50Trusted Source).\n" +
                         "\n" +
-                        "A 16-year study in more than 68,000 women found that those who slept less than five hours per night were significantly more likely to gain weight than those who slept seven hours or more per night (51Trusted Source).\n" +
+                        "A 16-year study in more than 68,000 women found that those who slept less than five hours per  were significantly more likely to gain weight than those who slept seven hours or more per  (51Trusted Source).\n" +
                         "\n" +
-                        "The condition known as sleep apnea, where breathing stops intermittently during the night, has also been linked to excess visceral fat (52Trusted Source).\n" +
+                        "The condition known as sleep apnea, where breathing stops intermittently during the , has also been linked to excess visceral fat (52Trusted Source).\n" +
                         "\n" +
-                        "In addition to sleeping at least seven hours per night, make sure you're getting sufficient quality sleep.\n" +
+                        "In addition to sleeping at least seven hours per , make sure you're getting sufficient quality sleep.\n" +
                         "\n" +
                         "If you suspect you may have sleep apnea or another sleep disorder, speak to a doctor and get treated.",
                 R.drawable.tips_sleep

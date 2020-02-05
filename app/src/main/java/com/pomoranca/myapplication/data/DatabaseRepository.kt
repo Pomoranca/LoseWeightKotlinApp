@@ -3,6 +3,7 @@ package com.pomoranca.myapplication.data
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 
 class DatabaseRepository(application: Application) {
     private var userDao: UserDao
@@ -54,6 +55,7 @@ class DatabaseRepository(application: Application) {
     fun getAllUsers(): LiveData<List<User>> {
         return allUsers
     }
+
 
     fun getInsaneWorkouts(): LiveData<List<Workout>> {
         return insaneWorkouts

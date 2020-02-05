@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
     android:clipToPadding="false"
     android:outlineProvider="bounds"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp"
-    android:paddingBottom="15dp">
+    android:paddingStart="3dp"
+    android:paddingEnd="3dp"
+    android:paddingBottom="6dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/plan_card"
@@ -19,8 +16,8 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="7dp">
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,38 +42,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="32dp"
-                android:alpha="0.9"
                 android:fontFamily="@font/nunito_sans_black"
                 android:lineSpacingMultiplier="0.8"
-                android:textColor="?attr/textColorFaded"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="#fafafa"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView7"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Beginner workout" />
+                tools:text="Beginner" />
 
             <ProgressBar
                 android:id="@+id/progressBar_difficulty"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:max="10"
                 android:progress="4"
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/plan_textView"
-                app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
+                app:layout_constraintStart_toStartOf="@+id/textView7" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Difficulty"
-                android:textColor="?attr/textColorFaded"
-                app:layout_constraintStart_toStartOf="@+id/plan_textView"
-                app:layout_constraintTop_toBottomOf="@+id/plan_textView" />
+                android:textColor="#fafafa"
+                app:layout_constraintBottom_toTopOf="@+id/progressBar_difficulty"
+                app:layout_constraintStart_toStartOf="@+id/plan_textView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

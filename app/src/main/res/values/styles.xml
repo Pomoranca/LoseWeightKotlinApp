@@ -5,25 +5,14 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#e0f2f1</item>
         <item name="colorPrimaryDark">#c7c7c7</item>
-        <item name="colorPrimaryLight">#cfd8dc</item>
-        <item name="colorSecondaryDark"></item>
-        <item name="colorSecondaryLight">#549FC4</item>
-        <item name="colorBackground">#ffffff</item>
-        <item name="colorAccent">#e1bee7</item>
+        <item name="colorAccent">#e91e63</item>
         <item name="android:textColor">#AD000000</item>
 
-        <item name="textColorPrimary">#AD000000</item>
-        <item name="textColorFaded">#CBFFFFFF</item>
-        <item name="colorTextButton">#CBFFFFFF</item>
 
-
-        <item name="bottomNavBackgrounds">#f5f5f5</item>
-        <item name="bottomNavIcon">#c2c2c2</item>
-        <item name="bottomNavPressed">#707070</item>
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowActionModeOverlay">true</item>
+
+        <item name="android:windowDisablePreview">true</item>
 
     </style>
 
@@ -64,14 +53,38 @@
 
     </style>
 
-    <style name="Theme_Dialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowMinWidthMajor">80%</item>
-        <item name="android:windowMinWidthMinor">80%</item>
+    <style name="ThemeDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">85%</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="dialogCornerRadius">3dp</item>
+        <item name="android:background">@color/bottomNavBackgrounds</item>
+    </style>
+
+    <style name="VideoDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:background">@color/bottomNavBackgrounds</item>
     </style>
 
     <style name="ThemeCustomDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="dialogCornerRadius">20dp</item>
+        <item name="android:textColor">#AD000000</item>
     </style>
+
+    <style name="ButtonContinue" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/button_question_continue</item>
+        <item name="android:textColor">@color/colorTextButton</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:foreground">@drawable/background_item_selected</item>
+        <item name="android:fontFamily">@font/nunito_sans_black</item>
+    </style>
+
 
 
 </resources>

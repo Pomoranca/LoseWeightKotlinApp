@@ -10,6 +10,6 @@
         android:top="5dp"
         android:bottom="5dp"/>
 
-    <solid android:color="?attr/colorTextButton"/>
+    <solid android:color="@color/colorTextButton"/>
 
 </shape>

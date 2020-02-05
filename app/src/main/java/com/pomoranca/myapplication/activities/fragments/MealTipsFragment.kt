@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.TipActivity
@@ -27,7 +28,7 @@ class MealTipsFragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView =  inflater.inflate(R.layout.fragment_meal_tips, container, false)
         val recyclerView = rootView!!.recyclerViewMeal
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         val mealRecyclerViewAdapter = MealRecyclerViewAdapter()
         mealRecyclerViewAdapter.populateMealList()
         recyclerView.adapter = mealRecyclerViewAdapter

@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="#4051a3">
 
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimaryLight"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <ImageView
         android:id="@+id/iconImage"
         android:layout_width="30dp"
@@ -15,7 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImage"
         android:layout_width="430dp"
@@ -23,35 +33,6 @@
         android:src="#fb6793"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintStart_toEndOf="@id/guideline" />
-
-    <ImageView
-        android:id="@+id/dummyImage5"
-        android:layout_width="32dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/halfScreenVertical" />
-
-    <ImageView
-        android:id="@+id/dummyImage6"
-        android:layout_width="64dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="22dp"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/halfScreenVertical" />
-
-    <ImageView
-        android:id="@+id/hamburgerIcon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:padding="4dp"
-        android:tint="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/dummyImage1"
@@ -102,20 +83,12 @@
         android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginTop="100dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@id/dialogView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/header_fading_image"
-        android:layout_width="150dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintBottom_toTopOf="@id/dialogView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text1"
@@ -124,13 +97,13 @@
         android:text="Stan's"
         android:textColor="#ffffff"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/text2"
+        app:layout_constraintBottom_toTopOf="@id/main_text_username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/text2" />
+        app:layout_constraintStart_toStartOf="@id/main_text_username" />
 
 
     <TextView
-        android:id="@+id/text2"
+        android:id="@+id/main_text_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

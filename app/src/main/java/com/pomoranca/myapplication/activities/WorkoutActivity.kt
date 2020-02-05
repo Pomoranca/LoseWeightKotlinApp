@@ -14,12 +14,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pomoranca.myapplication.R
+import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.data.MyCalendarDate
 import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.data.Workout
@@ -27,6 +29,7 @@ import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_workout.*
 import kotlinx.android.synthetic.main.dialog_stop_workout.*
 import kotlinx.android.synthetic.main.dialog_workout_finished.*
+import kotlinx.android.synthetic.main.dialog_workout_preview.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,6 +55,8 @@ class WorkoutActivity : AppCompatActivity() {
     var LAST_DATE_CONVERTED = ""
     var CURRENT_DATE = 0L
     var CURRENT_DATE_CONVERTED = ""
+
+    lateinit var sharedPref: SharedPref
 
 
     //USER PREFERENCES
@@ -79,7 +84,17 @@ class WorkoutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         setContentView(R.layout.activity_workout)
+
+        //load shared preferences
+        sharedPref = SharedPref(this)
+
+
         setSupportActionBar(toolbar_workout)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         video = findViewById(R.id.image_current_workout)
@@ -99,13 +114,18 @@ class WorkoutActivity : AppCompatActivity() {
             progress_bar.layoutParams.height = width / 2
             progress_bar.layoutParams.width = width / 2
         }
+        //Iniatialize TextToSpeech Engine
+        mTextToSpeech = TextToSpeech(
+            this,
+            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH },
+            "com.google.android.tts"
+        )
 
         if (stoppedPosition == 100) {
             startVideoUnLooped()
         }
+        current_workout_overdraw.text = "GET READY"
 
-
-        title = "Workout"
         planTitle = intent.getStringExtra("PLAN_TITLE")!!
 
         prepareTimer()
@@ -130,11 +150,6 @@ class WorkoutActivity : AppCompatActivity() {
         })
 
 
-        mTextToSpeech = TextToSpeech(
-            this,
-            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH },
-            "com.google.android.tts"
-        )
 
         button_start_pause.setOnClickListener {
             if (mTimerRunning) {
@@ -149,7 +164,6 @@ class WorkoutActivity : AppCompatActivity() {
         text_view_countdown.text = (START_TIME_IN_MILLIS / 1000).toString()
         updateText()
         populateList()
-
     }
 
 
@@ -188,9 +202,8 @@ class WorkoutActivity : AppCompatActivity() {
             resources.getColor(R.color.lightGreen), android.graphics.PorterDuff.Mode.SRC_IN
         )
 
-        val currentWorkoutText = finalWorkoutList[currentSet - 1].name
         mTextToSpeech.setSpeechRate(0.9f)
-        mTextToSpeech.speak(currentWorkoutText, TextToSpeech.QUEUE_FLUSH, null)
+        speakCurrentWorkout()
         mCountDownTimer = object : CountDownTimer(mTimeLeftMillis, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
@@ -208,24 +221,7 @@ class WorkoutActivity : AppCompatActivity() {
                     mTimeLeftMillis = START_TIME_IN_MILLIS
                     startTimer()
                     Log.i("LAST", "$currentSet")
-                    if (currentSet == numberOfSets - 1) {
-                        REST_TIME_IN_MILLIS = 0
-                    }
-                } else if (currentSet == numberOfSets) {
-                    mTimerRunning = false
-                    button_start_pause.text = "Start"
-                    resetTimer()
-                    mTextToSpeech.speak(
-                        "Great job",
-                        TextToSpeech.QUEUE_FLUSH,
-                        null
-                    )
-                    gainedExperience = currentSet * multiplyFactor
-                    totalExperience = userExperience + gainedExperience
-                    updateUser()
-                    showDialogFinish()
 
-                    currentSet = 1
                 }
             }
         }.start()
@@ -241,8 +237,9 @@ class WorkoutActivity : AppCompatActivity() {
         toggleAnimation()
 
         button_start_pause.text = "Start"
+        button_start_pause.visibility = View.VISIBLE
         mTextToSpeech.setSpeechRate(1f)
-        mTextToSpeech.speak("Workout paused", TextToSpeech.QUEUE_FLUSH, null)
+        speakWorkoutPaused()
         progress_bar.progressDrawable.setColorFilter(
             resources.getColor(R.color.timerPausedD), android.graphics.PorterDuff.Mode.SRC_IN
         )
@@ -255,28 +252,38 @@ class WorkoutActivity : AppCompatActivity() {
         progress_bar.progress = seconds
 
         when (progress_bar.progress) {
+            //progressbar at rest time
             (REST_TIME_IN_MILLIS / 1000).toInt() -> {
-                mTextToSpeech.speak("Rest", TextToSpeech.QUEUE_FLUSH, null)
-                progress_bar.progressDrawable.setColorFilter(
-                    resources.getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN
-                )
-                button_start_pause.visibility = View.INVISIBLE
-                text_current_workout.text = "Take a rest!"
-                startVideoUnLooped()
-                playsound()
+                if (currentSet != numberOfSets) {
+                    speakRest()
+                    progress_bar.progressDrawable.setColorFilter(
+                        resources.getColor(R.color.colorAccent),
+                        android.graphics.PorterDuff.Mode.SRC_IN
+                    )
+                    toggleButtonVisibility()
+                    text_current_workout.text = "Take a rest"
+                    startVideoUnLooped()
+                    playsound()
+                } else {
+                    //if last set don't rest, end workout
+                    finishWorkout()
+                    Log.i("ENDEX", "END WORKOUT HERE")
+                }
             }
+            (REST_TIME_IN_MILLIS / 1000 - 1).toInt() -> {
+                if (currentSet != numberOfSets) {
+                    speakNextWorkout()
+                }
+            }
+
             (START_TIME_IN_MILLIS / 1000 - 10).toInt() -> {
-                mTextToSpeech.speak("${informationOne.text}", TextToSpeech.QUEUE_FLUSH, null)
+                speakInformationOne()
             }
             (REST_TIME_IN_MILLIS / 1000 + 10).toInt() -> {
-                mTextToSpeech.speak("Ten seconds remaining", TextToSpeech.QUEUE_FLUSH, null)
+                speakTenSecondsRemaining()
             }
-            in REST_TIME_IN_MILLIS / 1000..REST_TIME_IN_MILLIS / 1000 + 5 -> mTextToSpeech.speak(
-                "${progress_bar.progress - REST_TIME_IN_MILLIS / 1000}",
-                TextToSpeech.QUEUE_FLUSH,
-                null
-            )
-            5 -> mTextToSpeech.speak("Get ready", TextToSpeech.QUEUE_FLUSH, null)
+            in REST_TIME_IN_MILLIS / 1000..REST_TIME_IN_MILLIS / 1000 + 5 -> if (currentSet != numberOfSets) speakLastFiveSeconds()
+            3 -> if (currentSet != numberOfSets) speakGetReady()
             ((START_TIME_IN_MILLIS / 1000) - 1).toInt() -> {
                 progress_bar.progressDrawable.setColorFilter(
                     resources.getColor(R.color.lightGreen), android.graphics.PorterDuff.Mode.SRC_IN
@@ -288,6 +295,7 @@ class WorkoutActivity : AppCompatActivity() {
         }
 
     }
+
 
     //WHEN TIMER REACHES 0
     fun resetTimer() {
@@ -307,7 +315,7 @@ class WorkoutActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("stoppedPosition", video.currentPosition)
-        Log.i("AAA","SAVED $video.currentPosition" )
+        Log.i("AAA", "SAVED $video.currentPosition")
         outState.putLong("milisLeft", mTimeLeftMillis)
         outState.putBoolean("mTimerRunning", mTimerRunning)
         outState.putLong("endTime", mEndTime)
@@ -317,9 +325,9 @@ class WorkoutActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        Log.i("AAA","RESTORED $video.currentPosition" )
+        Log.i("AAA", "RESTORED $video.currentPosition")
         stoppedPosition = savedInstanceState.getInt("stoppedPosition", 100)
-        Log.i("AAA","STOPPED POSITION $stoppedPosition")
+        Log.i("AAA", "STOPPED POSITION $stoppedPosition")
         mTimeLeftMillis = savedInstanceState.getLong("milisLeft")
         mTimerRunning = savedInstanceState.getBoolean("mTimerRunning")
         currentSet = savedInstanceState.getInt("currentSet")
@@ -342,7 +350,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun populateList() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         when (planTitle) {
-            "Beginner workout" -> {
+            "Beginner" -> {
                 loseWeightViewModel.getBeginnerWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 1
@@ -350,7 +358,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "Intermediate workout" -> {
+            "Intermediate" -> {
                 loseWeightViewModel.getIntermediateWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 2
@@ -358,7 +366,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "Advanced workout" -> {
+            "Advanced" -> {
                 loseWeightViewModel.getAdvancedWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 3
@@ -366,7 +374,7 @@ class WorkoutActivity : AppCompatActivity() {
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
-            "INsane workout" -> {
+            "Insane" -> {
                 loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         multiplyFactor = 4
@@ -383,7 +391,7 @@ class WorkoutActivity : AppCompatActivity() {
         updateText()
 
         mTextToSpeech.setSpeechRate(0.9f)
-        mTextToSpeech.speak(text_current_workout.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+        speakCurrentWorkout()
         workout_set_number.text = "$currentSet / $numberOfSets"
 
     }
@@ -393,7 +401,7 @@ class WorkoutActivity : AppCompatActivity() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                "I just finished my workout using OneMinute Workout App. Join us @OneMinuteWorkout"
+                "I just finished my workout using Daily. Join us #dailyworkoutapp"
             )
 
             type = "text/plain"
@@ -402,7 +410,7 @@ class WorkoutActivity : AppCompatActivity() {
         val shareIntent = Intent.createChooser(sendIntent, "Share activity").apply {
 
         }
-        val dialog = Dialog(this, R.style.Theme_Dialog)
+        val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -444,12 +452,10 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     private fun showDialogBack() {
-        val dialog = Dialog(this, R.style.Theme_Dialog)
+        val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_stop_workout)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
         dialog.dialog_button_continue.setOnClickListener {
             dialog.dismiss()
         }
@@ -462,22 +468,22 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun prepareTimer() {
         when (planTitle) {
-            "BEGINNER\nWORKOUT" -> {
-                REST_TIME_IN_MILLIS = 1000
-                START_TIME_IN_MILLIS = 20000 + REST_TIME_IN_MILLIS
+            "Beginner" -> {
+                REST_TIME_IN_MILLIS = 10000
+                START_TIME_IN_MILLIS = 10000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "INTERMEDIATE\nWORKOUT" -> {
+            "Intermediate" -> {
                 REST_TIME_IN_MILLIS = 15000
                 START_TIME_IN_MILLIS = 45000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "ADVANCED\nWORKOUT" -> {
+            "Advanced" -> {
                 REST_TIME_IN_MILLIS = 15000
                 START_TIME_IN_MILLIS = 45000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
-            "INSANE\nWORKOUT" -> {
+            "Insane" -> {
                 REST_TIME_IN_MILLIS = 10000
                 START_TIME_IN_MILLIS = 50000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
@@ -504,7 +510,6 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     private fun resetAnimation() {
-//        video.start()
         button_start_pause.visibility = View.VISIBLE
     }
 
@@ -529,21 +534,155 @@ class WorkoutActivity : AppCompatActivity() {
         video.setOnPreparedListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val myPlayBackParams = PlaybackParams()
-                myPlayBackParams.speed = 0.8f
                 it.playbackParams = myPlayBackParams
+
             }
             it.isLooping = false
         }
         video.setOnCompletionListener {
-            button_start_pause.visibility = View.VISIBLE
+            if (!mTimerRunning) {
+                button_start_pause.visibility = View.VISIBLE
+            }
+
         }
         video.start()
     }
+
 
     private fun updateText() {
         text_current_workout.text = finalWorkoutList[currentSet - 1].name
         informationOne.text = finalWorkoutList[currentSet - 1].tipOne
         informationTwo.text = finalWorkoutList[currentSet - 1].tipTwo
+    }
+
+    private fun toggleButtonVisibility() {
+        if (button_start_pause.visibility == View.VISIBLE) {
+            button_start_pause.visibility = View.INVISIBLE
+        } else {
+            button_start_pause.visibility = View.INVISIBLE
+        }
+
+
+    }
+
+    private fun speakCurrentWorkout() {
+        if (sharedPref.loadNarrationState()) {
+            mTextToSpeech.speak(
+                finalWorkoutList[currentSet - 1].name,
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                null
+            )
+        }
+    }
+
+    private fun speakNextWorkout() {
+        if (sharedPref.loadNarrationState()) {
+            mTextToSpeech.speak(
+                "Next workout," + finalWorkoutList[currentSet].name,
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                null
+            )
+        }
+    }
+
+    private fun speakRest() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak(
+                "Rest",
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                null
+            )
+        }
+    }
+
+    private fun speakTenSecondsRemaining() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak(
+                "Ten seconds remaining",
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                null
+            )
+        }
+    }
+
+    private fun speakLastFiveSeconds() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak(
+                "${progress_bar.progress - REST_TIME_IN_MILLIS / 1000}",
+                TextToSpeech.QUEUE_FLUSH,
+                null
+            )
+        }
+    }
+
+    private fun speakGreatJob() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak(
+                "Great job",
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                null
+            )
+        }
+    }
+
+    private fun speakWorkoutPaused() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak(
+                "Workout paused",
+                TextToSpeech.QUEUE_FLUSH,
+                null
+            )
+        }
+    }
+
+    private fun speakInformationOne() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak("${informationOne.text}", TextToSpeech.QUEUE_FLUSH, null)
+        }
+
+    }
+
+    fun speakInformationTwo() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak("${informationTwo.text}", TextToSpeech.QUEUE_FLUSH, null)
+        }
+
+    }
+
+    private fun speakGetReady() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak("Get ready", TextToSpeech.QUEUE_FLUSH, null)
+        }
+    }
+
+    private fun finishWorkout() {
+        mCountDownTimer.cancel()
+        video.stopPlayback()
+        button_start_pause.visibility = View.INVISIBLE
+        progress_bar.progress = 0
+        mTimerRunning = false
+        mTimeLeftMillis = 0
+        button_start_pause.text = "Start"
+        resetTimer()
+        speakGreatJob()
+        gainedExperience = currentSet * multiplyFactor
+        totalExperience = userExperience + gainedExperience
+        updateUser()
+        showDialogFinish()
+        currentSet = 1
     }
 
 

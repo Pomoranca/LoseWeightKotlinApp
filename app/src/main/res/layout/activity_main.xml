@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSecondaryLight"
+
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
@@ -15,23 +15,21 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@id/dialogView"
         app:layout_anchorGravity="top|end"
-        android:src="@drawable/ico_calendar" />
+        app:srcCompat="@drawable/ico_calendar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_gravity="bottom"
-        android:background="?attr/bottomNavBackgrounds"
+        android:background="@color/bottomNavBackgrounds"
         app:itemIconTint="@color/bottom_nav_icon_selector"
-        app:itemRippleColor="?attr/colorPrimary"
+        app:itemRippleColor="@color/colorPrimary"
         app:itemTextAppearanceActive="@style/bottomNavFont"
         app:itemTextAppearanceInactive="@style/bottomNavFont"
         app:itemTextColor="@color/bottom_nav_icon_selector"
         app:labelVisibilityMode="labeled"
-        app:hideOnScroll="true"
-app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:layout_scrollFlags="scroll|enterAlways"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/bottom_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
@@ -40,45 +38,114 @@ app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScroll
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryLight"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layoutDescription="@xml/motion_scene_main_animation">
+        android:background="@color/colorBackground"
+        app:layoutDescription="@xml/motion_scene_main_animation"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
+        <View
+            android:id="@+id/backgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryLight"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImage"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="?attr/colorPrimaryDark"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:src="@color/colorPrimaryDark"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/dummyImage5"
-            android:layout_width="37dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="25dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_cloud"
-            android:tint="#ffffff"
-            app:layout_constraintEnd_toEndOf="@id/halfScreenVertical"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hi,"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/main_text_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/main_text_username" />
+
+
+        <TextView
+            android:id="@+id/main_text_username"
+            style="@style/headerFont"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="8dp"
+            tools:text="John"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/dialogView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/dialogView" />
+
+        <TextView
+            android:id="@+id/text3"
+            style="@style/headerFont"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="end"
+            android:lines="2"
+            android:text="Let's rock"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@id/dialogView"
+            app:layout_constraintEnd_toEndOf="@id/dialogView"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/dummyImage6"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="22dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_cloud"
-            android:tint="#ffffff"
-            app:layout_constraintStart_toStartOf="@id/halfScreenVertical"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/dummyImage1"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:rotation="10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_veg1"
+            app:layout_constraintStart_toEndOf="@id/halfScreenVertical"
+            app:layout_constraintTop_toTopOf="@id/dialogView" />
+
+        <ImageView
+            android:id="@+id/dummyImage2"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="70dp"
+            android:rotation="10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_veg2"
+            app:layout_constraintStart_toEndOf="@id/halfScreenVertical"
+            app:layout_constraintTop_toTopOf="@id/dialogView" />
+
+        <ImageView
+            android:id="@+id/dummyImage3"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:rotation="300"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_veg3"
+            app:layout_constraintEnd_toStartOf="@id/halfScreenVertical"
+            app:layout_constraintTop_toTopOf="@id/dialogView" />
+
+        <ImageView
+            android:id="@+id/dummyImage4"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="30dp"
+            android:rotation="300"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_veg4"
+            app:layout_constraintEnd_toStartOf="@id/halfScreenVertical"
+            app:layout_constraintTop_toTopOf="@id/dialogView" />
 
 
 
@@ -88,10 +155,10 @@ app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScroll
             android:layout_width="0dp"
             android:layout_height="204dp"
             android:src="@drawable/main_appbar_image_light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.148"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="fitCenter"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/dialogView" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -122,17 +189,17 @@ app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScroll
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.25" />
 
-        <androidx.core.widget.NestedScrollView
+        <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
-            android:scrollingCache="true"
+            android:layout_marginBottom="38dp"
             android:hapticFeedbackEnabled="true"
+            android:translationY="-18dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            app:layout_constraintEnd_toEndOf="@+id/dialogView"
+            app:layout_constraintStart_toStartOf="@+id/dialogView"
+            app:layout_constraintTop_toBottomOf="@+id/dialogView" />
 
         <FrameLayout
             android:id="@+id/dialogView"
@@ -140,107 +207,105 @@ app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScroll
             android:layout_height="150dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingBottom="16dp"
             android:clipToPadding="false"
+            android:layout_marginBottom="16dp"
             android:outlineProvider="bounds"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline2">
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
-            >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/dialogView2"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/bottomNavBackgrounds">
+                app:cardCornerRadius="3dp"
+                android:elevation="7dp">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/text_hi"-->
-<!--                    style="@style/headerFont"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:fontFamily="@font/nunito_sans_black"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-                <TextView
-                    android:id="@+id/textview_tips"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dialogView2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:textStyle="italic"
-                    app:layout_constraintBottom_toTopOf="@+id/fragment_main_progress_step"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Lorem ipsorem ipsumsorem ipsumsorem ipsumsorem ipsumsums" />
+                    android:layout_height="match_parent"
+                    android:background="@color/bottomNavBackgrounds">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="@font/nunito_sans_black"
-                    android:gravity="center_vertical"
-                    android:text="Steps"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/text_hi"-->
+                    <!--                    style="@style/headerFont"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginStart="16dp"-->
+                    <!--                    android:layout_marginTop="16dp"-->
+                    <!--                    android:fontFamily="@font/nunito_sans_black"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <ProgressBar
-                    android:id="@+id/fragment_main_progress_step"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:layout_weight="1"
-                    android:max="3000"
-                    android:scaleY="1.2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/fragment_main_text_step_counter"
-                    app:layout_constraintStart_toEndOf="@+id/textView" />
+                    <TextView
+                        android:id="@+id/textview_tips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:fontFamily="@font/nunito_sans"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Lorem ipsorem ipsumsorem ipsumsorem ipsumsorem ipsumsums" />
 
-                <TextView
-                    android:id="@+id/fragment_main_text_step_counter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/steps_button_shape"
-                    android:gravity="center"
-                    android:text="0"
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/nunito_sans_black"
+                        android:gravity="center_vertical"
+                        android:text="Steps"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
 
-                    android:textColor="?attr/colorTextButton"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
+                    <ProgressBar
+                        android:id="@+id/fragment_main_progress_step"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_weight="1"
+                        android:max="3000"
+                        android:scaleY="1.2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/fragment_main_text_step_counter"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/textview_tips" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/fragment_main_text_step_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
+                        android:background="@drawable/steps_button_shape"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/colorTextButton"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
         </FrameLayout>
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#cccccc"
     android:orientation="vertical"
     app:layoutDescription="@xml/motion_scene_tip_animation">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_award"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bottomNavBackgrounds"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/tip_background"
@@ -16,32 +24,32 @@
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_award"
         app:srcCompat="@drawable/background_light" />
 
 
     <View
         android:id="@+id/hamburgerBg"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:background="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_width="35dp"
-        android:layout_height="35dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/hamburgerIcon"
-        app:layout_constraintTop_toTopOf="@id/hamburgerBg"
-        app:layout_constraintBottom_toBottomOf="@id/hamburgerBg"
-        app:layout_constraintStart_toStartOf="@id/hamburgerBg"
-        app:layout_constraintEnd_toEndOf="@id/hamburgerBg"
-        android:elevation="4dp"
-        android:tint="#90caf9"
-        android:padding="9dp"
-        app:srcCompat="@drawable/ic_hamburger"
         android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:elevation="4dp"
+        android:padding="9dp"
+        android:tint="@color/bottomNavPressed"
+        app:layout_constraintBottom_toBottomOf="@id/hamburgerBg"
+        app:layout_constraintEnd_toEndOf="@id/hamburgerBg"
+        app:layout_constraintStart_toStartOf="@id/hamburgerBg"
+        app:layout_constraintTop_toTopOf="@id/hamburgerBg"
+        app:srcCompat="@drawable/ic_back_button" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -70,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@id/guideline1" />
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/tip_textView_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -94,16 +102,16 @@
         android:background="#cccccc"
         app:layout_constraintEnd_toEndOf="@id/bgView"
         app:layout_constraintStart_toStartOf="@id/bgView"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tip_textView_title" />
 
     <TextView
-        android:id="@+id/descTextView"
+        android:id="@+id/tip_textView_author"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="serif-monospace"
         android:gravity="center"
-        android:text="Vincent van Gogh"
+        android:text="Author"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -121,47 +129,22 @@
         android:background="#cccccc"
         app:layout_constraintEnd_toEndOf="@id/bgView"
         app:layout_constraintStart_toStartOf="@id/bgView"
-        app:layout_constraintTop_toBottomOf="@id/descTextView" />
-
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="serif-monospace"
-        android:gravity="center"
-        android:text="June, 1889"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@id/bgView"
-        app:layout_constraintStart_toStartOf="@id/bgView"
-        app:layout_constraintTop_toBottomOf="@id/divider2" />
-
-    <include
-        android:id="@+id/shareLayout"
-        layout="@layout/custom_share_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@id/bgView"
-        app:layout_constraintStart_toStartOf="@id/bgView"
-        app:layout_constraintTop_toBottomOf="@id/descTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tip_textView_author" />
 
     <TextView
         android:id="@+id/tip_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:nestedScrollingEnabled="false"
-        android:padding="14dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:nestedScrollingEnabled="true"
+        android:padding="14dp"
         android:textSize="17sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shareLayout" />
+        tools:layout_editor_absoluteY="352dp" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorBackground"
+    android:background="@color/colorBackground"
     tools:context="com.pomoranca.myapplication.activities.WorkoutPlanActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="?attr/bottomNavBackgrounds"
-        app:titleTextColor="?attr/bottomNavBackgrounds"
+        android:background="@color/bottomNavBackgrounds"
+        app:titleTextColor="@color/bottomNavBackgrounds"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,7 +110,7 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         android:visibility="invisible"
-        android:textColor="?attr/colorTextButton"
+        android:textColor="@color/colorTextButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -172,7 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="?attr/colorSecondaryLight"
+        android:textColor="@color/colorSecondaryLights"
         app:layout_constraintStart_toEndOf="@+id/text_current_workout"
         app:layout_constraintTop_toTopOf="@+id/text_current_workout"
         tools:text="TextView" />

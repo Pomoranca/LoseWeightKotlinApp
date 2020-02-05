@@ -1,6 +1,8 @@
 package com.pomoranca.myapplication.activities
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
@@ -10,6 +12,8 @@ class TipActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_tip)
 
         val tipBackground = intent.getIntExtra("BACKGROUND", R.drawable.tips_replace_juice)
@@ -23,5 +27,6 @@ class TipActivity : AppCompatActivity() {
 
 
         tip_description.text = tipDescription
+        tip_textView_title.text = tipTitle
     }
 }

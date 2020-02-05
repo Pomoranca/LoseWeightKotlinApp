@@ -5,10 +5,12 @@
         android:state_pressed="true" />
     <item
         android:drawable="@drawable/radio_button_selected"
-        android:state_pressed="true" />
+        android:state_pressed="true"
+        />
     <item
         android:drawable="@drawable/radio_button_selected"
-        android:state_checked="true" />
+        android:state_checked="true"
+        />
     <item
         android:drawable="@drawable/radio_button_regular" />
 </selector>

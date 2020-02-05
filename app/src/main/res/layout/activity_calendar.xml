@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorBackground"
     android:layout_height="match_parent"
     tools:context=".activities.CalendarActivity">
   <androidx.appcompat.widget.Toolbar
@@ -10,6 +11,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:layout_width="match_parent"
+      android:background="@color/bottomNavBackgrounds"
       android:layout_height="?attr/actionBarSize"
       android:id="@+id/toolbar_calendar"/>
 
@@ -30,6 +32,7 @@
       android:layout_marginTop="16dp"
       android:clickable="false"
       android:focusable="false"
+      android:background="@drawable/background_light"
       app:layout_constraintTop_toBottomOf="@id/text_calendar_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

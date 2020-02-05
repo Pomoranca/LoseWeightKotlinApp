@@ -5,6 +5,8 @@ import android.content.Intent
 import android.media.PlaybackParams
 import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +28,8 @@ class WorkoutPlanActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
@@ -44,7 +48,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         //POPULATE recyclerview regarding which plan is clicked
         when (planTitle) {
-            "Beginner workout" -> {
+            "Beginner" -> {
                 loseWeightViewModel.getBeginnerWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -54,7 +58,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                     })
                 setValues("40", "20", "3-5")
             }
-            "Intermediate workout" -> {
+            "Intermediate" -> {
                 loseWeightViewModel.getIntermediateWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -64,7 +68,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 setValues("45", "15", "3 - 5")
 
             }
-            "Advanced workout" -> {
+            "Advanced" -> {
                 loseWeightViewModel.getAdvancedWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -74,7 +78,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 setValues("45", "15", "4 - 6")
 
             }
-            "Insane workout" -> {
+            "Insane" -> {
                 loseWeightViewModel.getInsaneWorkouts().observe(this,
                     Observer<List<Workout>> {
                         adapter.workoutList = it as MutableList<Workout>
@@ -89,10 +93,9 @@ class WorkoutPlanActivity : AppCompatActivity() {
 
         adapter.setOnItemClickListener(object : ItemRecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(workout: Workout) {
-                val dialog = Dialog(this@WorkoutPlanActivity, R.style.Theme_Dialog)
+                val dialog = Dialog(this@WorkoutPlanActivity, R.style.VideoDialog)
                 val a = R.layout.dialog_workout_preview
                 dialog.setContentView(a)
-                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
                 dialog.window?.setWindowAnimations(R.style.dialog_fade)
                 val title = dialog.findViewById<TextView>(R.id.workout_preview_title)
                 title.text = workout.name

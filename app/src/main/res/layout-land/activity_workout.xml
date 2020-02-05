@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryDark"
+    android:background="@color/colorPrimaryDark"
     android:orientation="horizontal"
     tools:context="com.pomoranca.myapplication.activities.WorkoutPlanActivity">
 
@@ -142,7 +142,7 @@
         android:id="@+id/toolbar_workout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimaryDark"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="@+id/image_current_workout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
