@@ -43,85 +43,24 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        <View
+        <ImageView
             android:id="@+id/backgroundView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scaleType="centerCrop"
             android:background="@drawable/main_background"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:visibility="invisible"
-            android:src="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Hi,"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/main_text_username"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/main_text_username" />
-
-
-        <TextView
-            android:id="@+id/main_text_username"
-            style="@style/headerFont"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="-10dp"
-            android:layout_marginBottom="8dp"
-            tools:text="John"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@id/dialogView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/dialogView" />
-
-        <TextView
-            android:id="@+id/text3"
-            style="@style/headerFont"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="end"
-            android:lines="2"
-            android:text="Let's rock"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@id/dialogView"
-            app:layout_constraintEnd_toEndOf="@id/dialogView"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/header_fading_image"
-            android:layout_width="0dp"
-            android:layout_height="204dp"
-            android:src="@drawable/main_appbar_image_light"
-            android:scaleType="fitCenter"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/dialogView" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.32" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

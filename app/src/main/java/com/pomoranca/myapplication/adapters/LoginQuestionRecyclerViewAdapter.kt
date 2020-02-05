@@ -129,14 +129,14 @@ class LoginQuestionRecyclerViewAdapter :
         questionList.add(
             LoginQuestion(
                 "What is your current fitness level?",
-                R.drawable.login_women_workout,
+                R.drawable.login_man_workout,
                 arrayListOf("Beginner", "Intermediate", "Advanced", "Insane"), true
             )
         )
         questionList.add(
             LoginQuestion(
                 "How often do you workout?",
-                R.drawable.login_women_workout,
+                R.drawable.login_woman_workout,
                 arrayListOf("Never", "Rarely", "3-5 times a week", "Every day")
             )
         )

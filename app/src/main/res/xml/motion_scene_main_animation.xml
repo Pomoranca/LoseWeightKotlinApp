@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:motion="http://schemas.android.com/apk/res-auto">
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/tools">
 
     <Transition
         app:constraintSetEnd="@layout/activity_main_end"
         app:constraintSetStart="@layout/activity_main"
-        app:duration="1000">
+        app:duration="10000">
 
         <OnSwipe
             app:dragDirection="dragUp"
@@ -15,116 +15,82 @@
 
         <KeyFrameSet>
 
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1"-->
+<!--                android:scaleY="1"-->
+<!--                motion:framePosition="0"-->
+<!--                motion:motionTarget="@id/text3" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1.1"-->
+<!--                android:scaleY="1.1"-->
+<!--                motion:framePosition="50"-->
+<!--                motion:motionTarget="@id/text3" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1"-->
+<!--                android:scaleY="1"-->
+<!--                motion:framePosition="100"-->
+<!--                motion:motionTarget="@id/text3" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1"-->
+<!--                android:scaleY="1"-->
+<!--                motion:framePosition="0"-->
+<!--                motion:motionTarget="@id/text1" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1.1"-->
+<!--                android:scaleY="1.1"-->
+<!--                motion:framePosition="50"-->
+<!--                motion:motionTarget="@id/text1" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1"-->
+<!--                android:scaleY="1"-->
+<!--                motion:framePosition="100"-->
+<!--                motion:motionTarget="@id/text1" />-->
+
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1"-->
+<!--                android:scaleY="1"-->
+<!--                motion:framePosition="0"-->
+<!--                motion:motionTarget="@id/main_text_username" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1.1"-->
+<!--                android:scaleY="1.1"-->
+<!--                motion:framePosition="50"-->
+<!--                motion:motionTarget="@id/main_text_username" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:scaleX="1"-->
+<!--                android:scaleY="1"-->
+<!--                motion:framePosition="100"-->
+<!--                motion:motionTarget="@id/main_text_username" />-->
+
+
+
             <KeyAttribute
                 android:scaleX="1"
                 android:scaleY="1"
                 motion:framePosition="0"
-                motion:motionTarget="@id/text3" />
+                motion:motionTarget="@id/backgroundView" />
 
             <KeyAttribute
-                android:scaleX="1.1"
-                android:scaleY="1.1"
+                android:scaleX="1.05"
+                android:scaleY="1.05"
                 motion:framePosition="50"
-                motion:motionTarget="@id/text3" />
-
-            <KeyAttribute
-                android:scaleX="1"
-                android:scaleY="1"
-                motion:framePosition="100"
-                motion:motionTarget="@id/text3" />
-
-            <KeyAttribute
-                android:scaleX="1"
-                android:scaleY="1"
-                motion:framePosition="0"
-                motion:motionTarget="@id/text1" />
+                motion:motionTarget="@id/backgroundView" />
 
             <KeyAttribute
                 android:scaleX="1.1"
                 android:scaleY="1.1"
-                motion:framePosition="50"
-                motion:motionTarget="@id/text1" />
-
-            <KeyAttribute
-                android:scaleX="1"
-                android:scaleY="1"
                 motion:framePosition="100"
-                motion:motionTarget="@id/text1" />
+                motion:motionTarget="@id/backgroundView" />
 
 
-            <KeyAttribute
-                android:scaleX="1"
-                android:scaleY="1"
-                motion:framePosition="0"
-                motion:motionTarget="@id/main_text_username" />
-
-            <KeyAttribute
-                android:scaleX="1.1"
-                android:scaleY="1.1"
-                motion:framePosition="50"
-                motion:motionTarget="@id/main_text_username" />
-
-            <KeyAttribute
-                android:scaleX="1"
-                android:scaleY="1"
-                motion:framePosition="100"
-                motion:motionTarget="@id/main_text_username" />
-
-            <KeyAttribute
-                android:alpha="0"
-                motion:framePosition="0"
-                motion:motionTarget="@id/dummyImage1" />
-            <KeyAttribute
-                android:alpha="0"
-                motion:framePosition="0"
-                motion:motionTarget="@id/dummyImage2" />
-            <KeyAttribute
-                android:alpha="0"
-                motion:framePosition="0"
-                motion:motionTarget="@id/dummyImage3" />
-            <KeyAttribute
-                android:alpha="0"
-                motion:framePosition="0"
-                motion:motionTarget="@id/dummyImage4" />
-            <KeyAttribute
-                android:alpha="0"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                motion:framePosition="0"
-                motion:motionTarget="@id/header_fading_image" />
-            <KeyAttribute
-                android:alpha="0"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                motion:framePosition="60"
-                motion:motionTarget="@id/header_fading_image" />
-            <KeyAttribute
-                android:alpha="0.2"
-                android:scaleX="1.0"
-                android:scaleY="1.0"
-                motion:framePosition="80"
-                motion:motionTarget="@id/header_fading_image" />
-
-            <KeyAttribute
-                android:alpha="0.5"
-                android:scaleX="1.1"
-                android:scaleY="1.1"
-                motion:framePosition="90"
-                motion:motionTarget="@id/header_fading_image" />
-
-            <KeyAttribute
-                android:alpha="0.8"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                motion:framePosition="95"
-                motion:motionTarget="@id/header_fading_image" />
-
-            <KeyAttribute
-                android:alpha="1"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                motion:framePosition="100"
-                motion:motionTarget="@id/header_fading_image" />
 
 
         </KeyFrameSet>

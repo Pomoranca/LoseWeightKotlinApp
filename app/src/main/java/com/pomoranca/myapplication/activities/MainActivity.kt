@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -110,13 +111,13 @@ class MainActivity : AppCompatActivity(),
         )
 
         setContentView(R.layout.activity_main)
+//        showImage()
 
         //Insert user intodatabase
         sharedPref = SharedPref(this)
         val name = sharedPref.loadUserName()
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         loseWeightViewModel.insert(User(name!!, 0, 0))
-        main_text_username.text = name
 
 
         motionLayout.setTransitionListener(this)
@@ -315,10 +316,10 @@ class MainActivity : AppCompatActivity(),
     private fun showDialog() {
         val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val lp = dialog.window!!.attributes
-        lp.dimAmount = 0.9f
         dialog.setContentView(R.layout.dialog_welcome)
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
+        val lp = dialog.window!!.attributes
+        lp.dimAmount = 0.9f
         dialog.dialog_welcome_name.text = "Welcome"
         dialog.dialog_button_lets_start.setOnClickListener {
             dialog.dismiss()
@@ -376,10 +377,10 @@ class MainActivity : AppCompatActivity(),
 //    private fun showImage() {
 //        Glide
 //            .with(this)
-//            .load(R.drawable.main_appbar_image_light)
-//            .fitCenter()
-//            .into(header_fading_image)
-//        val fadingImage = findViewById<ImageView>(R.id.header_fading_image)
+//            .load(R.drawable.main_background)
+//            .centerCrop()
+//            .into(backgroundView)
+//        val fadingImage = findViewById<ImageView>(R.id.backgroundView)
 //        val myFadeInAnimation: Animation =
 //            AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
 //        fadingImage.startAnimation(myFadeInAnimation)
