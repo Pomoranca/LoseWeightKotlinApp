@@ -47,7 +47,7 @@
             android:id="@+id/backgroundView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorPrimaryLight"
+            android:background="@drawable/main_background"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +57,7 @@
             android:id="@+id/circleImage"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:visibility="invisible"
             android:src="@color/colorPrimaryDark"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,52 +103,6 @@
             app:layout_constraintBottom_toTopOf="@id/dialogView"
             app:layout_constraintEnd_toEndOf="@id/dialogView"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageView
-            android:id="@+id/dummyImage1"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:rotation="10"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ico_veg1"
-            app:layout_constraintStart_toEndOf="@id/halfScreenVertical"
-            app:layout_constraintTop_toTopOf="@id/dialogView" />
-
-        <ImageView
-            android:id="@+id/dummyImage2"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="70dp"
-            android:rotation="10"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ico_veg2"
-            app:layout_constraintStart_toEndOf="@id/halfScreenVertical"
-            app:layout_constraintTop_toTopOf="@id/dialogView" />
-
-        <ImageView
-            android:id="@+id/dummyImage3"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:rotation="300"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ico_veg3"
-            app:layout_constraintEnd_toStartOf="@id/halfScreenVertical"
-            app:layout_constraintTop_toTopOf="@id/dialogView" />
-
-        <ImageView
-            android:id="@+id/dummyImage4"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="30dp"
-            android:rotation="300"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ico_veg4"
-            app:layout_constraintEnd_toStartOf="@id/halfScreenVertical"
-            app:layout_constraintTop_toTopOf="@id/dialogView" />
-
-
 
 
         <ImageView

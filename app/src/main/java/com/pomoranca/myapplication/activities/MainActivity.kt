@@ -86,10 +86,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-        doBounceAnimation(dummyImage1)
-        doBounceAnimation(dummyImage2)
-        doBounceAnimation(dummyImage3)
-        doBounceAnimation(dummyImage4)
+        //do something on finish animation
 
 
     }
@@ -318,6 +315,8 @@ class MainActivity : AppCompatActivity(),
     private fun showDialog() {
         val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val lp = dialog.window!!.attributes
+        lp.dimAmount = 0.9f
         dialog.setContentView(R.layout.dialog_welcome)
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
         dialog.dialog_welcome_name.text = "Welcome"

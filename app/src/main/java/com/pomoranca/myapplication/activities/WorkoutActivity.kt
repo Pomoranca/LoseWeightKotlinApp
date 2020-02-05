@@ -413,6 +413,8 @@ class WorkoutActivity : AppCompatActivity() {
         val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
+        val lp = dialog.window!!.attributes
+        lp.dimAmount = 0.9f
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_workout_finished)
@@ -454,6 +456,8 @@ class WorkoutActivity : AppCompatActivity() {
     private fun showDialogBack() {
         val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val lp = dialog.window!!.attributes
+        lp.dimAmount = 0.9f
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_stop_workout)
         dialog.dialog_button_continue.setOnClickListener {
