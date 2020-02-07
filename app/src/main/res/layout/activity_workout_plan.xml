@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/nunito_sans_black"
-            android:text="TIPS FOR YOU"
+            android:text="WORKOUT INFO"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/plan_header_image_container" />
 

@@ -91,7 +91,7 @@ class Reminders {
         reminders.add("Look in the mirror ... that's your competition.")
         reminders.add("Progress: you might not be where you want to be. But you're not where you used to be.")
         reminders.add("Be stronger than your strongest excuse.")
-        reminders.add("Don't tell people your plans. Show them your rsults.")
+        reminders.add("Don't tell people your plans. Show them your results.")
         reminders.add("My summer body is in progress.")
         reminders.add("You are what you eat ... So don't be fast, cheap, easy, or fake!")
         reminders.add("A little progress each day adds up to big results.")
@@ -121,6 +121,7 @@ class Reminders {
         reminders.add("Only put off until tomorrow what you are willing to die having left undone")
         reminders.add("You cannot escape the responsibility of tomorrow by evading it today.")
         reminders.add("Life always begins with one step outside of your comfort zone.")
+        reminders.add("If you don't have 30 minutes, wake up 30 minutes earlier")
     }
 
 

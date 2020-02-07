@@ -6,8 +6,6 @@
     android:layout_height="200dp"
     android:clipToPadding="false"
     android:outlineProvider="bounds"
-    android:paddingStart="3dp"
-    android:paddingEnd="3dp"
     android:paddingBottom="6dp">
 
     <androidx.cardview.widget.CardView
@@ -16,7 +14,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="2dp"
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,11 +39,11 @@
                 android:id="@+id/plan_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="22dp"
                 android:fontFamily="@font/nunito_sans_black"
                 android:lineSpacingMultiplier="0.8"
                 android:textColor="#fafafa"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView7"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Beginner" />

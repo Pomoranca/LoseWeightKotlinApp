@@ -104,10 +104,10 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 title.text = workout.name
                 val video = dialog.findViewById<VideoView>(R.id.workout_preview_video)
                 val path = "android.resource://" + packageName + "/" + workout.imagePath
-                video.setZOrderOnTop(true)
                 video.setVideoPath(path)
                 video.requestFocus()
-                video.start()
+                video.setZOrderOnTop(true)
+
                 video.setOnPreparedListener {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         val myPlayBackParams = PlaybackParams()
@@ -117,6 +117,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                     it.isLooping = true
 
                 }
+                video.start()
                 dialog.setOnDismissListener {
                     video.stopPlayback()
                 }

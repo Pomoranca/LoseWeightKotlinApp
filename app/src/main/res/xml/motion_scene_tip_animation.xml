@@ -12,6 +12,18 @@
             app:dragDirection="dragUp"
             app:touchAnchorId="@id/bgView"
             app:touchAnchorSide="top" />
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="1"
+                app:framePosition="0"
+                app:motionTarget="@id/hamburgerIcon" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="30"
+                app:motionTarget="@id/hamburgerIcon" />
+
+        </KeyFrameSet>
 
     </Transition>
 

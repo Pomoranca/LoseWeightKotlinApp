@@ -7,39 +7,24 @@
     android:layout_height="match_parent"
     android:background="#4051a3">
 
+
     <ImageView
         android:id="@+id/backgroundView"
-        android:layout_width="446dp"
-        android:layout_height="407dp"
+        android:layout_width="429dp"
+        android:layout_height="389dp"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/text3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="80dp"
-        android:gravity="end"
-        android:lines="2"
-        android:text="SOME TEHX"
-        android:textColor="#ffffff"
-        android:textSize="17sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@id/dialogView"
-        app:layout_constraintEnd_toEndOf="@id/dialogView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_begin="87dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
  */
 class ProfileFragment : Fragment() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
-    private var medalsWon = 0
     private val PREFS_NAME = "MyPrefsFile"
 
 
@@ -42,7 +41,7 @@ class ProfileFragment : Fragment() {
         val settings: SharedPreferences =
             context!!.getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
         val avatarMale = settings.getBoolean("pick_male", true)
-        rootView.profile_steps_text.text = settings.getFloat("stepsMadeTotal", 0F).toInt().toString()
+//        rootView.profile_steps_text.text = settings.getFloat("stepsMadeTotal", 0F).toInt().toString()
 
 
         //Question variables for profile information

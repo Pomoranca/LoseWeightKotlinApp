@@ -34,6 +34,8 @@
             android:lineSpacingMultiplier="0.5"
             android:shadowColor="#3D3D3D"
             android:shadowDx="0.5"
+            android:maxLines="10"
+            android:text="ifjsdaijfisdjfisfijds fasd fidasjfi adsifj iadsjf adsf "
             android:shadowDy="0.2"
             android:shadowRadius="1.0"
             android:textColor="@color/colorWhite"

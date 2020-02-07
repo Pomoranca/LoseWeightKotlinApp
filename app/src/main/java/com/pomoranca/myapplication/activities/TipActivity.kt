@@ -13,12 +13,20 @@ class TipActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         setContentView(R.layout.activity_tip)
+
+        hamburgerIcon.setOnClickListener {
+            onBackPressed()
+        }
 
         val tipBackground = intent.getIntExtra("BACKGROUND", R.drawable.tips_replace_juice)
         val tipTitle = intent.getStringExtra("NAME")
         val tipDescription = intent.getStringExtra("DESCRIPTION")
+        val tipAuthor = intent.getStringExtra("AUTHOR")
         Glide
             .with(this)
             .load(tipBackground)
@@ -28,5 +36,6 @@ class TipActivity : AppCompatActivity() {
 
         tip_description.text = tipDescription
         tip_textView_title.text = tipTitle
+        tip_textView_author.text = tipAuthor
     }
 }

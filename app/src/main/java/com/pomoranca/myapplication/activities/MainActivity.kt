@@ -1,26 +1,17 @@
 package com.pomoranca.myapplication.activities
 
-import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.app.*
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.BounceInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -29,7 +20,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.materialdrawer.AccountHeader
@@ -56,7 +46,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity(),
-    OnAboutClickedListener, OnTimeSetListener, SensorEventListener,
+    OnAboutClickedListener, OnTimeSetListener,
     MotionLayout.TransitionListener {
 
     private lateinit var sharedPref: SharedPref
@@ -91,12 +81,12 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    private fun doBounceAnimation(targetView: View) {
-        val animator = ObjectAnimator.ofFloat(targetView, "translationY", 0f, 30f, 0f)
-        animator.interpolator = BounceInterpolator()
-        animator.duration = 1000
-        animator.start()
-    }
+//    private fun doBounceAnimation(targetView: View) {
+//        val animator = ObjectAnimator.ofFloat(targetView, "translationY", 0f, 30f, 0f)
+//        animator.interpolator = BounceInterpolator()
+//        animator.duration = 1000
+//        animator.start()
+//    }
 
     private val PREFS_NAME = "MyPrefsFile"
 
@@ -117,6 +107,10 @@ class MainActivity : AppCompatActivity(),
         sharedPref = SharedPref(this)
         val name = sharedPref.loadUserName()
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
+        loseWeightViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer {
+            progressBar.progress = it[0].days
+            stepCounterText.text = "${it[0].days} / 100"
+        })
         loseWeightViewModel.insert(User(name!!, 0, 0))
 
 
@@ -132,11 +126,10 @@ class MainActivity : AppCompatActivity(),
 
 
         stepCounterText = findViewById(R.id.fragment_main_text_step_counter)
-        progressBar = findViewById(R.id.fragment_main_progress_step)
+        progressBar = findViewById(R.id.fragment_main_progress_day)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         CURRENT_DATE = getDate()
-        getValues()
-
+//        getValues()
 
 
         main_fab_calendar.setOnClickListener {
@@ -455,46 +448,46 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-    override fun onResume() {
-        super.onResume()
-        running = true
-        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-        if (stepSensor == null) {
-            fragment_main_text_step_counter.visibility = View.GONE
-            fragment_main_progress_step.visibility = View.GONE
-
-        } else {
-            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        running = true
+//        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+//        if (stepSensor == null) {
+//            fragment_main_text_step_counter.visibility = View.GONE
+//            fragment_main_progress_step.visibility = View.GONE
+//
+//        } else {
+//            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+//        }
+//    }
 
     override fun onPause() {
         super.onPause()
         running = false
 //        sensorManager?.unregisterListener(this)
-        saveValues()
+//        saveValues()
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        val sensor: Sensor = event?.sensor!!
-        val values = event.values
-        var value = -1
-
-        if (values.isNotEmpty()) {
-            value = values[0].toInt()
-        }
-
-        if (sensor.type == Sensor.TYPE_STEP_DETECTOR) {
-            stepsMadeToday++
-//        stepsMade = event!!.values[0]
-            stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
-            progressBar.progress = value
-            Log.i("SENSOR", "${event!!.values[0]}")
-        }
-    }
+//    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+//    }
+//
+//    override fun onSensorChanged(event: SensorEvent?) {
+//        val sensor: Sensor = event?.sensor!!
+//        val values = event.values
+//        var value = -1
+//
+//        if (values.isNotEmpty()) {
+//            value = values[0].toInt()
+//        }
+//
+//        if (sensor.type == Sensor.TYPE_STEP_DETECTOR) {
+//            stepsMadeToday++
+////        stepsMade = event!!.values[0]
+//            stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
+//            progressBar.progress = value
+//            Log.i("SENSOR", "${event!!.values[0]}")
+//        }
+//    }
 
     private fun getDate(): String { // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat("dd/MM/yyyy")
@@ -503,41 +496,41 @@ class MainActivity : AppCompatActivity(),
         return formatter.format(calendar.time)
     }
 
-    private fun getValues() {
-        val settings: SharedPreferences =
-            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-        val editor = settings.edit()
-        stepsMadeToday = settings.getFloat("stepsMadeToday", 0F)
-        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
-        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
-        LAST_DATE = settings.getString("lastDate", "")!!
+//    private fun getValues() {
+//        val settings: SharedPreferences =
+//            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+//        val editor = settings.edit()
+//        stepsMadeToday = settings.getFloat("stepsMadeToday", 0F)
+//        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
+//        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
+//        LAST_DATE = settings.getString("lastDate", "")!!
+//
+//
+//        if (LAST_DATE != CURRENT_DATE) {
+//            stepsMadeToday = 0F
+//            LAST_DATE = CURRENT_DATE
+//            editor.putString("lastDate", LAST_DATE)
+//            Log.i("steps", "DATES ARE NOT SAME")
+//
+//        }
+//        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
+//        progressBar.progress = stepsMadeToday.toInt()
+//        editor.apply()
+//    }
 
-
-        if (LAST_DATE != CURRENT_DATE) {
-            stepsMadeToday = 0F
-            LAST_DATE = CURRENT_DATE
-            editor.putString("lastDate", LAST_DATE)
-            Log.i("steps", "DATES ARE NOT SAME")
-
-        }
-        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
-        progressBar.progress = stepsMadeToday.toInt()
-        editor.apply()
-    }
-
-    private fun saveValues() {
-        val settings: SharedPreferences =
-            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-        val editor = settings.edit()
-        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
-        stepsMadeTotal += stepsMadeToday
-        Log.i("steps", "TODAY - $stepsMadeToday")
-        Log.i("steps", "TOTAL - $stepsMadeTotal")
-        Log.i("steps", "DATE - $CURRENT_DATE , $LAST_DATE")
-        editor.putFloat("stepsMadeTotal", stepsMadeTotal)
-        editor.putFloat("stepsMadeToday", stepsMadeToday)
-        editor.apply()
-    }
+//    private fun saveValues() {
+//        val settings: SharedPreferences =
+//            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
+//        val editor = settings.edit()
+//        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
+//        stepsMadeTotal += stepsMadeToday
+//        Log.i("steps", "TODAY - $stepsMadeToday")
+//        Log.i("steps", "TOTAL - $stepsMadeTotal")
+//        Log.i("steps", "DATE - $CURRENT_DATE , $LAST_DATE")
+//        editor.putFloat("stepsMadeTotal", stepsMadeTotal)
+//        editor.putFloat("stepsMadeToday", stepsMadeToday)
+//        editor.apply()
+//    }
 
 
 }

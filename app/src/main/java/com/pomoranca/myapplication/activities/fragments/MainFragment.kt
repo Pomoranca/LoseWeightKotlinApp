@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
 
         val recyclerView = rootView!!.recyclerViewMain
         recyclerView.layoutManager =
-            GridLayoutManager(rootView.context, 2, RecyclerView.VERTICAL, false)
+            GridLayoutManager(rootView.context, 1, RecyclerView.VERTICAL, false)
 //        recyclerView.setHasFixedSize(true)
         val planRecyclerViewAdapter = PlanRecyclerViewAdapter()
         planRecyclerViewAdapter.populatePlanList()

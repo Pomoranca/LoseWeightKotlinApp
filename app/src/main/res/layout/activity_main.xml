@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
@@ -39,21 +38,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
-        app:layoutDescription="@xml/motion_scene_main_animation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layoutDescription="@xml/motion_scene_main_animation">
 
 
         <ImageView
             android:id="@+id/backgroundView"
-            android:layout_width="match_parent"
+            android:layout_width="538dp"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
             android:background="@drawable/main_background"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/main_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans_black"
+            android:lineSpacingMultiplier="0.8"
+            android:text="LET'S\nGET\nSTRONG"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="42sp"
+            app:layout_constraintBottom_toTopOf="@+id/dialogView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -155,14 +169,14 @@
                         android:layout_marginStart="24dp"
                         android:fontFamily="@font/nunito_sans_black"
                         android:gravity="center_vertical"
-                        android:text="Steps"
+                        android:text="Day"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_day"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
+                        app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_day" />
 
                     <ProgressBar
-                        android:id="@+id/fragment_main_progress_step"
+                        android:id="@+id/fragment_main_progress_day"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -171,7 +185,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="24dp"
                         android:layout_weight="1"
-                        android:max="3000"
+                        android:max="100"
                         android:scaleY="1.2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/fragment_main_text_step_counter"
@@ -190,9 +204,9 @@
                         android:textColor="@color/colorTextButton"
                         android:textSize="10sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_step"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_day"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_step" />
+                        app:layout_constraintTop_toTopOf="@+id/fragment_main_progress_day" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

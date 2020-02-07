@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/bottomNavBackgrounds"
     android:orientation="horizontal"
     tools:context="com.pomoranca.myapplication.activities.WorkoutPlanActivity">
 
@@ -16,7 +16,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="60dp"
-        android:src="@raw/abs_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,13 +35,12 @@
 
         <TextView
             android:id="@+id/workout_set_number"
-            style="@style/toolbarFont"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="12sp"
             android:maxLines="10"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorSecondaryLights"
             app:layout_constraintBottom_toBottomOf="@+id/text_current_workout"
             app:layout_constraintStart_toEndOf="@+id/text_current_workout"
             app:layout_constraintTop_toTopOf="@+id/text_current_workout"
@@ -79,7 +77,6 @@
 
         <TextView
             android:id="@+id/informationTwo"
-            style="@style/informationFontWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="100"
@@ -114,7 +111,6 @@
 
         <TextView
             android:id="@+id/informationOne"
-            style="@style/informationFontWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -142,7 +138,7 @@
         android:id="@+id/toolbar_workout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/bottomNavBackgrounds"
         app:layout_constraintEnd_toEndOf="@+id/image_current_workout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -170,14 +166,14 @@
         style="@style/headerFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
         android:alpha="0.6"
         android:text="NEXT WORKOUT"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_current_workout"
-        app:layout_constraintStart_toStartOf="@+id/image_current_workout" />
+        app:layout_constraintEnd_toEndOf="@+id/image_current_workout"
+        app:layout_constraintStart_toStartOf="@+id/image_current_workout"
+        app:layout_constraintTop_toTopOf="@+id/image_current_workout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

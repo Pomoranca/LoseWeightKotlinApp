@@ -15,7 +15,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -29,7 +28,6 @@ import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.activity_workout.*
 import kotlinx.android.synthetic.main.dialog_stop_workout.*
 import kotlinx.android.synthetic.main.dialog_workout_finished.*
-import kotlinx.android.synthetic.main.dialog_workout_preview.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -122,7 +120,7 @@ class WorkoutActivity : AppCompatActivity() {
         )
 
         if (stoppedPosition == 100) {
-            startVideoUnLooped()
+            startFirstVideo()
         }
         current_workout_overdraw.text = "GET READY"
 
@@ -411,10 +409,10 @@ class WorkoutActivity : AppCompatActivity() {
 
         }
         val dialog = Dialog(this, R.style.ThemeDialog)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.window?.setWindowAnimations(R.style.dialog_slide)
         val lp = dialog.window!!.attributes
         lp.dimAmount = 0.9f
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_workout_finished)
@@ -533,13 +531,36 @@ class WorkoutActivity : AppCompatActivity() {
     private fun startVideoUnLooped() {
         current_workout_overdraw.visibility = View.VISIBLE
         val path =
-            "android.resource://" + packageName + "/" + finalWorkoutList[currentSet - 1].imagePath
+            "android.resource://" + packageName + "/" + finalWorkoutList[currentSet].imagePath
         video.setVideoPath(path)
         video.setOnPreparedListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val myPlayBackParams = PlaybackParams()
+                myPlayBackParams.speed = 0.6f
                 it.playbackParams = myPlayBackParams
 
+            }
+            it.isLooping = false
+        }
+        video.setOnCompletionListener {
+            if (!mTimerRunning) {
+                button_start_pause.visibility = View.VISIBLE
+            }
+
+        }
+        video.start()
+    }
+
+    private fun startFirstVideo() {
+        current_workout_overdraw.visibility = View.VISIBLE
+        val path =
+            "android.resource://" + packageName + "/" + finalWorkoutList[0].imagePath
+        video.setVideoPath(path)
+        video.setOnPreparedListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val myPlayBackParams = PlaybackParams()
+                myPlayBackParams.speed = 0.6f
+                it.playbackParams = myPlayBackParams
             }
             it.isLooping = false
         }
