@@ -1,11 +1,11 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#e0f2f1</item>
         <item name="colorPrimaryDark">#c7c7c7</item>
-        <item name="colorAccent">#e91e63</item>
+        <item name="colorAccent">#d81b60</item>
         <item name="android:textColor">#AD000000</item>
 
 

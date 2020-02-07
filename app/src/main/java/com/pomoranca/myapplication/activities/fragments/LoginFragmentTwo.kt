@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_login_two.view.*
  * Login fragment that contains questions about user
  */
 class LoginFragmentTwo : Fragment() {
-    lateinit var sharedPref: SharedPref
+    private lateinit var sharedPref: SharedPref
     var name = ""
 
     override fun onCreateView(

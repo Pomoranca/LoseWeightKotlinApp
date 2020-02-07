@@ -4,14 +4,11 @@ package com.pomoranca.myapplication.activities
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.fragments.LoginFragmentOne
-import com.pomoranca.myapplication.activities.fragments.LoginFragmentTwo
 
 
 class LoginActivity : AppCompatActivity() {

@@ -6,5 +6,4 @@ class LoginQuestion(
     val questionsList: List<String>,
     var expanded: Boolean = false,
     var finalQuestion: Boolean = false
-) {
-}
+)

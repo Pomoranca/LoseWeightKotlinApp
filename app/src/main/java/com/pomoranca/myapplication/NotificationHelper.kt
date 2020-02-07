@@ -34,8 +34,8 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
             return mManager
         }
 
-    val activityIntent = Intent(this, MainActivity::class.java)
-    val contentIntent = PendingIntent.getActivity(this, 1, activityIntent, 0)
+    private val activityIntent = Intent(this, MainActivity::class.java)
+    private val contentIntent: PendingIntent = PendingIntent.getActivity(this, 1, activityIntent, 0)!!
 
 
     val channelNotification: NotificationCompat.Builder

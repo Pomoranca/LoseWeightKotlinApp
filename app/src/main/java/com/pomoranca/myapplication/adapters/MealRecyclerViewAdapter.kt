@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.TipActivity
 import com.pomoranca.myapplication.data.Meal
@@ -732,10 +733,6 @@ class MealRecyclerViewAdapter : RecyclerView.Adapter<MealRecyclerViewAdapter.Mea
 
     interface OnItemClickListener {
         fun onItemClick(meal: Meal)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
     }
 
 }

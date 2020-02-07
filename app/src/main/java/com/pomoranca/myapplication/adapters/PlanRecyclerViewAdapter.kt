@@ -6,8 +6,6 @@ import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -88,23 +86,15 @@ class PlanRecyclerViewAdapter :
     }
 
     fun populatePlanList() {
-        planList.add(WorkoutPlan("Beginner", 20, R.drawable.plan_beginner, 30, 20))
-        planList.add(WorkoutPlan("Intermediate", 30, R.drawable.plan_intermediate, 40, 20))
-        planList.add(WorkoutPlan("Advanced", 40, R.drawable.plan_advanced, 45, 15))
-        planList.add(WorkoutPlan("Insane", 60, R.drawable.plan_premium, 45, 15))
+        planList.add(WorkoutPlan("Beginner", 20, R.drawable.plan_beginner, 20))
+        planList.add(WorkoutPlan("Intermediate", 30, R.drawable.plan_intermediate, 20))
+        planList.add(WorkoutPlan("Advanced", 40, R.drawable.plan_advanced, 15))
+        planList.add(WorkoutPlan("Insane", 60, R.drawable.plan_premium, 15))
 
     }
 
     interface OnItemClickListener {
         fun onItemClick(workoutPlan: WorkoutPlan)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
-
-    private fun showPreview() {
-
     }
 
 }

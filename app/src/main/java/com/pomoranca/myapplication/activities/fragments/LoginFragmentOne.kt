@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,9 @@ import android.view.animation.BounceInterpolator
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.R
-import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
 import kotlinx.android.synthetic.main.fragment_login_one.*
 import kotlinx.android.synthetic.main.fragment_login_one.view.*
@@ -29,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_login_one.view.*
 class LoginFragmentOne : Fragment() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
     private val PREFS_NAME = "MyPrefsFile"
-    lateinit var userText: EditText
+    private lateinit var userText: EditText
 
 
     override fun onCreateView(

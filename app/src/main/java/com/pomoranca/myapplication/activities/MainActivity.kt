@@ -50,17 +50,14 @@ class MainActivity : AppCompatActivity(),
     MotionLayout.TransitionListener {
 
     private lateinit var sharedPref: SharedPref
-    lateinit var alarmManager: AlarmManager
+    private lateinit var alarmManager: AlarmManager
     private val BACK_STACK_ROOT_TAG = "root_fragment"
-    var sensorManager: SensorManager? = null
-    lateinit var stepCounterText: TextView
-    lateinit var progressBar: ProgressBar
-    lateinit var loseWeightViewModel: LoseWeightViewModel
-    var LAST_DATE = ""
-    var CURRENT_DATE = ""
-    var stepsMadeToday = 0F
-    var stepsMadeTotal = 0F
-    var running = false
+    private var sensorManager: SensorManager? = null
+    private lateinit var stepCounterText: TextView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var loseWeightViewModel: LoseWeightViewModel
+    private var CURRENT_DATE = ""
+    private var running = false
     private val motionLayout by lazy {
         findViewById<MotionLayout>(R.id.motionLayout)
     }
@@ -296,16 +293,6 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    private fun setAnimation() {
-        val fade = Fade()
-        fade.interpolator = android.view.animation.LinearInterpolator()
-        fade.duration = 1000
-        window.exitTransition = fade
-        window.enterTransition = fade
-
-    }
-
-
     private fun showDialog() {
         val dialog = Dialog(this, R.style.ThemeDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -326,12 +313,12 @@ class MainActivity : AppCompatActivity(),
         val formatter = SimpleDateFormat("dd/MM/yyyy")
         // Create a calendar object that will convert the date and time value in milliseconds to date.
         val calendar = Calendar.getInstance()
-        val CURRENT_DATE = formatter.format(calendar.time)
+        val current_date = formatter.format(calendar.time)
         val settings = getSharedPreferences(PREFS_NAME, 0)
         val editor = settings.edit()
         val firstTimeRun = settings.getBoolean("isFirstRun", true)
         if (firstTimeRun) {
-            editor.putString("CURRENT_DATE", CURRENT_DATE)
+            editor.putString("CURRENT_DATE", current_date)
             editor.putBoolean("isFirstRun", false)
             editor.apply()
             showDialog()

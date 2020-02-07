@@ -8,13 +8,14 @@
     android:paddingEnd="3dp"
     android:paddingStart="3dp"
     android:paddingBottom="16dp"
+    android:layout_margin="8dp"
     tools:context=".activities.WorkoutPlanActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/recycler_workout_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="2dp"
         app:cardElevation="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

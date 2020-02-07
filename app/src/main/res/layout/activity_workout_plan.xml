@@ -34,45 +34,35 @@
             android:background="@color/bottomNavBackgrounds"
             tools:layout_editor_absoluteX="0dp" />
 
-        <TextView
-            android:id="@+id/plan_title"
-            style="@style/headerFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:elevation="5dp"
-            android:text="Workouts"
-            app:layout_constraintStart_toStartOf="@+id/plan_header_image_container"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_plan" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/plan_header_image_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:clipToPadding="false"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:paddingBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/plan_title">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_plan">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="2dp"
                 app:cardElevation="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/header_image_source"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/appbar_background2" />
 
 
@@ -123,7 +113,6 @@
             android:id="@+id/workoutRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:fitsSystemWindows="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

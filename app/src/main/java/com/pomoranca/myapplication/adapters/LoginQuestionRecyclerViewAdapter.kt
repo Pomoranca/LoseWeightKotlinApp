@@ -3,10 +3,6 @@ package com.pomoranca.myapplication.adapters
 import android.app.ActionBar
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.transition.AutoTransition
-import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,23 +11,18 @@ import android.view.animation.Transformation
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.activities.MainActivity
-import com.pomoranca.myapplication.activities.fragments.LoginFragmentTwo
 import com.pomoranca.myapplication.data.LoginQuestion
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
-import kotlinx.android.synthetic.main.fragment_login_two.view.*
 import kotlinx.android.synthetic.main.login_recycler_row.view.*
-import kotlin.coroutines.coroutineContext
 
 class LoginQuestionRecyclerViewAdapter :
     RecyclerView.Adapter<LoginQuestionRecyclerViewAdapter.LoginQuestionViewHolder>() {
     var questionList = mutableListOf<LoginQuestion>()
     private val PREFS_NAME = "MyPrefsFile"
-    lateinit var loseWeightViewModel: LoseWeightViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoginQuestionViewHolder {
         val itemView =
@@ -83,7 +74,7 @@ class LoginQuestionRecyclerViewAdapter :
         val recyclerQuestionRadio3: RadioButton = itemView.login_radio3
         val recyclerQuestionRadio4: RadioButton = itemView.login_radio4
          val recyclerQuestionButtonNext: Button = itemView.login_two_continue
-        val loginQuestionCheck: ImageView = itemView.question_checked
+        private val loginQuestionCheck: ImageView = itemView.question_checked
         val radioGroupQuestion : RadioGroup = itemView.radioGroupFirst
 
 
@@ -149,64 +140,6 @@ class LoginQuestionRecyclerViewAdapter :
             )
         )
 
-    }
-
-    fun expand(v: View) {
-        val matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec(
-            (v.parent as View).width,
-            View.MeasureSpec.EXACTLY
-        )
-        val wrapContentMeasureSpec = View.MeasureSpec.makeMeasureSpec(
-            0,
-            View.MeasureSpec.UNSPECIFIED
-        )
-        v.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
-        val targetHeight = v.measuredHeight
-        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
-        v.layoutParams.height = 1
-        v.visibility = View.VISIBLE
-        val a: Animation = object : Animation() {
-            override fun applyTransformation(
-                interpolatedTime: Float,
-                t: Transformation?
-            ) {
-                v.layoutParams.height =
-                    if (interpolatedTime == 1f) ActionBar.LayoutParams.WRAP_CONTENT else (targetHeight * interpolatedTime).toInt()
-                v.requestLayout()
-            }
-
-            override fun willChangeBounds(): Boolean {
-                return true
-            }
-        }
-        // Expansion speed of 1dp/ms
-        a.duration = ((targetHeight / v.context.resources.displayMetrics.density).toLong())
-        v.startAnimation(a)
-    }
-
-    fun collapse(v: View) {
-        val initialHeight = v.measuredHeight
-        val a: Animation = object : Animation() {
-            override fun applyTransformation(
-                interpolatedTime: Float,
-                t: Transformation?
-            ) {
-                if (interpolatedTime == 1f) {
-                    v.visibility = View.GONE
-                } else {
-                    v.layoutParams.height =
-                        initialHeight - (initialHeight * interpolatedTime).toInt()
-                    v.requestLayout()
-                }
-            }
-
-            override fun willChangeBounds(): Boolean {
-                return true
-            }
-        }
-        // Collapse speed of 1dp/ms
-        a.duration = ((initialHeight / v.context.resources.displayMetrics.density).toLong())
-        v.startAnimation(a)
     }
 
 }

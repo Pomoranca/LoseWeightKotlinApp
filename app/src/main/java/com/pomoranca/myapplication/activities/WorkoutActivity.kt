@@ -34,7 +34,7 @@ import java.util.*
 
 class WorkoutActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
-    lateinit var video: VideoView
+    private lateinit var video: VideoView
     private var stoppedPosition: Int = 100
 
     private var START_TIME_IN_MILLIS = 40000L
@@ -44,17 +44,17 @@ class WorkoutActivity : AppCompatActivity() {
         var finalWorkoutList: List<Workout> = listOf()
     }
 
-    var planTitle: String = ""
+    private var planTitle: String = ""
     private lateinit var mTextToSpeech: TextToSpeech
 
 
     //SHARED PREFERENCES
-    var LAST_DATE = 0L
-    var LAST_DATE_CONVERTED = ""
-    var CURRENT_DATE = 0L
-    var CURRENT_DATE_CONVERTED = ""
+    private var LAST_DATE = 0L
+    private var LAST_DATE_CONVERTED = ""
+    private var CURRENT_DATE = 0L
+    private var CURRENT_DATE_CONVERTED = ""
 
-    lateinit var sharedPref: SharedPref
+    private lateinit var sharedPref: SharedPref
 
 
     //USER PREFERENCES
@@ -77,7 +77,7 @@ class WorkoutActivity : AppCompatActivity() {
     private var multiplyFactor = 1
     private var numberOfSets = 0
     var currentSet = 1
-    var firstDayDone: Boolean = false
+    private var firstDayDone: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -287,7 +287,7 @@ class WorkoutActivity : AppCompatActivity() {
                     resources.getColor(R.color.lightGreen), android.graphics.PorterDuff.Mode.SRC_IN
                 )
                 playsound()
-                text_current_workout.text = "${finalWorkoutList[currentSet - 1].name}"
+                text_current_workout.text = finalWorkoutList[currentSet - 1].name
                 video.visibility = View.VISIBLE
             }
         }
@@ -296,7 +296,7 @@ class WorkoutActivity : AppCompatActivity() {
 
 
     //WHEN TIMER REACHES 0
-    fun resetTimer() {
+    private fun resetTimer() {
         mTimeLeftMillis = START_TIME_IN_MILLIS
         updateCountDownText()
         updateButton()
@@ -674,14 +674,6 @@ class WorkoutActivity : AppCompatActivity() {
         if (sharedPref.loadNarrationState()) {
 
             mTextToSpeech.speak("${informationOne.text}", TextToSpeech.QUEUE_FLUSH, null)
-        }
-
-    }
-
-    fun speakInformationTwo() {
-        if (sharedPref.loadNarrationState()) {
-
-            mTextToSpeech.speak("${informationTwo.text}", TextToSpeech.QUEUE_FLUSH, null)
         }
 
     }

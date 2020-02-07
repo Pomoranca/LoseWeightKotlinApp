@@ -4,10 +4,8 @@
     <corners
         android:radius="8dp" />
     <padding android:right="20dp"
-        android:top="3dp"
-        android:bottom="3dp"
         android:left="20dp"/>
 
-    <solid android:color="@color/colorSecondaryLights"/>
+    <solid android:color="#34515e"/>
 
 </shape>

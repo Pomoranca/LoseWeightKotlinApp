@@ -5,10 +5,8 @@ import android.os.AsyncTask
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.pomoranca.myapplication.R
-import ru.cleverpumpkin.calendar.CalendarDate
 
 @Database(entities = [User::class, Workout::class, MyCalendarDate::class], version = 1, exportSchema = false)
 abstract class LoseWeightDatabase : RoomDatabase() {

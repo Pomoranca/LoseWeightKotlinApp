@@ -136,16 +136,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/bottomNavBackgrounds">
 
-                    <!--                <TextView-->
-                    <!--                    android:id="@+id/text_hi"-->
-                    <!--                    style="@style/headerFont"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_marginStart="16dp"-->
-                    <!--                    android:layout_marginTop="16dp"-->
-                    <!--                    android:fontFamily="@font/nunito_sans_black"-->
-                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
                     <TextView
                         android:id="@+id/textview_tips"
@@ -202,7 +192,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/colorTextButton"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_day"
                         app:layout_constraintEnd_toEndOf="parent"

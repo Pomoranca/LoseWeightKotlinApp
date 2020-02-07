@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Corona</string>
     <string name="home">Plan</string>
     <string name="settings">Setttings</string>
     <string name="profile">Profile</string>

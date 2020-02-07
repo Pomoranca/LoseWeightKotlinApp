@@ -67,7 +67,8 @@
                 android:textColorHint="@color/bottomNavIcon"
                 android:textSize="42sp"
                 app:layout_constraintBottom_toTopOf="@+id/login_one_button_confirm"
-                app:layout_constraintTop_toBottomOf="@+id/login_background" />
+                app:layout_constraintTop_toBottomOf="@+id/login_background"
+                android:autofillHints="" />
 
             <RadioGroup
                 android:id="@+id/radioGroupGender"

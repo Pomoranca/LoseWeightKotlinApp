@@ -1,30 +1,21 @@
 package com.pomoranca.myapplication.activities.fragments
 
 
-import android.app.ActivityOptions
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.MainActivity
 import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 
@@ -34,12 +25,12 @@ import kotlinx.android.synthetic.main.fragment_settings.view.*
 class SettingsFragment : Fragment(), View.OnClickListener,
     OnAboutClickedListener, OnTimeSetListener {
 
-    lateinit var sharedPref: SharedPref
+    private lateinit var sharedPref: SharedPref
 
-    lateinit var alarmManager: AlarmManager
-    lateinit var rootView: View
-    var listenerAbout: OnAboutClickedListener? = null
-    var timeSetListener: OnTimeSetListener? = null
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var rootView: View
+    private var listenerAbout: OnAboutClickedListener? = null
+    private var timeSetListener: OnTimeSetListener? = null
 
 
     override fun onCreateView(
@@ -155,7 +146,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
     }
 
 
-    fun updateTime() {
+    private fun updateTime() {
         rootView.settings_text_time.text = sharedPref.loadNotificationTime()
 
     }

@@ -1,8 +1,5 @@
 package com.pomoranca.myapplication.adapters
 
-import android.app.Dialog
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.data.Workout
-import kotlinx.android.synthetic.main.dialog_about.*
 import kotlinx.android.synthetic.main.workout_recycler_view_item.view.*
 
 

@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.activity_workout_plan.*
 
 class WorkoutPlanActivity : AppCompatActivity() {
     private lateinit var loseWeightViewModel: LoseWeightViewModel
-    private val PREFS_NAME = "MyPrefsFile"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
