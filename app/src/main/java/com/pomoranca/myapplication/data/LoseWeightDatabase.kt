@@ -59,7 +59,6 @@ abstract class LoseWeightDatabase : RoomDatabase() {
             workoutDao.insert(Workout("Burpees", R.raw.burpees, 3, "Keep hip down and body in a straight line", "Don't hold your breath"))
             workoutDao.insert(Workout("Half burpees", R.raw.half_burpees, 3, "Keep hip down and body in a straight line", "Don't hold your breath"))
             workoutDao.insert(Workout("Tucked leg raises", R.raw.tucked_leg_raises, 3, "Keep hip down and body in a straight line", "Don't hold your breath"))
-            workoutDao.insert(Workout("Narrow to wide push ups", R.raw.narrow_to_wide_push_ups, 1, "Keep hip down and body in a straight line", "Don't hold your breath"))
             workoutDao.insert(Workout("Pike push ups", R.raw.pike_push_ups, 2, "Keep hip down and body in a straight line", "Don't hold your breath"))
             workoutDao.insert(Workout("Rotating lunges", R.raw.rotating_lunges, 1, "Keep hip down and body in a straight line", "Don't hold your breath"))
             workoutDao.insert(Workout("Squats", R.raw.squats, 1, "Keep back straight", "Don't have to go lower than 90 degrees"))

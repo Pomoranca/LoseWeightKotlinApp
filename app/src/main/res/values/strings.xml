@@ -1,18 +1,17 @@
 <resources>
-    <string name="app_name">Corona</string>
-    <string name="home">Plan</string>
+    <string name="app_name">Cors workout</string>
+    <string name="home">Workout</string>
     <string name="settings">Setttings</string>
-    <string name="profile">Profile</string>
+    <string name="profile">Me</string>
+    <string name="tips">Tips</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="tips">Tips</string>
-    <string name="string_welcome_text">Today you are starting your journey of becoming the person you want to see in the mirror.\n\nJust stay focused, and <b>don\'t give up.</b>\n\100 days might seem like a long period, but in fact it\'s not. Once it\'s over, you will like your self so much that you will make this a lifetime habit. 100 days for a lifetime seems like a nice trade. \n\n Winners and losers both keep trying, but winners always finish what they started, and losers always find excuse and give up before the finish line.\nYou are a winner!</string>
+    <string name="string_welcome_text">Today you are starting your journey of becoming the person you want to see in the mirror.\n\nJust stay focused, and <b>don\'t give up.</b>\n\100 days might seem like a long period, but in fact it\'s not.\nWinners and losers both keep trying, but winners always finish what they started, and losers always find excuse and give up before the finish line.</string>
     <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at massa leo. Ut ullamcorper luctus massa, et venenatis erat vehicula at. Ut lobortis purus a condimentum lobortis. Mauris volutpat magna vitae venenatis facilisis. Donec sollicitudin libero augue, sodales fringilla urna tempor sit amet. Sed erat sem, commodo volutpat orci id, rutrum interdum sem. Morbi dignissim venenatis tellus eget tempor. Pellentesque varius vulputate ipsum, eget tristique felis. Sed sed efficitur justo. Pellentesque in sapien et ex convallis sagittis. Nulla sagittis leo velit, vel varius neque mattis et. Donec aliquet, risus vitae fringilla gravida, elit sapien posuere ipsum, vel bibendum turpis magna vel massa.
 
 Maecenas massa ligula, tristique aliquet metus ac, aliquam fermentum arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tincidunt turpis id urna rutrum aliquet. Nullam vel ornare purus. Donec et mollis quam. Nunc tempor porta dui non ultrices. In at iaculis eros. Sed sed quam tincidunt, posuere velit id, dignissim felis. Etiam luctus mauris in eros gravida feugiat. Aenean et enim id libero ullamcorper elementum. Etiam volutpat, urna quis tristique fringilla, urna tellus posuere massa, ac ornare ex erat eu est. Fusce tellus sapien, tempus sit amet nunc sit amet, suscipit semper ex. Vestibulum vel ultricies purus. Vestibulum in mi eget leo porta pellentesque. Donec dapibus venenatis nulla, sed sollicitudin ex iaculis ut. Vivamus iaculis non lacus ut convallis.
 
 Sed lorem mauris, convallis eget tellus et, molestie dapibus dolor. Duis nec laoreet nunc. Fusce at lorem posuere, molestie nunc sit amet, volutpat est. Nulla condimentum purus viverra mauris cursus feugiat non malesuada tortor. In nec finibus velit. Duis eu nisi aliquet, egestas libero condimentum, pharetra orci. Fusce hendrerit nunc vel tortor dignissim ornare. Proin ut elit ornare, commodo libero in, dapibus justo. Pellentesque rhoncus eros ut mauris fermentum consectetur. Pellentesque feugiat tincidunt pulvinar. Etiam cursus eu diam nec feugiat.</string>
-    <string name="terms">Physical Activity Notice\n
-The App may include features that promote physical activity. Consider the risks involved and consult with your medical professional before engaging in any physical activity. We are not responsible or liable for any injuries or damages you may sustain that result from your use of, or inability to use, the features of the App.
-</string>
+
 </resources>

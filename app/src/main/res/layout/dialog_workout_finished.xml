@@ -1,113 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="280dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="#00FFFFFF">
+    android:background="@color/bottomNavBackgrounds">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#00FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_horizontal|top"
-            android:background="@drawable/buttonstyle"
-            android:padding="10dp"
-            android:elevation="10dp"
-            app:srcCompat="@drawable/ic_check" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/title"
+            style="@style/headerFont"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="32dp"
-            app:cardCornerRadius="3dp"
-            app:cardBackgroundColor="@color/bottomNavBackgrounds">
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="Congratulations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="You've just finished your workout!\nDon't forget to stretch!"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/headerFont"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="48dp"
-                    android:text="Congratulations"
-                    android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="32dp"
-                    android:gravity="center"
-                    android:text="You've just finished your workout!\nBut don't forget to stretch!"
+        <TextView
+            android:id="@+id/text_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
 
-                    android:textSize="16sp" />
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="fadsfadsf"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/message" />
 
-                <TextView
-                    android:id="@+id/text_report"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="32dp"
+        <Button
+            android:id="@+id/dialog_button_end_workout"
+            style="@style/ButtonContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="3"
+            android:text="Finish"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/finish_button_share"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_report" />
 
-                    android:gravity="center"
-                    android:text="fadsfadsf"
-                    android:textSize="16sp" />
+        <ImageButton
+            android:id="@+id/finish_button_share"
+            style="@style/ButtonContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+            app:layout_constraintBottom_toBottomOf="@+id/dialog_button_end_workout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialog_button_end_workout"
+            app:layout_constraintTop_toTopOf="@+id/dialog_button_end_workout"
+            app:srcCompat="@drawable/ic_share_white" />
 
-                    <Button
-                        android:id="@+id/dialog_button_end_workout"
-                        style="@style/ButtonContinue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_weight="3"
-                        android:text="Finish"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageButton
-                        android:id="@+id/finish_button_share"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        style="@style/ButtonContinue"
-                        android:layout_marginBottom="8dp"
-                        android:layout_weight="1"
-
-                        app:srcCompat="@drawable/ic_share_white" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

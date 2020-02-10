@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.transition.Fade
+import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -33,7 +33,6 @@ import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.fragments.*
-import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
 import com.pomoranca.myapplication.data.Reminders
 import com.pomoranca.myapplication.data.User
 import com.pomoranca.myapplication.viewmodels.LoseWeightViewModel
@@ -46,14 +45,14 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity(),
-    OnAboutClickedListener, OnTimeSetListener,
+    OnTimeSetListener,
     MotionLayout.TransitionListener {
 
     private lateinit var sharedPref: SharedPref
     private lateinit var alarmManager: AlarmManager
     private val BACK_STACK_ROOT_TAG = "root_fragment"
     private var sensorManager: SensorManager? = null
-    private lateinit var stepCounterText: TextView
+    private lateinit var daysText: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var loseWeightViewModel: LoseWeightViewModel
     private var CURRENT_DATE = ""
@@ -78,12 +77,6 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-//    private fun doBounceAnimation(targetView: View) {
-//        val animator = ObjectAnimator.ofFloat(targetView, "translationY", 0f, 30f, 0f)
-//        animator.interpolator = BounceInterpolator()
-//        animator.duration = 1000
-//        animator.start()
-//    }
 
     private val PREFS_NAME = "MyPrefsFile"
 
@@ -98,7 +91,6 @@ class MainActivity : AppCompatActivity(),
         )
 
         setContentView(R.layout.activity_main)
-//        showImage()
 
         //Insert user intodatabase
         sharedPref = SharedPref(this)
@@ -106,7 +98,7 @@ class MainActivity : AppCompatActivity(),
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
         loseWeightViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer {
             progressBar.progress = it[0].days
-            stepCounterText.text = "${it[0].days} / 100"
+            daysText.text = "${it[0].days} / 100"
         })
         loseWeightViewModel.insert(User(name!!, 0, 0))
 
@@ -122,11 +114,11 @@ class MainActivity : AppCompatActivity(),
         textview_tips.text = reminderList.reminders.random()
 
 
-        stepCounterText = findViewById(R.id.fragment_main_text_step_counter)
+        daysText = findViewById(R.id.fragment_main_text_days)
         progressBar = findViewById(R.id.fragment_main_progress_day)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         CURRENT_DATE = getDate()
-//        getValues()
+
 
 
         main_fab_calendar.setOnClickListener {
@@ -145,30 +137,33 @@ class MainActivity : AppCompatActivity(),
                     return false
                 }
             })
-            .withHeaderBackground(R.drawable.web_hi_res_512)
+            .withHeaderBackground(R.drawable.image_logo)
             .withHeaderBackgroundScaleType(ImageView.ScaleType.FIT_CENTER)
             .withActivity(this)
             .withDividerBelowHeader(true)
             .build()
 
         val homeItem =
-            PrimaryDrawerItem().withIdentifier(1).withName("Plan").withIcon(R.drawable.home_ico)
-        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("Profile")
+            PrimaryDrawerItem().withIdentifier(1).withName("Workout").withIcon(R.drawable.home_ico)
+        val profileItem = PrimaryDrawerItem().withIdentifier(1).withName("Me")
             .withIcon(R.drawable.profile_ico)
+        val tipsItem = PrimaryDrawerItem().withIdentifier(1).withName("Tips")
+            .withIcon(R.drawable.tips_ico)
         val calendarItem = PrimaryDrawerItem().withIdentifier(1).withName("Calendar")
-            .withIcon(R.drawable.ico_calendar_dark)
+            .withIcon(R.drawable.ico_calendar)
         val settingsItem = PrimaryDrawerItem().withIdentifier(1).withName("Settings")
             .withIcon(R.drawable.settings_ico)
         val aboutItem = PrimaryDrawerItem().withIdentifier(1).withName("About")
             .withIcon(R.drawable.ic_about_dark)
 
-        DrawerBuilder()
+        val drawer = DrawerBuilder()
             .withActivity(this)
             .withAccountHeader(headerResult)
             .addDrawerItems(
                 homeItem,
-                profileItem
-                , settingsItem,
+                profileItem,
+                tipsItem,
+                settingsItem,
                 calendarItem,
                 aboutItem
             ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
@@ -203,7 +198,7 @@ class MainActivity : AppCompatActivity(),
                             return false
                         }
                         3 -> {
-                            val fragment = SettingsFragment()
+                            val fragment = MealTipsFragment()
                             supportFragmentManager.beginTransaction()
                                 .replace(
                                     R.id.fragment_container,
@@ -215,10 +210,22 @@ class MainActivity : AppCompatActivity(),
                             return false
                         }
                         4 -> {
-                            startActivity(Intent(this@MainActivity, CalendarActivity::class.java))
+                            val fragment = SettingsFragment()
+                            supportFragmentManager.beginTransaction()
+                                .replace(
+                                    R.id.fragment_container,
+                                    fragment,
+                                    fragment.javaClass.simpleName
+                                )
+                                .addToBackStack(null)
+                                .commit()
                             return false
                         }
                         5 -> {
+                            startActivity(Intent(this@MainActivity, CalendarActivity::class.java))
+                            return false
+                        }
+                        6 -> {
                             showAboutDialog()
                         }
 
@@ -229,6 +236,10 @@ class MainActivity : AppCompatActivity(),
 
             })
             .build()
+
+        main_navBar_icon.setOnClickListener {
+            drawer.openDrawer()
+        }
 
         navigationView.setOnNavigationItemSelectedListener(navListener)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MainFragment())
@@ -299,7 +310,7 @@ class MainActivity : AppCompatActivity(),
         dialog.setContentView(R.layout.dialog_welcome)
         dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
         val lp = dialog.window!!.attributes
-        lp.dimAmount = 0.9f
+        lp.dimAmount = 0.7f
         dialog.dialog_welcome_name.text = "Welcome"
         dialog.dialog_button_lets_start.setOnClickListener {
             dialog.dismiss()
@@ -342,29 +353,11 @@ class MainActivity : AppCompatActivity(),
         dialog.show()
         dialog.window?.setWindowAnimations(R.style.dialog_slide)
         dialog.dialog_about_button_close.setOnClickListener {
-            //            showImage()
             dialog.dismiss()
 
         }
 
     }
-
-    override fun onAboutClicked() {
-        showAboutDialog()
-    }
-
-//
-//    private fun showImage() {
-//        Glide
-//            .with(this)
-//            .load(R.drawable.main_background)
-//            .centerCrop()
-//            .into(backgroundView)
-//        val fadingImage = findViewById<ImageView>(R.id.backgroundView)
-//        val myFadeInAnimation: Animation =
-//            AnimationUtils.loadAnimation(this@MainActivity, R.anim.fadein)
-//        fadingImage.startAnimation(myFadeInAnimation)
-//    }
 
 
     /******************************* ALERT TIALOG ********************************************/
@@ -435,46 +428,13 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        running = true
-//        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-//        if (stepSensor == null) {
-//            fragment_main_text_step_counter.visibility = View.GONE
-//            fragment_main_progress_step.visibility = View.GONE
-//
-//        } else {
-//            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-//        }
-//    }
 
     override fun onPause() {
         super.onPause()
         running = false
-//        sensorManager?.unregisterListener(this)
-//        saveValues()
+
     }
 
-//    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-//    }
-//
-//    override fun onSensorChanged(event: SensorEvent?) {
-//        val sensor: Sensor = event?.sensor!!
-//        val values = event.values
-//        var value = -1
-//
-//        if (values.isNotEmpty()) {
-//            value = values[0].toInt()
-//        }
-//
-//        if (sensor.type == Sensor.TYPE_STEP_DETECTOR) {
-//            stepsMadeToday++
-////        stepsMade = event!!.values[0]
-//            stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
-//            progressBar.progress = value
-//            Log.i("SENSOR", "${event!!.values[0]}")
-//        }
-//    }
 
     private fun getDate(): String { // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat("dd/MM/yyyy")
@@ -482,42 +442,6 @@ class MainActivity : AppCompatActivity(),
         val calendar = Calendar.getInstance()
         return formatter.format(calendar.time)
     }
-
-//    private fun getValues() {
-//        val settings: SharedPreferences =
-//            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-//        val editor = settings.edit()
-//        stepsMadeToday = settings.getFloat("stepsMadeToday", 0F)
-//        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
-//        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
-//        LAST_DATE = settings.getString("lastDate", "")!!
-//
-//
-//        if (LAST_DATE != CURRENT_DATE) {
-//            stepsMadeToday = 0F
-//            LAST_DATE = CURRENT_DATE
-//            editor.putString("lastDate", LAST_DATE)
-//            Log.i("steps", "DATES ARE NOT SAME")
-//
-//        }
-//        stepCounterText.text = "${stepsMadeToday.toInt()} / 3000"
-//        progressBar.progress = stepsMadeToday.toInt()
-//        editor.apply()
-//    }
-
-//    private fun saveValues() {
-//        val settings: SharedPreferences =
-//            getSharedPreferences(PREFS_NAME, 0) // 0 - for private mode
-//        val editor = settings.edit()
-//        stepsMadeTotal = settings.getFloat("stepsMadeTotal", 0F)
-//        stepsMadeTotal += stepsMadeToday
-//        Log.i("steps", "TODAY - $stepsMadeToday")
-//        Log.i("steps", "TOTAL - $stepsMadeTotal")
-//        Log.i("steps", "DATE - $CURRENT_DATE , $LAST_DATE")
-//        editor.putFloat("stepsMadeTotal", stepsMadeTotal)
-//        editor.putFloat("stepsMadeToday", stepsMadeToday)
-//        editor.apply()
-//    }
 
 
 }

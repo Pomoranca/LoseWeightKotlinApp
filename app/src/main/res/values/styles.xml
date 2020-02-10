@@ -7,11 +7,8 @@
         <item name="colorPrimaryDark">#c7c7c7</item>
         <item name="colorAccent">#d81b60</item>
         <item name="android:textColor">#AD000000</item>
-
-
         <item name="android:fontFamily">@font/nunito_sans</item>
         <item name="android:textSize">14sp</item>
-
         <item name="android:windowDisablePreview">true</item>
 
     </style>

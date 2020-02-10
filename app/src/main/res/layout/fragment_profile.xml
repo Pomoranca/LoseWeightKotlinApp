@@ -24,8 +24,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                app:layout_collapseMode="parallax"
+                android:layout_marginStart="24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView11"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/profile_text_user_name" />
@@ -36,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toEndOf="@+id/profile_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,10 +107,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="24dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -127,16 +126,13 @@
                         android:id="@+id/profile_experience_text"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-
                         android:background="@drawable/gray_circle"
                         android:gravity="center" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-
                         android:text="Experience gained" />
                 </LinearLayout>
 

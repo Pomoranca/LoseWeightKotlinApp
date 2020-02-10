@@ -139,7 +139,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
     private fun setValues(work: String, rest: String, sets: String) {
         plan_text_work.text = "Work out for $work seconds"
         plan_text_rest.text = "Rest $rest seconds"
-        plan_text_sets.text = "Do $sets sets"
+        plan_text_sets.text = "Repeat cycle $sets times"
     }
 
 

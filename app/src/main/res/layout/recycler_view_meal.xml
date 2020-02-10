@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="2dp"
     android:elevation="2dp">
 
@@ -18,8 +19,8 @@
             android:background="@drawable/background_item_selected"
             android:clickable="true"
             android:focusable="true"
+            tools:src="@drawable/plan_advanced"
             android:scaleType="centerCrop"
-            android:src="@drawable/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

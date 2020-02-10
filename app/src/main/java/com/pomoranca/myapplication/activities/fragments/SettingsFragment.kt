@@ -15,21 +15,19 @@ import com.pomoranca.myapplication.NotificationReceiver
 import com.pomoranca.myapplication.R
 import com.pomoranca.myapplication.SharedPref
 import com.pomoranca.myapplication.activities.MainActivity
-import com.pomoranca.myapplication.activities.listeners.OnAboutClickedListener
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 
 /**
  * Settomgs Fragment
  */
-class SettingsFragment : Fragment(), View.OnClickListener,
-    OnAboutClickedListener, OnTimeSetListener {
+class SettingsFragment : Fragment(),
+    OnTimeSetListener {
 
     private lateinit var sharedPref: SharedPref
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var rootView: View
-    private var listenerAbout: OnAboutClickedListener? = null
     private var timeSetListener: OnTimeSetListener? = null
 
 
@@ -42,6 +40,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
         alarmManager = activity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
 
+
         //declare settings variable
         sharedPref = SharedPref(rootView.context)
 
@@ -52,7 +51,6 @@ class SettingsFragment : Fragment(), View.OnClickListener,
         //load notification settings
         if (sharedPref.loadNotificationState()) {
             rootView.switch_notifications.isChecked = true
-            rootView.settings_button_timepicker.visibility = View.VISIBLE
         }
         //load narration settings
         if (sharedPref.loadNarrationState()) {
@@ -93,24 +91,15 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
             if (isChecked) {
                 sharedPref.saveNotificationState(true)
-                rootView.settings_button_timepicker.visibility = View.VISIBLE
                 timeSetListener?.onTimeSet()
 
             } else {
                 sharedPref.saveNotificationState(false)
                 cancelAlarm()
-                rootView.settings_button_timepicker.visibility = View.GONE
             }
         }
 
-
-        rootView.settings_button_timepicker.setOnClickListener {
-            timeSetListener?.onTimeSet()
-        }
-
         updateTime()
-        rootView.text_about.setOnClickListener(this)
-
 
         return rootView
     }
@@ -132,18 +121,11 @@ class SettingsFragment : Fragment(), View.OnClickListener,
     }
 
 
-    override fun onClick(v: View?) {
-        listenerAbout?.onAboutClicked()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.listenerAbout = context as OnAboutClickedListener
         this.timeSetListener = context as OnTimeSetListener
     }
 
-    override fun onAboutClicked() {
-    }
 
 
     private fun updateTime() {
@@ -153,6 +135,7 @@ class SettingsFragment : Fragment(), View.OnClickListener,
 
 
 }
+
 
 interface OnTimeSetListener {
     fun onTimeSet()

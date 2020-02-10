@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
@@ -18,8 +18,8 @@
 
             <KeyAttribute
                 android:alpha="0"
+                android:scaleX="1.4"
                 motion:framePosition="100"
-                android:scaleX="1.2"
                 motion:motionTarget="@id/backgroundView" />
 
             <KeyAttribute
@@ -49,6 +49,18 @@
                 android:alpha="1"
                 motion:framePosition="0"
                 motion:motionTarget="@id/main_header_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                android:visibility="gone"
+                motion:framePosition="100"
+                motion:motionTarget="@id/main_navBar_icon" />
+
+
+            <KeyAttribute
+                android:alpha="1"
+                motion:framePosition="0"
+                motion:motionTarget="@id/main_navBar_icon" />
         </KeyFrameSet>
 
     </Transition>

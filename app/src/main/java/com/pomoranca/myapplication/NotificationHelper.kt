@@ -40,13 +40,14 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
 
     val channelNotification: NotificationCompat.Builder
         get() = NotificationCompat.Builder(applicationContext, channelID)
-            .setContentTitle(getString(R.string.app_name))
+            .setContentTitle("Reminder")
             .setContentText(reminderList.reminders.random())
             .setContentIntent(contentIntent)
             .setAutoCancel(true)
+            .setStyle(NotificationCompat.BigTextStyle())
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            .setSmallIcon(R.drawable.ic_check)
+            .setSmallIcon(R.drawable.ico_cors_small)
 
     companion object {
         const val channelID = "channelID"

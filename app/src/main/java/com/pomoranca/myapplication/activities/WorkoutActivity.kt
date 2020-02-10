@@ -115,8 +115,7 @@ class WorkoutActivity : AppCompatActivity() {
         //Iniatialize TextToSpeech Engine
         mTextToSpeech = TextToSpeech(
             this,
-            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH },
-            "com.google.android.tts"
+            TextToSpeech.OnInitListener { mTextToSpeech.language = Locale.ENGLISH }
         )
 
         if (stoppedPosition == 100) {
@@ -280,7 +279,7 @@ class WorkoutActivity : AppCompatActivity() {
             (REST_TIME_IN_MILLIS / 1000 + 10).toInt() -> {
                 speakTenSecondsRemaining()
             }
-            in REST_TIME_IN_MILLIS / 1000..REST_TIME_IN_MILLIS / 1000 + 5 -> if (currentSet != numberOfSets) speakLastFiveSeconds()
+            in REST_TIME_IN_MILLIS / 1000..REST_TIME_IN_MILLIS / 1000 + 5 -> speakLastFiveSeconds()
             3 -> if (currentSet != numberOfSets) speakGetReady()
             ((START_TIME_IN_MILLIS / 1000) - 1).toInt() -> {
                 progress_bar.progressDrawable.setColorFilter(

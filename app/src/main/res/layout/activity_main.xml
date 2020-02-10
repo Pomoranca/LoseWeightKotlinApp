@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_fab_calendar"
         style="@style/Widget.Design.FloatingActionButton"
@@ -14,12 +15,12 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@id/dialogView"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@drawable/ico_calendar" />
+        app:srcCompat="@drawable/ico_calendar_white" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@color/bottomNavBackgrounds"
         app:itemIconTint="@color/bottom_nav_icon_selector"
@@ -53,6 +54,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/main_navBar_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_hamburger" />
 
         <TextView
             android:id="@+id/main_header_text"
@@ -157,9 +170,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginStart="24dp"
-                        android:fontFamily="@font/nunito_sans_black"
                         android:gravity="center_vertical"
                         android:text="Day"
+                        android:textStyle="bold"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/fragment_main_progress_day"
                         app:layout_constraintStart_toStartOf="parent"
@@ -178,12 +191,12 @@
                         android:max="100"
                         android:scaleY="1.2"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/fragment_main_text_step_counter"
+                        app:layout_constraintEnd_toStartOf="@+id/fragment_main_text_days"
                         app:layout_constraintStart_toEndOf="@+id/textView"
                         app:layout_constraintTop_toBottomOf="@+id/textview_tips" />
 
                     <TextView
-                        android:id="@+id/fragment_main_text_step_counter"
+                        android:id="@+id/fragment_main_text_days"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
