@@ -7,16 +7,6 @@
     android:background="@color/colorBackground"
     tools:context="com.pomoranca.myapplication.activities.WorkoutPlanActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_workout"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/bottomNavBackgrounds"
-        app:titleTextColor="@color/bottomNavBackgrounds"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/progress_bar"
@@ -121,7 +111,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_workout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <VideoView
             android:id="@+id/image_current_workout"

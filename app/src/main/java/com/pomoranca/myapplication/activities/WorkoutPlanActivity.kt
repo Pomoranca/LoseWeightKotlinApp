@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.PlaybackParams
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -32,8 +33,6 @@ class WorkoutPlanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout_plan)
         val planTitle = intent.getStringExtra("NAME")
-        setSupportActionBar(toolbar_plan)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         Glide.with(this).load(R.drawable.appbar_background2).centerCrop().into(header_image_source)
 
@@ -53,6 +52,9 @@ class WorkoutPlanActivity : AppCompatActivity() {
                         adapter.workoutList = it as MutableList<Workout>
                         finalWorkoutList = it
                         adapter.notifyDataSetChanged()
+                        for(i in finalWorkoutList.indices) {
+                            Log.i("WORKOUTLIST", "${finalWorkoutList[i].name}")
+                        }
 
                     })
                 setValues("40", "20", "3-5")
@@ -63,7 +65,10 @@ class WorkoutPlanActivity : AppCompatActivity() {
                         adapter.workoutList = it as MutableList<Workout>
                         finalWorkoutList = it
                         adapter.notifyDataSetChanged()
-                    })
+                        for(i in finalWorkoutList.indices) {
+                            Log.i("WORKOUTLIST", "${finalWorkoutList[i].name}")
+                        }
+                                          })
                 setValues("45", "15", "3 - 5")
 
             }
@@ -73,7 +78,10 @@ class WorkoutPlanActivity : AppCompatActivity() {
                         adapter.workoutList = it as MutableList<Workout>
                         finalWorkoutList = it
                         adapter.notifyDataSetChanged()
-                    })
+                        for(i in finalWorkoutList.indices) {
+                            Log.i("WORKOUTLIST", "${finalWorkoutList[i].name}")
+                        }
+                                          })
                 setValues("45", "15", "4 - 6")
 
             }
@@ -83,12 +91,14 @@ class WorkoutPlanActivity : AppCompatActivity() {
                         adapter.workoutList = it as MutableList<Workout>
                         finalWorkoutList = it
                         adapter.notifyDataSetChanged()
-                    })
+                        for(i in finalWorkoutList.indices) {
+                            Log.i("WORKOUTLIST", "${finalWorkoutList[i].name}")
+                        }
+                                    })
                 setValues("50", "10", "5 - 7")
 
             }
         }
-//        checkFirstTimeWorkout()
 
         adapter.setOnItemClickListener(object : ItemRecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(workout: Workout) {
@@ -137,8 +147,8 @@ class WorkoutPlanActivity : AppCompatActivity() {
 
 
     private fun setValues(work: String, rest: String, sets: String) {
-        plan_text_work.text = "Work out for $work seconds"
-        plan_text_rest.text = "Rest $rest seconds"
+        plan_text_work.text = "$work seconds workout"
+        plan_text_rest.text = "$rest seconds rest"
         plan_text_sets.text = "Repeat cycle $sets times"
     }
 

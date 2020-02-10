@@ -19,6 +19,7 @@ interface WorkoutDao {
 
     @Query("SELECT * FROM workout_table WHERE difficulty = 3 ORDER BY RANDOM() LIMIT 7 ")
     fun getAdvancedWorkouts(): LiveData<List<Workout>>
+
     @Query("SELECT * FROM workout_table WHERE difficulty = 3 ORDER BY RANDOM() LIMIT 7")
     fun getInsaneWorkouts(): LiveData<List<Workout>>
 

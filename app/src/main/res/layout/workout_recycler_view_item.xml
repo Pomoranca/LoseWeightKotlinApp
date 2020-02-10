@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="180dp"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:paddingEnd="3dp"
     android:paddingStart="3dp"
@@ -11,10 +11,25 @@
     android:layout_margin="8dp"
     tools:context=".activities.WorkoutPlanActivity">
 
+    <TextView
+        android:id="@+id/recycler_workout_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:lineSpacingMultiplier="0.8"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_workout_card"
+        tools:text="@tools:sample/lorem" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/recycler_workout_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="7dp">
 
@@ -28,21 +43,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/plan_beginner" />
-
-            <TextView
-                android:id="@+id/recycler_workout_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp"
-                android:layout_marginBottom="16dp"
-                android:lineSpacingMultiplier="0.8"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="@tools:sample/lorem" />
 
             <ImageView
                 android:id="@+id/imageView3"

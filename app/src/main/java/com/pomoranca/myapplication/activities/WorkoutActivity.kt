@@ -39,6 +39,7 @@ class WorkoutActivity : AppCompatActivity() {
 
     private var START_TIME_IN_MILLIS = 40000L
     private var REST_TIME_IN_MILLIS = 15000L
+    private var workoutState = true
 
     companion object {
         var finalWorkoutList: List<Workout> = listOf()
@@ -88,7 +89,9 @@ class WorkoutActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_workout)
-
+        for (i in finalWorkoutList.indices) {
+            Log.i("WORKOUTLIST", finalWorkoutList[i].name)
+        }
         //load shared preferences
         sharedPref = SharedPref(this)
 
@@ -153,7 +156,9 @@ class WorkoutActivity : AppCompatActivity() {
                 pauseTimer()
             } else {
                 startTimer()
-                startVideoLooped()
+                if (workoutState) {
+                    startVideoLooped()
+                }
             }
         }
         workout_set_number.text = "$currentSet / $numberOfSets"
@@ -276,6 +281,9 @@ class WorkoutActivity : AppCompatActivity() {
             (START_TIME_IN_MILLIS / 1000 - 10).toInt() -> {
                 speakInformationOne()
             }
+            (START_TIME_IN_MILLIS / 1000 - 20).toInt() -> {
+                speakInformationTwo()
+            }
             (REST_TIME_IN_MILLIS / 1000 + 10).toInt() -> {
                 speakTenSecondsRemaining()
             }
@@ -318,6 +326,8 @@ class WorkoutActivity : AppCompatActivity() {
         outState.putLong("endTime", mEndTime)
         outState.putInt("currentSet", currentSet)
         outState.putInt("currentVideoMill", video.currentPosition)
+        outState.putBoolean("workoutState", workoutState)
+        Log.i("STATES", "SAVED $workoutState")
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -328,6 +338,8 @@ class WorkoutActivity : AppCompatActivity() {
         mTimeLeftMillis = savedInstanceState.getLong("milisLeft")
         mTimerRunning = savedInstanceState.getBoolean("mTimerRunning")
         currentSet = savedInstanceState.getInt("currentSet")
+        workoutState = savedInstanceState.getBoolean("workoutState")
+        Log.i("STATES", "RESTORED $workoutState")
         updateCountDownText()
         updateButton()
 
@@ -376,7 +388,6 @@ class WorkoutActivity : AppCompatActivity() {
                     Observer<List<Workout>> {
                         multiplyFactor = 4
                         numberOfSets = it.size
-                        finalWorkoutList = it
                         workout_set_number.text = "$currentSet / $numberOfSets"
                     })
             }
@@ -398,7 +409,7 @@ class WorkoutActivity : AppCompatActivity() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                "I just finished my workout using Daily. Join us #dailyworkoutapp"
+                "I just finished my workout using Cors - home workout app. Join us #corsworkout"
             )
 
             type = "text/plain"
@@ -470,8 +481,8 @@ class WorkoutActivity : AppCompatActivity() {
     private fun prepareTimer() {
         when (planTitle) {
             "Beginner" -> {
-                REST_TIME_IN_MILLIS = 10000
-                START_TIME_IN_MILLIS = 10000 + REST_TIME_IN_MILLIS
+                REST_TIME_IN_MILLIS = 20000
+                START_TIME_IN_MILLIS = 40000 + REST_TIME_IN_MILLIS
                 mTimeLeftMillis = START_TIME_IN_MILLIS
             }
             "Intermediate" -> {
@@ -515,6 +526,7 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     private fun startVideoLooped() {
+        workoutState = true
         current_workout_overdraw.visibility = View.INVISIBLE
         image_current_workout.visibility = View.VISIBLE
         val path =
@@ -528,10 +540,13 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     private fun startVideoUnLooped() {
+        workoutState = false
         current_workout_overdraw.visibility = View.VISIBLE
         val path =
             "android.resource://" + packageName + "/" + finalWorkoutList[currentSet].imagePath
         video.setVideoPath(path)
+        informationOne.text = finalWorkoutList[currentSet].tipOne
+        informationTwo.text = finalWorkoutList[currentSet].tipTwo
         video.setOnPreparedListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val myPlayBackParams = PlaybackParams()
@@ -582,6 +597,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun toggleButtonVisibility() {
         if (button_start_pause.visibility == View.VISIBLE) {
             button_start_pause.visibility = View.INVISIBLE
+
         } else {
             button_start_pause.visibility = View.INVISIBLE
         }
@@ -592,7 +608,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun speakCurrentWorkout() {
         if (sharedPref.loadNarrationState()) {
             mTextToSpeech.speak(
-                finalWorkoutList[currentSet - 1].name,
+                text_current_workout.text,
                 TextToSpeech.QUEUE_FLUSH,
                 null,
                 null
@@ -648,9 +664,10 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun speakGreatJob() {
         if (sharedPref.loadNarrationState()) {
+            mTextToSpeech.setSpeechRate(0.8f)
 
             mTextToSpeech.speak(
-                "Great job",
+                "Great job,, $userName",
                 TextToSpeech.QUEUE_FLUSH,
                 null,
                 null
@@ -673,6 +690,14 @@ class WorkoutActivity : AppCompatActivity() {
         if (sharedPref.loadNarrationState()) {
 
             mTextToSpeech.speak("${informationOne.text}", TextToSpeech.QUEUE_FLUSH, null)
+        }
+
+    }
+
+    private fun speakInformationTwo() {
+        if (sharedPref.loadNarrationState()) {
+
+            mTextToSpeech.speak("${informationTwo.text}", TextToSpeech.QUEUE_FLUSH, null)
         }
 
     }

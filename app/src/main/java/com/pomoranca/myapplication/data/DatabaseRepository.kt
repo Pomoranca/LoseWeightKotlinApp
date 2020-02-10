@@ -27,11 +27,12 @@ class DatabaseRepository(application: Application) {
         calendarDateDao = database.calendarDateDao()
 
         allUsers = userDao.getAllUsers()
-        insaneWorkouts = workoutDao.getInsaneWorkouts()
         allCalendarDates = calendarDateDao.getAllCalendarDates()
         beginnerWorkouts = workoutDao.getBeginnerWorkouts()
         intermediateWorkouts = workoutDao.getIntermediateWorkouts()
         advancedWorkouts = workoutDao.getAdvancedWorkouts()
+        insaneWorkouts = workoutDao.getInsaneWorkouts()
+
     }
 
     fun insert(workout: Workout?) {
