@@ -61,24 +61,23 @@ abstract class LoseWeightDatabase : RoomDatabase() {
             workoutDao.insert(Workout("Tucked leg raises", R.raw.tucked_leg_raises, 3, "Move up and down as high as you can, without touching the floor", "Don't hold your breath"))
             workoutDao.insert(Workout("Pike push ups", R.raw.pike_push_ups, 2, "Keep your back straight, and head tucked inside", "Don't hold your breath"))
             workoutDao.insert(Workout("Rotating lunges", R.raw.rotating_lunges, 3, "Keep your back straight", "Try to touch floor with your knee"))
-            workoutDao.insert(Workout("Squats", R.raw.squats, 1, "Keep back straight", "Don't have to go lower than 90 degrees"))
+            workoutDao.insert(Workout("Squats", R.raw.squats, 2, "Keep back straight", "Don't have to go lower than 90 degrees"))
             workoutDao.insert(Workout("Reverse plank", R.raw.reverse_plank, 1, "Keep core tight", "Don't hold your breath"))
             workoutDao.insert(Workout("Russian twists", R.raw.russian_twists, 1, "Keep core tight", "Don't hold your breath"))
-            workoutDao.insert(Workout("Around the worlds", R.raw.around_the_world, 1, "Keep core tight", "Don't hold your breath"))
+            workoutDao.insert(Workout("Around the worlds", R.raw.around_the_world, 2, "Keep core tight", "Don't hold your breath"))
             workoutDao.insert(Workout("Jumping jacks", R.raw.jumping_jacks, 1, "keep your back straight", "Keep your shoulders back"))
             workoutDao.insert(Workout("Butt kicks", R.raw.butt_kicks, 1, "Keep hands behind and touch with your feet", "Keep back straight"))
             workoutDao.insert(Workout("Narrow to wide push-ups", R.raw.narrow_to_wide_pushups, 3, "Keep core tight", "Don't hold your breath"))
             workoutDao.insert(Workout("Backward  lunges", R.raw.backward_lunges, 3, "Keep you back straight", "Don't hold your breath"))
             workoutDao.insert(Workout("Jumping lunges", R.raw.jump_lunges, 3, "Keep your balance", "Keep your shoulders back"))
-            workoutDao.insert(Workout("Side bends", R.raw.side_bends, 1, "Keep your back straight", "Lean deep"))
+            workoutDao.insert(Workout("Side bends", R.raw.side_bends, 1, "Keep your shoulders back", "Lean deep"))
             workoutDao.insert(Workout("Cross steps", R.raw.cross_steps, 1, "Try not to stop", "Don't hold your breath"))
             workoutDao.insert(Workout("Paper jumps", R.raw.paper_jumps, 1, "Keep heels off ground", "Don't hold your breath"))
             workoutDao.insert(Workout("Hip hops", R.raw.hip_hops, 2, "Keep heels off ground", "Keep your shoulders back"))
             workoutDao.insert(Workout("Forward steps", R.raw.forward_steps, 2, "If you get tired don't stop. Lower your pace", "Lean deep"))
             workoutDao.insert(Workout("Chair steps", R.raw.chair_steps, 3, "Keep heels off ground", "Don't hold your breath"))
-            workoutDao.insert(Workout("Elevated pike push-ups", R.raw.elevated_pike_pushups, 3, "Keep you back straight and head tucked inside", "Don't hold your breath"))
+            workoutDao.insert(Workout("Elevated pike push-ups", R.raw.elevated_pike_pushups, 3, "Keep your back straight and head tucked inside", "Don't hold your breath"))
             workoutDao.insert(Workout("Bicycle crunches", R.raw.bicycle_crunches, 3, "Try to touch knees with your elbows", "Don't hold your breath"))
-
         }
     }
 }
