@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/appbar_background2" />
+                    tools:src="@drawable/appbar_background2" />
 
 
             </androidx.cardview.widget.CardView>

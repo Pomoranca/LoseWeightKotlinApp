@@ -24,7 +24,6 @@
         android:layout_gravity="bottom"
         android:background="@color/bottomNavBackgrounds"
         app:itemIconTint="@color/bottom_nav_icon_selector"
-        app:itemRippleColor="@color/colorPrimary"
         app:itemTextAppearanceActive="@style/bottomNavFont"
         app:itemTextAppearanceInactive="@style/bottomNavFont"
         app:itemTextColor="@color/bottom_nav_icon_selector"
@@ -54,18 +53,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/main_navBar_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_hamburger" />
 
         <TextView
             android:id="@+id/main_header_text"

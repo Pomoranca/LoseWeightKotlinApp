@@ -1,0 +1,84 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">#CBFFFFFF</item>
+        <item name="colorPrimary">#455a64</item>
+        <item name="colorPrimaryDark">#1c313a</item>
+        <item name="colorAccent">#d81b60</item>
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+
+    <style name="headerFont">
+        <item name="android:fontFamily">@font/nunito_sans_black</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="toolbarFont">
+        <item name="android:fontFamily">@font/nunito_sans_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="bottomNavFont">
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="informationFontWhite">
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="dialog_slide_out">
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="dialog_slide">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="dialog_fade">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+
+    </style>
+
+    <style name="ThemeDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">85%</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="dialogCornerRadius">3dp</item>
+        <item name="android:background">@color/bottomNavBackgrounds</item>
+    </style>
+
+    <style name="VideoDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:background">@color/bottomNavBackgrounds</item>
+    </style>
+
+    <style name="ThemeCustomDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="dialogCornerRadius">20dp</item>
+        <item name="android:textColor">#AD000000</item>
+    </style>
+
+    <style name="ButtonContinue" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/button_question_continue</item>
+        <item name="android:textColor">@color/colorTextButton</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:foreground">@drawable/background_item_selected</item>
+        <item name="android:fontFamily">@font/nunito_sans_black</item>
+    </style>
+
+
+</resources>

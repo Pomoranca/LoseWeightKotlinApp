@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".activities.fragments.LoginFragmentOne">
 
@@ -23,7 +23,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -107,41 +106,7 @@
                     android:textColor="@drawable/radio_button_text"
                     android:textSize="12sp"
                     android:visibility="invisible" />
-
             </RadioGroup>
-
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/pick_male"-->
-            <!--                android:layout_width="100dp"-->
-            <!--                android:layout_height="100dp"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:padding="5dp"-->
-            <!--                android:visibility="invisible"-->
-            <!--                app:layout_constraintBottom_toBottomOf="@+id/pick_female"-->
-            <!--                app:layout_constraintEnd_toStartOf="@+id/pick_female"-->
-            <!--                app:layout_constraintHorizontal_bias="0.5"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="@+id/pick_female"-->
-            <!--                app:srcCompat="@drawable/male_pick_ful_size" />-->
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/pick_female"-->
-            <!--                android:layout_width="100dp"-->
-            <!--                android:layout_height="100dp"-->
-            <!--                android:layout_marginTop="32dp"-->
-            <!--                android:layout_marginBottom="16dp"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:padding="5dp"-->
-            <!--                android:visibility="invisible"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="0.5"-->
-            <!--                app:layout_constraintStart_toEndOf="@+id/pick_male"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/welcomeCardInput"-->
-            <!--                app:srcCompat="@drawable/female_pick_full_size" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

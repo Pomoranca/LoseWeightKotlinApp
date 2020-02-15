@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bottomNavBackgrounds"
     android:orientation="horizontal"
-    tools:context="com.pomoranca.myapplication.activities.WorkoutPlanActivity">
+    tools:context="com.coffetime.cors.activities.WorkoutPlanActivity">
 
     <VideoView
         android:id="@+id/image_current_workout"

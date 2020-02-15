@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.pomoranca.myapplication.activities.WorkoutPlanActivity">
+    tools:context="com.coffetime.cors.activities.WorkoutPlanActivity">
 
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar

@@ -53,8 +53,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/dialog_button_continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/dialog_button_continue"
-            app:layout_constraintTop_toTopOf="@+id/dialog_button_lets_start" />
+            app:layout_constraintStart_toEndOf="@+id/dialog_button_continue" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

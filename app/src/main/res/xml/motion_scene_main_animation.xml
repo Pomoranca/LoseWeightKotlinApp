@@ -44,23 +44,11 @@
                 motion:framePosition="100"
                 motion:motionTarget="@id/main_header_text" />
 
-
             <KeyAttribute
                 android:alpha="1"
                 motion:framePosition="0"
                 motion:motionTarget="@id/main_header_text" />
 
-            <KeyAttribute
-                android:alpha="0"
-                android:visibility="gone"
-                motion:framePosition="100"
-                motion:motionTarget="@id/main_navBar_icon" />
-
-
-            <KeyAttribute
-                android:alpha="1"
-                motion:framePosition="0"
-                motion:motionTarget="@id/main_navBar_icon" />
         </KeyFrameSet>
 
     </Transition>
