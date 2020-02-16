@@ -1,21 +1,19 @@
 package com.coffetime.cors.activities
 
 import android.app.AlarmManager
-import android.app.Dialog
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.coffetime.cors.NotificationReceiver
@@ -28,42 +26,20 @@ import com.coffetime.cors.viewmodels.LoseWeightViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_welcome.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class MainActivity : AppCompatActivity(),
-    OnTimeSetListener,
-    MotionLayout.TransitionListener {
+    OnTimeSetListener {
 
     private lateinit var sharedPref: SharedPref
     private lateinit var alarmManager: AlarmManager
     private val BACK_STACK_ROOT_TAG = "root_fragment"
-    private var sensorManager: SensorManager? = null
     private lateinit var daysText: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var loseWeightViewModel: LoseWeightViewModel
     private var CURRENT_DATE = ""
-    private var running = false
-    private val motionLayout by lazy {
-        findViewById<MotionLayout>(R.id.motionLayout)
-    }
-
-
-    override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
-    }
-
-    override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
-    }
-
-    override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
-    }
-
-    override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-        //do something on finish animation
-
-    }
 
 
     private val PREFS_NAME = "MyPrefsFile"
@@ -77,34 +53,29 @@ class MainActivity : AppCompatActivity(),
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
-        setContentView(R.layout.activity_main)
-
-        //Insert user intodatabase
         sharedPref = SharedPref(this)
         val name = sharedPref.loadUserName()
         loseWeightViewModel = ViewModelProviders.of(this).get(LoseWeightViewModel::class.java)
+        loseWeightViewModel.insert(User(name!!, 0, 0))
+
+        setContentView(R.layout.activity_main)
+
+        Log.i("NAME", name)
         loseWeightViewModel.getAllUsers().observe(this, androidx.lifecycle.Observer {
             progressBar.progress = it[0].days
             daysText.text = "${it[0].days} / 100"
         })
-        loseWeightViewModel.insert(User(name!!, 0, 0))
-
-
-        motionLayout.setTransitionListener(this)
 
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         checkFirstTimeRun()
 
-        //instance of Reminders class and generating random tips
         val reminderList = Reminders()
         textview_tips.text = reminderList.reminders.random()
 
 
         daysText = findViewById(R.id.fragment_main_text_days)
         progressBar = findViewById(R.id.fragment_main_progress_day)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         CURRENT_DATE = getDate()
 
 
@@ -177,20 +148,6 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    private fun showDialog() {
-        val dialog = Dialog(this, R.style.ThemeDialog)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_welcome)
-        dialog.window?.setWindowAnimations(R.style.dialog_slide_out)
-        val lp = dialog.window!!.attributes
-        lp.dimAmount = 0.7f
-        dialog.dialog_welcome_name.text = "Welcome"
-        dialog.dialog_button_lets_start.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
-
     private fun checkFirstTimeRun() {
         sharedPref = SharedPref(this)
 
@@ -205,7 +162,6 @@ class MainActivity : AppCompatActivity(),
             editor.putString("CURRENT_DATE", current_date)
             editor.putBoolean("isFirstRun", false)
             editor.apply()
-            showDialog()
         } else {
             if (sharedPref.loadNightModeState()) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -285,12 +241,6 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-
-    override fun onPause() {
-        super.onPause()
-        running = false
-
-    }
 
 
     private fun getDate(): String { // Create a DateFormatter object for displaying date in specified format.

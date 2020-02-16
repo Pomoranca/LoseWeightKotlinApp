@@ -5,9 +5,6 @@ import android.content.Intent
 import android.media.PlaybackParams
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.Window
-import android.view.WindowManager
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cors workout</string>
     <string name="home">Workout</string>
-    <string name="settings">Setttings</string>
+    <string name="settings">Settings</string>
     <string name="profile">Me</string>
     <string name="tips">Tips</string>
 

@@ -74,7 +74,7 @@ class PlanRecyclerViewAdapter :
 //
             startActivity(it.context, intent, null)
 
-//}
+
 
         }
     }
