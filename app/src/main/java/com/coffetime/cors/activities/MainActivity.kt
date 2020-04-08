@@ -201,7 +201,6 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-
     private fun getTime() {
         val c = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->

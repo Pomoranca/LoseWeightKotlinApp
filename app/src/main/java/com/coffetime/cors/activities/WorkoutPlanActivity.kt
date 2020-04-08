@@ -96,10 +96,9 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 val dialog = Dialog(this@WorkoutPlanActivity, R.style.VideoDialog)
                 val a = R.layout.dialog_workout_preview
                 dialog.setContentView(a)
-                dialog.window?.setWindowAnimations(R.style.dialog_fade)
                 //dim behind dialog
                 val lp = dialog.window!!.attributes
-                lp.dimAmount = 0.9f
+                lp.dimAmount = 0.8f
                 val title = dialog.findViewById<TextView>(R.id.workout_preview_title)
                 title.text = workout.name
                 val video = dialog.findViewById<VideoView>(R.id.workout_preview_video)
