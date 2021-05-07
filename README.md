@@ -1,5 +1,6 @@
-## Crossfit workout app 
-is an xercise app made in kotlin
+## Crossfit 
+
+Crossfit is an exercise app made in `kotlin`
 
 
 You can download android app from Play Store [here](https://play.google.com/store/apps/details?id=com.pomoranca.myapplication)
